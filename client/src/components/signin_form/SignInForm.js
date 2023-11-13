@@ -11,26 +11,35 @@ const SignInForm = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
   const signInHandler = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("/auth/signin", userSignIn);
+      console.log(response);
       if (response.status === 200) {
         setAuthenticated(true);
         setUserSignIn({ email: "", password: "" });
+        setErrorMessage(null);
         navigate(from, { replace: true });
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.response.data.message);
     }
   };
 
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[4.5rem]">
       <h2>Prihlásenie</h2>
+      {errorMessage && (
+        <div className=" min-w-[18rem] max-w-[60rem] border border-red-500">
+          <p className="px-1 py-2 font-medium text-red-500">{errorMessage}</p>
+        </div>
+      )}
       <form className="mt-3 flex flex-col gap-2" onSubmit={signInHandler}>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
           <label className="font-semibold capitalize">email</label>

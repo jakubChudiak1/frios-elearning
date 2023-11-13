@@ -1,75 +1,147 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
+import ErrorMessage from "../UI/ErrorMessage";
 
 const SignUpForm = () => {
-  const [userSignUp, setUserSignUp] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-  });
+  const [errorMessage, setErrorMessage] = useState();
 
-  const signUpHandler = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post("/auth/signup", userSignUp);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const signupForm = useFormik({
+    initialValues: {
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("name is required"),
+      surname: Yup.string().required("surname is required"),
+      email: Yup.string()
+        .email("enter valid email")
+        .required("email is required"),
+      password: Yup.string()
+        .min(8, "password minimum 8 characters")
+        .required("password is required"),
+    }),
+    onSubmit: async (values) => {
+      console.log(values);
+      try {
+        const response = await axios.post("/auth/signup", values);
+        console.log(response);
+        signupForm.resetForm();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
 
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[4.5rem]">
       <h2>Registrácia</h2>
-      <form className="mt-3 flex flex-col gap-2" onSubmit={signUpHandler}>
+      <form
+        className="mt-3 flex flex-col gap-2"
+        onSubmit={signupForm.handleSubmit}
+      >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
           <label className="font-semibold capitalize">meno</label>
           <Input
             type="text"
-            className="border border-black px-1 py-3 outline-none"
+            name="name"
+            className={`border border-black px-1 py-3 outline-none ${
+              signupForm.touched.name && signupForm.errors.name
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"vaše meno"}
-            onChange={(event) => {
-              setUserSignUp({ ...userSignUp, name: event.target.value });
-            }}
+            value={signupForm.values.name}
+            onBlur={signupForm.handleBlur}
+            onChange={signupForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signupForm.errors.name &&
+              signupForm.touched.name &&
+              signupForm.errors.name
+            }
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
           <label className="font-semibold capitalize">priezvisko</label>
           <Input
             type="text"
-            className="border border-black px-1 py-3 outline-none"
+            name="surname"
+            className={`border border-black px-1 py-3 outline-none ${
+              signupForm.touched.surname && signupForm.errors.surname
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"vaše priezvisko"}
-            onChange={(event) => {
-              setUserSignUp({ ...userSignUp, surname: event.target.value });
-            }}
+            value={signupForm.values.surname}
+            onBlur={signupForm.handleBlur}
+            onChange={signupForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signupForm.errors.surname &&
+              signupForm.touched.surname &&
+              signupForm.errors.surname
+            }
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
           <label className="font-semibold capitalize">email</label>
           <Input
-            type="email"
-            className="border border-black px-1 py-3 outline-none"
+            type="text"
+            name="email"
+            className={`border border-black px-1 py-3 outline-none ${
+              signupForm.touched.email && signupForm.errors.email
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"váš email"}
-            onChange={(event) => {
-              setUserSignUp({ ...userSignUp, email: event.target.value });
-            }}
+            value={signupForm.values.email}
+            onBlur={signupForm.handleBlur}
+            onChange={signupForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signupForm.errors.email &&
+              signupForm.touched.email &&
+              signupForm.errors.email
+            }
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
           <label className="font-semibold capitalize">heslo</label>
           <Input
             type="password"
-            className="border border-black px-1 py-3 outline-none"
+            name="password"
+            className={`border border-black px-1 py-3 outline-none ${
+              signupForm.touched.password && signupForm.errors.password
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"vaše heslo"}
-            onChange={(event) => {
-              setUserSignUp({ ...userSignUp, password: event.target.value });
-            }}
+            value={signupForm.values.password}
+            onBlur={signupForm.handleBlur}
+            onChange={signupForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signupForm.errors.password &&
+              signupForm.touched.password &&
+              signupForm.errors.password
+            }
           />
         </div>
-        <Button className="mt-2 bg-purple-500 p-3 font-semibold capitalize text-white">
+        <Button
+          type="submit"
+          className="mt-2 bg-purple-500 p-3 font-semibold capitalize text-white"
+        >
           registrovať
         </Button>
       </form>

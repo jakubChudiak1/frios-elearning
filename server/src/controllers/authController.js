@@ -28,6 +28,7 @@ class AuthController {
         name,
         surname,
       });
+      console.log(error);
       const cryptedPassword = await bcrypt.hash(password, 10);
       if (error) {
         res.status(400).json({ message: error.details[0].message });
@@ -50,25 +51,24 @@ class AuthController {
     try {
       const { email, password } = req.body;
       if (req.session.token) {
-        return res.status(403).json({ message: "User is already signed in" });
+        return res.status(400).json({ message: "User is already signed in" });
       }
 
       const existingUser = await User.getUserByEmail(email);
       if (!existingUser || existingUser.length === 0) {
-        return res.status(400).json({ message: "User not found" });
+        return res.status(400).json({ message: "Incorrect Credentials" });
       } else {
-        const matchPassword = await bcrypt.compare(
+        const matchPasword = await bcrypt.compare(
           password,
           existingUser[0].password
         );
-        if (!matchPassword) {
+        if (!matchPasword) {
           return res.status(400).json({ message: "Incorrect Credentials" });
         } else {
-          const roleName = await Role.getRolesName(existingUser[0].id_role);
           const userResponse = {
             id: existingUser[0].user_id,
             name: existingUser[0].name,
-            role: roleName,
+            id_role: existingUser[0].id_role,
           };
           const token = jwt.sign(
             {
