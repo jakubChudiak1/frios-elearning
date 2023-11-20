@@ -1,7 +1,7 @@
 import React from "react";
-import menuConfig from "../config/menu.config";
+import menuConfig from "../../config/menu.config";
 import { Link } from "react-router-dom";
-import Logo from "../components/UI/Logo";
+import Logo from "../../components/UI/Logo";
 
 const Sidebar = ({ activeMenu }) => {
   return (

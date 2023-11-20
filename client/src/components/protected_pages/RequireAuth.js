@@ -14,13 +14,7 @@ const RequireAuth = () => {
     apiConfig.subjectRoutes.getSubjectById(subject_id),
   );
 
-  if (subject.isLoading || areLoading) {
-    return <div>loading</div>;
-  }
-
   if (subject.data && !areLoading && !loading) {
-    console.log(areLoading);
-    console.log(loading);
     if (subject.data?.is_public) {
       return <Outlet />;
     } else {

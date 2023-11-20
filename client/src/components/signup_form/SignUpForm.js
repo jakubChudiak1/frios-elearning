@@ -6,10 +6,9 @@ import { useFormik } from "formik";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import ErrorMessage from "../UI/ErrorMessage";
+import Label from "../UI/Label";
 
 const SignUpForm = () => {
-  const [errorMessage, setErrorMessage] = useState();
-
   const signupForm = useFormik({
     initialValues: {
       name: "",
@@ -47,7 +46,7 @@ const SignUpForm = () => {
         onSubmit={signupForm.handleSubmit}
       >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">meno</label>
+          <Label text={"meno"} required={true} />
           <Input
             type="text"
             name="name"
@@ -70,7 +69,7 @@ const SignUpForm = () => {
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">priezvisko</label>
+          <Label text={"priezvisko"} required={true} />
           <Input
             type="text"
             name="surname"
@@ -93,8 +92,9 @@ const SignUpForm = () => {
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">email</label>
+          <Label htmlFor="email" text={"email"} required={true} />
           <Input
+            id="email"
             type="text"
             name="email"
             className={`border border-black px-1 py-3 outline-none ${
@@ -116,8 +116,9 @@ const SignUpForm = () => {
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">heslo</label>
+          <Label htmlFor="password" text={"heslo"} required={true} />
           <Input
+            id="password"
             type="password"
             name="password"
             className={`border border-black px-1 py-3 outline-none ${

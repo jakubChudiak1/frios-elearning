@@ -1,24 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 const ChapterMenuItem = ({
   chapter,
   chapters,
   subject_id,
   mainChapterIndex,
+  chaptersArr,
+  setChapterArr,
 }) => {
-  const [clicked, setClicked] = useState(false);
+  const clickHandler = (chapterId) => {
+    setChapterArr((cur) => {
+      const existingItemIndex = cur.findIndex(
+        (item) => item.chapter === chapterId,
+      );
+
+      if (existingItemIndex !== -1) {
+        const updatedArr = cur.map((item, index) => {
+          if (index === existingItemIndex) {
+            return { ...item, opened: !item.opened };
+          }
+          return item;
+        });
+        return updatedArr;
+      } else {
+        return [...cur, { chapter: chapterId, opened: !cur[0]?.opened }];
+      }
+    });
+  };
+
+  const isChapterOpened = (chapterId) => {
+    const chapter = chaptersArr.find((item) => item.chapter === chapterId);
+    return chapter ? chapter.opened : false;
+  };
 
   return (
     <>
-      {chapter?.main_chapter === null && (
+      {chapter?.main_chapter == null && (
         <div className="border-b-[1px] border-[lightgray] bg-gray-50 px-1 py-4 font-semibold hover:bg-gray-100">
           <Link
             to={`/${subject_id}/chapter/${chapter?.chapter_id}`}
             key={chapter.chapter_id}
             onClick={() => {
-              setClicked((prev) => !prev);
+              clickHandler(chapter?.chapter_id);
             }}
           >
             <div className="flex justify-between">
@@ -28,7 +53,7 @@ const ChapterMenuItem = ({
 
               <div
                 className={`transition-transform ${
-                  clicked ? "rotate-180" : ""
+                  isChapterOpened(chapter?.chapter_id) ? "rotate-180" : ""
                 }`}
               >
                 <KeyboardArrowDown />
@@ -37,7 +62,7 @@ const ChapterMenuItem = ({
           </Link>
         </div>
       )}
-      {clicked &&
+      {isChapterOpened(chapter?.chapter_id) &&
         chapters
           .filter((item) => item.main_chapter === chapter.chapter_id)
           .map((chapterItem, index) => (

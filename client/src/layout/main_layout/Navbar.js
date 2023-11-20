@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MenuOutlined } from "@mui/icons-material";
-import SearchForm from "../components/search_form/SearchForm";
-import { useAuth } from "../context/authContext";
+import SearchForm from "../../components/search_form/SearchForm";
+import { useAuth } from "../../context/authContext";
 import axios from "axios";
-import UserProfileImage from "../components/user_profile/UserProfileImage";
-import Logo from "../components/UI/Logo";
+import UserProfileImage from "../../components/user_profile/UserProfileImage";
+import Logo from "../../components/UI/Logo";
 import MobileSideBar from "./MobileSideBar";
 
 const Navbar = ({
@@ -16,8 +16,6 @@ const Navbar = ({
   menuHandler,
   activeMenu,
 }) => {
-  const { signout } = useAuth();
-
   return (
     <header className="relative w-full pb-1 pt-5">
       <nav className="relative flex w-full items-center justify-between capitalize">
@@ -45,11 +43,7 @@ const Navbar = ({
             </Link>
           </div>
         ) : (
-          <UserProfileImage
-            user={user}
-            signout={signout}
-            enableHandler={true}
-          />
+          <UserProfileImage user={user} enableHandler={true} />
         )}
       </nav>
     </header>

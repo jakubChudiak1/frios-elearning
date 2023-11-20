@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Close } from "@mui/icons-material";
-import menuConfig from "../config/menu.config";
+import menuConfig from "../../config/menu.config";
 const MobileSideBar = ({ activeMenu, setToggled }) => {
   const closeMenuHandler = () => {
     setToggled(false);

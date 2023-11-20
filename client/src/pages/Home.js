@@ -5,27 +5,25 @@ import SubjectList from "../components/subject/SubjectList";
 import useFetchData from "../hooks/useFetchData";
 import CategoryList from "../components/category/CategoryList";
 import { useAuth } from "../context/authContext";
+import { useGetSubjectsByStatusQuery } from "../api/endpoints/subjectsEndpoints";
+import { useGetCategoriesListQuery } from "../api/endpoints/categoriesEndpoints";
+import { useGetUsersSubjectsQuery } from "../api/endpoints/usersEndpoints";
 
 const Home = () => {
   const { authenticated } = useAuth();
-  const publicSubjects = useFetchData(
-    apiConfig.subjectRoutes.getSubjectsListByStatus(1),
-  );
-  const privateSubjects = useFetchData(
-    apiConfig.subjectRoutes.getSubjectsListByStatus(0),
-  );
+  const { data: publicSubjects } = useGetSubjectsByStatusQuery(1);
+  const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
+  const { data: categories } = useGetCategoriesListQuery();
+  const { data: usersSubjects } = useGetUsersSubjectsQuery();
 
-  const usersSubjects = useFetchData(apiConfig.userRoutes.getUsersSubjects);
-
-  const categories = useFetchData(apiConfig.categoryRoutes.getCategoryList);
   return (
     <Section>
-      <CategoryList categories={categories.data} />
-      {authenticated && usersSubjects.data?.length > 0 && (
-        <SubjectList subjects={usersSubjects.data} text={"moje predmety"} />
+      <CategoryList categories={categories} />
+      {authenticated && (
+        <SubjectList subjects={usersSubjects} text={"moje predmety"} />
       )}
-      <SubjectList subjects={publicSubjects.data} text={"verejné predmety"} />
-      <SubjectList subjects={privateSubjects.data} text={"súkromné predmety"} />
+      <SubjectList subjects={publicSubjects} text={"verejné predmety"} />
+      <SubjectList subjects={privateSubjects} text={"súkromné predmety"} />
     </Section>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import apiConfig from "../../config/api.config";
 import { Link } from "react-router-dom";
 import Overlay from "../UI/Overlay";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const SubjectItem = ({ subject }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -22,8 +23,9 @@ const SubjectItem = ({ subject }) => {
       <Link to={`/subject/${subject.subject_id}`}>
         <div className="relative aspect-[1/.5] w-full overflow-hidden">
           <img
+            loading="lazy"
             src={apiConfig.images.subjectImage(subject.image_path)}
-            alt=""
+            alt={subject?.name}
             className=" h-full w-full object-cover"
           />
           {hovered && <Overlay />}

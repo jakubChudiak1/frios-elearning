@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { useAuth } from "../context/authContext";
-import useActiveMenu from "../hooks/useActiveMenu";
+import { useAuth } from "../../context/authContext";
+import useActiveMenu from "../../hooks/useActiveMenu";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-import GlobalLoading from "../components/global-loading/GlobalLoading";
+import GlobalLoading from "../../components/global-loading/GlobalLoading";
 
 const MainLayout = () => {
   const { user, authenticated, loading } = useAuth();
   const activeMenu = useActiveMenu(user, authenticated);
   const [toggled, setToggled] = useState(false);
+
   const menuHandler = () => {
     setToggled((prev) => !prev);
   };

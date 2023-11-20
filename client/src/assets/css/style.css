@@ -87,9 +87,16 @@ li {
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 1024px) {
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 767px) {
   .swiper-button-prev,
   .swiper-button-next {
-    transform: translateY(50%);
+    display: none;
   }
 }

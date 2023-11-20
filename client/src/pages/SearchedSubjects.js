@@ -4,19 +4,18 @@ import useFetchData from "../hooks/useFetchData";
 import apiConfig from "../config/api.config";
 import Section from "../components/UI/Section";
 import SubjectGridList from "../components/subject/SubjectGridList";
+import { useGetSubjectByStringQuery } from "../api/endpoints/subjectsEndpoints";
 const SearchedSubjects = () => {
   const [searchedParam] = useSearchParams();
   const query = searchedParam.get("q");
 
-  const searchedSubjects = useFetchData(
-    apiConfig.subjectRoutes.getSubjectsByString(query),
-  );
+  const { data: searchedSubjects } = useGetSubjectByStringQuery(query);
 
   return (
     <Section>
       <SubjectGridList
-        subjects={searchedSubjects.data}
-        text={`${searchedSubjects.data?.length} výsledkov pre ${`"${query}"`}`}
+        subjects={searchedSubjects}
+        text={`${searchedSubjects?.length} výsledkov pre ${`"${query}"`}`}
       />
     </Section>
   );

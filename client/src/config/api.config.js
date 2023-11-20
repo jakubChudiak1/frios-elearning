@@ -2,6 +2,7 @@ const subjectRoutes = {
   getSubjectsList: "/subjects",
   getSubjectsListByStatus: (is_public) =>
     `/subjects/status?is_public=${is_public}`,
+
   getSubjectById: (subject_id) => `/subjects/${subject_id}`,
   getSubjectByName: "/subjects/name",
   getSubjectByCreator: (user_id, subject_id) =>

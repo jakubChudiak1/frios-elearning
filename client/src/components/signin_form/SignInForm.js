@@ -1,36 +1,39 @@
 import React, { useState } from "react";
 import axios from "axios";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 import { useAuth } from "../../context/authContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-
+import ErrorMessage from "../UI/ErrorMessage";
+import Label from "../UI/Label";
+import { useSigninMutation } from "../../api/endpoints/authEndpoints";
+//https://stackoverflow.com/questions/69280351/redux-rtk-query-invalidatestags-not-called-after-mutation
 const SignInForm = () => {
-  const { setAuthenticated } = useAuth();
-  const [userSignIn, setUserSignIn] = useState({
-    email: "",
-    password: "",
-  });
+  const [signin, { error }] = useSigninMutation();
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
-  const signInHandler = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post("/auth/signin", userSignIn);
-      console.log(response);
-      if (response.status === 200) {
-        setAuthenticated(true);
-        setUserSignIn({ email: "", password: "" });
-        setErrorMessage(null);
+  const signinForm = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required("email is required"),
+      password: Yup.string().required("password is required"),
+    }),
+    onSubmit: async (values) => {
+      const result = await signin(values);
+      if (result.error) {
+        setErrorMessage("incorrect credentials");
+      } else {
         navigate(from, { replace: true });
       }
-    } catch (error) {
-      setErrorMessage(error.response.data.message);
-    }
-  };
+    },
+  });
 
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[4.5rem]">
@@ -40,32 +43,60 @@ const SignInForm = () => {
           <p className="px-1 py-2 font-medium text-red-500">{errorMessage}</p>
         </div>
       )}
-      <form className="mt-3 flex flex-col gap-2" onSubmit={signInHandler}>
+      <form
+        className="mt-3 flex flex-col gap-2"
+        onSubmit={signinForm.handleSubmit}
+      >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">email</label>
+          <Label text="email" required={false} />
           <Input
-            type="email"
-            value={userSignIn.email}
-            className="border border-black px-1 py-3 outline-none"
+            type="text"
+            name="email"
+            value={signinForm.values.email}
+            className={`border border-black px-1 py-3 outline-none ${
+              signinForm.touched.email && signinForm.errors.email
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"váš email"}
-            onChange={(event) => {
-              setUserSignIn({ ...userSignIn, email: event.target.value });
-            }}
+            onBlur={signinForm.handleBlur}
+            onChange={signinForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signinForm.errors.email &&
+              signinForm.touched.email &&
+              signinForm.errors.email
+            }
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <label className="font-semibold capitalize">heslo</label>
+          <Label text="heslo" required={false} />
           <Input
             type="password"
-            value={userSignIn.password}
-            className="border border-black px-1 py-3 outline-none"
+            name="password"
+            value={signinForm.values.password}
+            className={`border border-black px-1 py-3 outline-none ${
+              signinForm.touched.password && signinForm.errors.password
+                ? "border-red-500"
+                : "border-black"
+            }`}
             placeholder={"vaše heslo"}
-            onChange={(event) => {
-              setUserSignIn({ ...userSignIn, password: event.target.value });
-            }}
+            onBlur={signinForm.handleBlur}
+            onChange={signinForm.handleChange}
+          />
+          <ErrorMessage
+            message={
+              signinForm.errors.password &&
+              signinForm.touched.password &&
+              signinForm.errors.password
+            }
           />
         </div>
-        <Button className="mt-2 bg-purple-500 p-3 font-semibold capitalize text-white">
+        <Button
+          type="submit"
+          className="mt-2 bg-purple-500 p-3 font-semibold capitalize text-white"
+        >
           prihlásiť
         </Button>
       </form>

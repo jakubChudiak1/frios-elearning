@@ -3,17 +3,20 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { CircularProgress } from "@mui/material";
 
 const GlobalLoading = () => {
-  const { globalLoading } = useSelector((state) => state.globalLoading);
+  const isSomeQueryPending = useSelector((state) =>
+    Object.values(state.api.queries).some(
+      (query) => query.status === "pending",
+    ),
+  );
+
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    if (globalLoading) {
+    if (isSomeQueryPending) {
       setIsLoading(true);
-      document.body.style.overflow = "hidden";
     } else {
       setIsLoading(false);
-      document.body.style.overflow = "auto";
     }
-  }, [globalLoading]);
+  }, [isSomeQueryPending]);
 
   return (
     <div

@@ -1,10 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import globalLoadingSlice from "./features/globalLoadingSlice";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+
+import { apiSlice } from "./features/apiSlice";
 
 const store = configureStore({
   reducer: {
-    globalLoading: globalLoadingSlice,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export default store;

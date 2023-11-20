@@ -1,7 +1,17 @@
 import React from "react";
 import UserProfileImage from "./UserProfileImage";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSignoutMutation } from "../../api/endpoints/authEndpoints";
 
-const UserProfile = ({ userMenu, closeUserMenu, signout, user }) => {
+const UserProfile = ({ userMenu, closeUserMenu, setAuthenticated, user }) => {
+  const navigate = useNavigate();
+  const [signout] = useSignoutMutation();
+  const signoutHandler = async () => {
+    signout();
+    navigate("/");
+  };
+
   return (
     <div
       className={`${
@@ -15,11 +25,11 @@ const UserProfile = ({ userMenu, closeUserMenu, signout, user }) => {
             <UserProfileImage
               enableHandler={false}
               user={user}
-              signout={signout}
+              setAuthenticated={setAuthenticated}
             />
             <p className="text-[16px] font-semibold capitalize">{user?.name}</p>
           </div>
-          <p className="cursor-pointer" onClick={signout}>
+          <p className="cursor-pointer" onClick={signoutHandler}>
             Sign out
           </p>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserProfile from "./UserProfile";
 
-const UserProfileImage = ({ user, signout, enableHandler }) => {
+const UserProfileImage = ({ user, setAuthenticated, enableHandler }) => {
   const [userMenu, setUserMenu] = useState(false);
 
   const openUserMenu = () => {
@@ -32,7 +32,7 @@ const UserProfileImage = ({ user, signout, enableHandler }) => {
           user={user}
           userMenu={userMenu}
           closeUserMenu={closeUserMenu}
-          signout={signout}
+          setAuthenticated={setAuthenticated}
         />
       )}
     </>

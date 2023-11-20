@@ -5,50 +5,43 @@ import Section from "../../components/UI/Section";
 import useFetchData from "../../hooks/useFetchData";
 import apiConfig from "../../config/api.config";
 import SubjectList from "../../components/subject/SubjectList";
+import { useGetSubjectByIdQuery } from "../../api/endpoints/subjectsEndpoints";
+import { useGetSubjectsByCreatorQuery } from "../../api/endpoints/subjectsEndpoints";
+import { useGetRecommendedSubjectsQuery } from "../../api/endpoints/subjectsEndpoints";
+
 const SubjectDetails = () => {
   const { subject_id } = useParams();
-  const subjectDetails = useFetchData(
-    apiConfig.subjectRoutes.getSubjectById(subject_id),
-  );
-  const userId = subjectDetails.data?.user_id;
-  const category_name = subjectDetails.data?.category_name;
 
-  const subjectsByCreator = useFetchData(
-    userId
-      ? apiConfig.subjectRoutes.getSubjectByCreator(userId, subject_id)
-      : null,
+  const { data: subjectDetails } = useGetSubjectByIdQuery(subject_id);
+  const userId = subjectDetails?.user_id;
+  const category_name = subjectDetails?.category_name;
+  console.log(category_name);
+  const { data: subjectsByCreator } = useGetSubjectsByCreatorQuery(
+    userId,
+    subject_id,
   );
-  const subjectsByCategory = useFetchData(
-    category_name
-      ? apiConfig.subjectRoutes.getRecommendedSubjects(
-          category_name,
-          subject_id,
-        )
-      : null,
+  const { data: subjectsByCategory } = useGetRecommendedSubjectsQuery(
+    category_name,
+    subject_id,
   );
-
-  if (
-    !subjectDetails.data &&
-    !subjectsByCreator.data &&
-    !subjectsByCategory.data
-  ) {
-    return <></>;
-  }
-
+  console.log(subjectsByCreator);
+  console.log(subjectsByCategory);
   return (
-    <Section>
-      <SubjectItemDetails subjectDetails={subjectDetails.data} />
-      <SubjectList
-        subjects={subjectsByCategory.data}
-        text={"odporúčané predmety"}
-      />
-      {subjectsByCreator.data?.length > 0 && (
+    <>
+      <Section>
+        <SubjectItemDetails subjectDetails={subjectDetails} />
         <SubjectList
-          subjects={subjectsByCreator.data}
-          text={`Viac predmetov od ${subjectDetails.data?.creators_name}`}
+          subjects={subjectsByCategory}
+          text={"odporúčané predmety"}
         />
-      )}
-    </Section>
+        {subjectsByCreator?.length > 0 && (
+          <SubjectList
+            subjects={subjectsByCreator}
+            text={`Viac predmetov od ${subjectDetails?.creators_name}`}
+          />
+        )}
+      </Section>
+    </>
   );
 };
 export default SubjectDetails;

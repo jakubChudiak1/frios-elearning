@@ -4,24 +4,18 @@ import Section from "../components/UI/Section";
 import useFetchData from "../hooks/useFetchData";
 import apiConfig from "../config/api.config";
 import SubjectGridList from "../components/subject/SubjectGridList";
+import { useGetSubjectsByCategoryQuery } from "../api/endpoints/subjectsEndpoints";
 
 const CategorySubjects = () => {
   const [searchedParam] = useSearchParams();
   const query = searchedParam.get("q");
-  const subjectsByCategory = useFetchData(
-    apiConfig.subjectRoutes.getSubjectsByCategory(query),
-  );
-
-  if (subjectsByCategory.isLoading) {
-    return <div>loading</div>;
-  }
-
+  const { data: subjectsByCategory } = useGetSubjectsByCategoryQuery(query);
   return (
     <Section>
       <SubjectGridList
-        subjects={subjectsByCategory.data}
+        subjects={subjectsByCategory}
         text={`${
-          subjectsByCategory.data?.length
+          subjectsByCategory?.length
         } predmety s kategóriou ${`"${query}"`}`}
       />
     </Section>

@@ -69,7 +69,6 @@ class Access {
       const query =
         "SELECT status FROM accesses WHERE user_id = ? AND subject_id = ? ";
       const result = await db.query(query, [userId, subjectId]);
-      console.log(result);
       return result[0];
     } catch (error) {}
   }
