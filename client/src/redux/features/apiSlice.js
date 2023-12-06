@@ -5,9 +5,7 @@ const myfetchBaseQuery = fetchBaseQuery({ baseUrl: "/" });
 const myNewBaseQuery = async (arg, api, extra) => {
   const result = await myfetchBaseQuery(arg, api, extra);
   if (result?.data && result.error?.status === 401) {
-    api.dispatch(
-      apiSlice.util.invalidateTags(["Authentication", "UNKNOWN_ERROR"]),
-    );
+    api.dispatch(apiSlice.util.invalidateTags(["Authentication"]));
   }
   return result;
 };
@@ -15,6 +13,6 @@ const myNewBaseQuery = async (arg, api, extra) => {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: myNewBaseQuery,
-  tagTypes: ["Subjects", "Authentication", "UNAUTHORIZED", "UNKNOWN_ERROR"],
+  tagTypes: ["Subjects", "Authentication", "UNKNOWN_ERROR", "Accesses"],
   endpoints: () => ({}),
 });

@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const CategoryList = ({ categories }) => {
   return (
-    <div className="relative w-full ">
+    <div className="relative mt-2 w-full sm:mt-0">
       <Swiper slidesPerView={"auto"} spaceBetween={15}>
         {categories?.map((category) => (
           <SwiperSlide key={category.category_id}>

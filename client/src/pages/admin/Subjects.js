@@ -1,15 +1,13 @@
 import React from "react";
 import Section from "../../components/UI/Section";
-import apiConfig from "../../config/api.config";
-import useFetchData from "../../hooks/useFetchData";
 import SubjectGridList from "../../components/subject/SubjectGridList";
-
+import { useGetSubjectsListQuery } from "../../api/endpoints/subjectsEndpoints";
 const Subjects = () => {
-  const subjectsList = useFetchData(apiConfig.subjectRoutes.getSubjectsList);
+  const { data: subjects } = useGetSubjectsListQuery();
 
   return (
     <Section>
-      <SubjectGridList subjects={subjectsList.data} text={"Všetky Predmety"} />
+      <SubjectGridList subjects={subjects} text={"Všetky Predmety"} />
     </Section>
   );
 };

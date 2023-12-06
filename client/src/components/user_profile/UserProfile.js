@@ -3,31 +3,35 @@ import UserProfileImage from "./UserProfileImage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSignoutMutation } from "../../api/endpoints/authEndpoints";
-
-const UserProfile = ({ userMenu, closeUserMenu, setAuthenticated, user }) => {
+import { useSelector } from "react-redux";
+const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
   const navigate = useNavigate();
   const [signout] = useSignoutMutation();
   const signoutHandler = async () => {
     signout();
+    setUserMenu(false);
     navigate("/");
+    localStorage.removeItem("openedChapters");
   };
 
   return (
     <div
       className={`${
         userMenu ? "block" : "hidden"
-      } absolute right-0 top-[100%] z-10 mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
-      onMouseLeave={closeUserMenu}
+      } absolute right-0 top-[100%] z-[1000] mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
+      ref={ref}
     >
       <div className="flex flex-col">
         <div className="p-2">
-          <div className="flex items-center gap-3 py-2">
-            <UserProfileImage
-              enableHandler={false}
-              user={user}
-              setAuthenticated={setAuthenticated}
-            />
-            <p className="text-[16px] font-semibold capitalize">{user?.name}</p>
+          <div className="flex items-center gap-2 border-b border-gray-100 py-2">
+            <UserProfileImage user={user} handleMenuClick={false} />
+            <div className="flex flex-col ">
+              <p className="text-[14px] font-semibold capitalize ">
+                {`${user?.name}
+                ${user?.surname}`}
+              </p>
+              <p className="text-[12px]">{user?.role_name}</p>
+            </div>
           </div>
           <p className="cursor-pointer" onClick={signoutHandler}>
             Sign out
@@ -36,6 +40,6 @@ const UserProfile = ({ userMenu, closeUserMenu, setAuthenticated, user }) => {
       </div>
     </div>
   );
-};
+});
 
 export default UserProfile;

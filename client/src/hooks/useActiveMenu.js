@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-const useActiveMenu = (user, authenticated) => {
-  const [activeMenu, setActiveMenu] = useState("main");
+const useActiveMenu = (user, authenticated, loading) => {
+  const [activeMenu, setActiveMenu] = useState(null);
   useEffect(() => {
     if (authenticated && user) {
       switch (user?.id_role) {
@@ -17,7 +17,7 @@ const useActiveMenu = (user, authenticated) => {
     } else {
       setActiveMenu("main");
     }
-  }, [authenticated, user]);
+  }, [authenticated, user, loading]);
   return activeMenu;
 };
 

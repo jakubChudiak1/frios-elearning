@@ -3,7 +3,7 @@ import apiConfig from "../../config/api.config";
 import { Link } from "react-router-dom";
 import Overlay from "../UI/Overlay";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-const SubjectItem = ({ subject }) => {
+const SubjectItem = ({ subject, loader }) => {
   const [hovered, setHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -25,15 +25,16 @@ const SubjectItem = ({ subject }) => {
           <img
             loading="lazy"
             src={apiConfig.images.subjectImage(subject.image_path)}
-            alt={subject?.name}
+            alt={subject.subjects_name}
             className=" h-full w-full object-cover"
           />
+          {loader && <div className="swiper-lazy-preloader"></div>}
           {hovered && <Overlay />}
         </div>
 
         <div className="flex flex-col pt-2">
-          <h3 className="text-[16px] font-semibold capitalize">
-            {subject.name}
+          <h3 className="break-words text-[16px] font-semibold capitalize">
+            {subject.subjects_name}
           </h3>
           <p className="pt-1 text-[12px]">{subject.creators_name}</p>
           <div className="flex justify-between">

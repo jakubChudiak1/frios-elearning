@@ -22,7 +22,11 @@ const SubjectList = ({ subjects, text }) => {
             >
               {subjects?.map((subject) => (
                 <SwiperSlide key={subject.subject_id}>
-                  <SubjectItem key={subject.subject_id} subject={subject} />
+                  <SubjectItem
+                    key={subject.subject_id}
+                    subject={subject}
+                    loader={true}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -21,9 +21,19 @@ class AccessController {
     }
   }
 
+  static async getAccessByStatus(req, res) {
+    try {
+      const { status } = req.query;
+      const accesses = await Access.getAccessByStatus(status);
+      res.json(accesses);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async getUsersAccesses(req, res) {
     try {
-      const { user_id } = req;
+      const user_id = req.session.user_id;
       const accesses = await Access.getAccessByUserId(user_id);
       res.json(accesses);
     } catch (error) {
@@ -31,11 +41,19 @@ class AccessController {
     }
   }
 
-  static async getUsersAccessedSubjects(req, res) {
+  static async getUsersSubjectsByStatus(req, res) {
     try {
-      const user_id = req.user_id;
-      const accessedSubjects = await Access.getUsersAccessedSubjects(user_id);
-      res.json(accessedSubjects);
+      const user_id = req.session.user_id;
+      const { status } = req.query;
+      if (user_id) {
+        const accessedSubjects = await Access.getUsersSubjectsByStatus(
+          user_id,
+          status
+        );
+        res.json(accessedSubjects);
+      } else {
+        res.status(401).json({ message: "unathorized" });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +62,7 @@ class AccessController {
   static async getAccessedSubjectByUser(req, res) {
     try {
       const { subject_id } = req.body;
-      const { user_id } = req.user_id;
+      const { user_id } = req.session.user_id;
       const isAccessed = await Access.getAccessedSubjectByUser(
         subject_id,
         user_id
@@ -66,14 +84,15 @@ class AccessController {
 
   static async createAccess(req, res) {
     try {
-      const { user_id, subject_id } = req.body;
+      const { subject_id } = req.body;
       const access = await Access.createAccess({
-        user_id: user_id,
+        user_id: req.session.user_id,
         subject_id: subject_id,
         editable: false,
         status: "pending",
         created_at: new Date(),
       });
+
       res.json({ message: "Access Succesfully created" });
     } catch (error) {
       console.log(error);
@@ -108,6 +127,16 @@ class AccessController {
       const { access_id } = req.params;
       const accesss = await Access.rejectStatus(access_id);
       res.status(200).json({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async deleteAccess(req, res) {
+    try {
+      const { access_id } = req.params;
+      const access = await Access.deleteAccess(access_id);
+      res.status(200).json({ message: "Access Succesfuly deleted" });
     } catch (error) {
       console.log(error);
     }

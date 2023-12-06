@@ -22,7 +22,12 @@ const SignInForm = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("email is required"),
+      email: Yup.string()
+        .required("email is required")
+        .matches(
+          /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+          "Please enter a valid email address",
+        ),
       password: Yup.string().required("password is required"),
     }),
     onSubmit: async (values) => {
@@ -36,7 +41,7 @@ const SignInForm = () => {
   });
 
   return (
-    <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[4.5rem]">
+    <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[2rem] sm:py-[4.5rem]">
       <h2>Prihlásenie</h2>
       {errorMessage && (
         <div className=" min-w-[18rem] max-w-[60rem] border border-red-500">
@@ -95,12 +100,12 @@ const SignInForm = () => {
         </div>
         <Button
           type="submit"
-          className="mt-2 bg-purple-500 p-3 font-semibold capitalize text-white"
+          className="mt-2 bg-purple-500 p-3 font-medium capitalize text-white"
         >
           prihlásiť
         </Button>
       </form>
-      <div className="pt-4">
+      <div className="w-max pt-4">
         <p>
           Nemáte ešte vytvorený úcet?{" "}
           <Link to={"/signup"} className="font-semibold text-purple-500">

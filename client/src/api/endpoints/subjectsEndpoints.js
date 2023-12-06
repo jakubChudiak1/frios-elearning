@@ -17,11 +17,11 @@ export const subjectsApi = apiSlice.injectEndpoints({
       query: (subjectName) => `subjects/name?name=${subjectName}`,
     }),
     getSubjectsByCreator: build.query({
-      query: (userId, subjectId) =>
+      query: ({ userId, subjectId }) =>
         `subjects/creator?user_id=${userId}&subject_id=${subjectId}`,
     }),
     getRecommendedSubjects: build.query({
-      query: (categoryName, subjectId) =>
+      query: ({ categoryName, subjectId }) =>
         `subjects/recommended?category_name=${categoryName}&subject_id=${subjectId}`,
     }),
     getSubjectsByCategory: build.query({

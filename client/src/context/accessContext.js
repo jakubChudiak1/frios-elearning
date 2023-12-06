@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 import apiConfig from "../config/api.config";
-import useFetchData from "../hooks/useFetchData";
 
 const AccessContext = createContext();
 

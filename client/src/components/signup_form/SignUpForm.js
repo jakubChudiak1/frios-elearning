@@ -39,7 +39,7 @@ const SignUpForm = () => {
   });
 
   return (
-    <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[4.5rem]">
+    <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[1rem] sm:py-[4.5rem]">
       <h2>Registrácia</h2>
       <form
         className="mt-3 flex flex-col gap-2"
@@ -146,10 +146,10 @@ const SignUpForm = () => {
           registrovať
         </Button>
       </form>
-      <div className="pt-4">
+      <div className="w-max pt-4">
         <p>
           Už máte vytvorený úcet?{" "}
-          <Link to={"/signin"} className="font-semibold text-purple-500">
+          <Link to={"/signin"} className="font-medium text-purple-500">
             Prihlásiť
           </Link>
         </p>

@@ -1,11 +1,21 @@
 import Chapter from "../models/chapter.js";
+import ChapterService from "../service/ChapterService.js";
 
 class ChapterController {
   static async getSubjectsChapters(req, res) {
     try {
       const { subject_id } = req.params;
       const chapters = await Chapter.getSubjectsChapters(subject_id);
-      res.json(chapters);
+
+      const chaptersWithRecursiveSideChapters = await Promise.all(
+        chapters.map(async (chapter) => ({
+          ...chapter,
+          sideChapters: await ChapterService.getRecursiveSideChapters(
+            chapter?.chapter_id
+          ),
+        }))
+      );
+      res.json(chaptersWithRecursiveSideChapters);
     } catch (error) {
       console.log(error);
     }

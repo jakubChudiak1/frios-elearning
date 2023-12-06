@@ -8,7 +8,7 @@ dotenv.config();
 class UserController {
   static async getUsers(req, res) {
     try {
-      const user_id = req.user_id;
+      const user_id = req.session.user_id;
       const users = await User.getUsers(user_id);
       res.json(users);
     } catch (error) {
@@ -28,7 +28,7 @@ class UserController {
 
   static async getUsersInfo(req, res) {
     try {
-      const user_id = req.user_id;
+      const user_id = req.session.user_id;
       const user = await User.getUserById(user_id);
       res.json(user);
     } catch (error) {

@@ -1,9 +1,15 @@
 import Category from "../models/category.js";
+import redisClient from "../config/redisClient.js";
 
 class CategoryController {
   static async getCategories(req, res) {
     try {
       const categories = await Category.getCategories();
+      await redisClient.setEx(
+        req.originalUrl,
+        3600,
+        JSON.stringify(categories)
+      );
       res.json(categories);
     } catch (error) {
       console.log(error);

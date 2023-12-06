@@ -5,11 +5,7 @@ export const userApi = apiSlice.injectEndpoints({
     getUsersList: build.query({
       query: () => "users",
     }),
-    getUsersSubjects: build.query({
-      query: () => "accesses/users-subjects",
-      providesTags: ["Subjects", "Authentication"],
-    }),
   }),
 });
 
-export const { useGetUsersListQuery, useGetUsersSubjectsQuery } = userApi;
+export const { useGetUsersListQuery } = userApi;

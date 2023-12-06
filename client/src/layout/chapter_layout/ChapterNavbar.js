@@ -5,16 +5,14 @@ import UserProfileImage from "../../components/user_profile/UserProfileImage";
 
 const ChapterNavbar = ({ authenticated, user }) => {
   return (
-    <header className="relative w-full py-5 2xl:px-5">
-      <nav className=" flex items-center justify-between">
+    <header className="relative w-full px-2 pb-3  pt-5 xl:px-5">
+      <nav className="relative flex w-full items-center justify-between capitalize">
         <Logo />
-        {authenticated ? (
-          <UserProfileImage user={user} />
-        ) : (
+        {!authenticated ? (
           <div className="flex  items-center gap-3 whitespace-nowrap">
             <Link to={"/signin"}>
               <div className="flex h-10  cursor-pointer items-center bg-purple-500 px-3 text-center font-medium capitalize text-white">
-                <span>{authenticated ? "odhlásiť" : "prihlásiť"}</span>
+                <span>prihlásiť</span>
               </div>
             </Link>
             <Link to={"/signup"} className="hidden sm:block">
@@ -23,6 +21,8 @@ const ChapterNavbar = ({ authenticated, user }) => {
               </div>
             </Link>
           </div>
+        ) : (
+          <UserProfileImage user={user} handleMenuClick={true} />
         )}
       </nav>
     </header>

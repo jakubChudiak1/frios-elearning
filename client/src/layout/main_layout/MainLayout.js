@@ -6,34 +6,33 @@ import useActiveMenu from "../../hooks/useActiveMenu";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import GlobalLoading from "../../components/global-loading/GlobalLoading";
+import MobileNavbar from "./MobileNavbar";
+import { useMediaQuery } from "react-responsive";
 
 const MainLayout = () => {
   const { user, authenticated, loading } = useAuth();
-  const activeMenu = useActiveMenu(user, authenticated);
-  const [toggled, setToggled] = useState(false);
-
-  const menuHandler = () => {
-    setToggled((prev) => !prev);
-  };
+  const activeMenu = useActiveMenu(user, authenticated, loading);
+  const isMobile = useMediaQuery({ query: "(max-width:1024px)" });
 
   if (loading) {
-    return <GlobalLoading />;
+    return <></>;
   }
 
   return (
     <>
-      <div className="container flex w-full flex-col px-2 sm:mx-auto  2xl:px-5 ">
-        <div className="flex gap-0 sm:gap-2 ">
+      <div className="container relative flex w-full flex-col px-2 sm:mx-auto  2xl:px-5 ">
+        <div className="flex ">
           <Sidebar activeMenu={activeMenu} />
-          <main className="relative flex w-full flex-col gap-1  sm:gap-2 md:w-[calc(100%-160px)]">
-            <Navbar
-              authenticated={authenticated}
-              activeMenu={activeMenu}
-              user={user}
-              toggled={toggled}
-              setToggled={setToggled}
-              menuHandler={menuHandler}
-            />
+          <main className="relative flex w-full flex-col gap-0 sm:gap-2  lg:w-[calc(100%-140px)] lg:pl-1">
+            {!isMobile ? (
+              <Navbar authenticated={authenticated} user={user} />
+            ) : (
+              <MobileNavbar
+                authenticated={authenticated}
+                activeMenu={activeMenu}
+                user={user}
+              />
+            )}
             <GlobalLoading />
             <Outlet />
           </main>

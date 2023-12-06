@@ -4,17 +4,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 
-const SearchForm = () => {
+const SearchForm = ({ onClose }) => {
   const [searchedText, setSearchedText] = useState("");
   const navigate = useNavigate();
 
   const searchHandler = (event) => {
     event.preventDefault();
     navigate(`/subjects/search?q=${searchedText}`);
+    setSearchedText("");
+    onClose();
   };
 
   return (
-    <div className=" block h-10 w-1/3 flex-grow rounded-2xl border bg-gray-100">
+    <div className="mt-2 block w-full flex-grow overflow-hidden border bg-gray-100 py-1 md:mt-0 md:w-1/3 md:rounded-2xl">
       <form
         className="flex h-full flex-row-reverse items-center"
         onSubmit={searchHandler}

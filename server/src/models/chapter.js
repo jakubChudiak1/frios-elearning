@@ -3,7 +3,8 @@ import db from "../config/db.js";
 class Chapter {
   static async getSubjectsChapters(subject_id) {
     try {
-      const query = "SELECT * FROM chapters WHERE subject_id = ?";
+      const query =
+        "SELECT * FROM chapters WHERE subject_id = ? AND main_chapter IS NULL";
       const results = await db.query(query, [subject_id]);
       return results;
     } catch (error) {

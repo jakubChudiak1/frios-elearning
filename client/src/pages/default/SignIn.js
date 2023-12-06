@@ -1,6 +1,6 @@
 import React from "react";
-import Section from "../components/UI/Section";
-import SignInForm from "../components/signin_form/SignInForm";
+import Section from "../../components/UI/Section";
+import SignInForm from "../../components/signin_form/SignInForm";
 
 const SignIn = () => {
   return (

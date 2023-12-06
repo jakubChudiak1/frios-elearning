@@ -4,28 +4,37 @@ import { CircularProgress } from "@mui/material";
 
 const GlobalLoading = () => {
   const isSomeQueryPending = useSelector((state) =>
-    Object.values(state.api.queries).some(
-      (query) => query.status === "pending",
-    ),
+    Object.values(state.api.queries)
+      .filter((query) => query.endpointName !== "getAccessStatus")
+      .some((query) => query.status === "pending"),
   );
 
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (isSomeQueryPending) {
       setIsLoading(true);
+      document.body.style.overflowY = "hidden";
     } else {
       setIsLoading(false);
+      document.body.style.overflowY = "auto";
     }
   }, [isSomeQueryPending]);
 
   return (
-    <div
-      className={`fixed top-[10%] flex h-screen w-full items-center justify-center sm:w-[calc(100%-160px)] ${
-        isLoading ? "block" : "hidden"
-      } pointer-events-none  z-10 bg-white`}
-    >
-      <CircularProgress color="secondary" className="absolute top-[40%]" />
-    </div>
+    <>
+      {isLoading && (
+        <div
+          className={`pointer-events-none fixed top-0 z-10 flex h-screen w-full items-center justify-center bg-white  md:top-[10%] md:w-[calc(100%-80px)]  lg:w-[calc(100%-140px)] 
+      `}
+        >
+          <CircularProgress
+            color="secondary"
+            className="absolute left-auto top-[50%] md:top-[40%]"
+          />
+        </div>
+      )}
+    </>
   );
 };
 

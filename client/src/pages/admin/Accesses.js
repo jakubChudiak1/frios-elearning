@@ -1,39 +1,26 @@
 import React from "react";
-import apiConfig from "../../config/api.config";
-import useFetchData from "../../hooks/useFetchData";
 import Section from "../../components/UI/Section";
 import AccessList from "../../components/access/AccessList";
-import axios from "axios";
+import { useGetAccessesListQuery } from "../../api/endpoints/accessesEndpoints";
+import { useAcceptStatusMutation } from "../../api/endpoints/accessesEndpoints";
+import { useRejectStatusMutation } from "../../api/endpoints/accessesEndpoints";
 
 function Accesses() {
-  const accesses = useFetchData(apiConfig.accessRoutes.getAccessList);
-
+  const { data: accesses } = useGetAccessesListQuery();
+  const [acceptStatus] = useAcceptStatusMutation();
+  const [rejectStatus] = useRejectStatusMutation();
   const acceptAccessHandler = async (access_id) => {
-    try {
-      const response = await axios.patch(
-        apiConfig.accessRoutes.acceptStatus(access_id),
-      );
-      await accesses.refetch();
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await acceptStatus(access_id);
   };
 
   const rejectAccessHandler = async (access_id) => {
-    try {
-      const response = await axios.patch(
-        apiConfig.accessRoutes.rejectStatus(access_id),
-      );
-      await accesses.refetch();
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await rejectStatus(access_id);
   };
 
   return (
     <Section>
       <AccessList
-        accessesList={accesses.data}
+        accessesList={accesses}
         text={"Prístupy"}
         acceptAccessHandler={acceptAccessHandler}
         rejectAccessHandler={rejectAccessHandler}

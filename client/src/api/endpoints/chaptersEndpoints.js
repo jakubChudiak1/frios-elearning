@@ -6,10 +6,11 @@ export const chapterApi = apiSlice.injectEndpoints({
       query: (subjectId) => `chapters/${subjectId}`,
     }),
     getChaptersContent: build.query({
-      query: (subjectId, chapterId) =>
+      query: ({ subjectId, chapterId }) =>
         `chapters/${subjectId}/chapter/${chapterId}`,
     }),
   }),
 });
 
-export const { useGetSubjectChaptersQuery } = chapterApi;
+export const { useGetSubjectChaptersQuery, useGetChaptersContentQuery } =
+  chapterApi;

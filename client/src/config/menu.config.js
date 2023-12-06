@@ -22,9 +22,15 @@ const student = [
   },
   {
     id: 2,
-    name: "Moje predmety",
+    name: "moje predmety",
     icon: <MenuBookOutlinedIcon fontSize="medium" />,
     path: "/my-subjects",
+  },
+  {
+    id: 3,
+    name: "moje žiadosti",
+    icon: <LockOutlined fontSize="medium" />,
+    path: "/my-requests",
   },
 ];
 

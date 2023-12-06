@@ -1,7 +1,10 @@
 import Subject from "../models/subject.js";
 import createSubjectValidation from "../validations/validateCreateSubject.js";
 import Access from "../models/access.js";
-import fs, { Dir } from "fs";
+import User from "../models/user.js";
+import fs from "fs";
+import redis from "redis";
+import redisClient from "../config/redisClient.js";
 
 class SubjectController {
   static async getSubjects(req, res) {
@@ -17,6 +20,8 @@ class SubjectController {
     try {
       const { is_public } = req.query;
       const subjects = await Subject.getSubjectsByStatus(is_public);
+      console.log("not fetchedd");
+      await redisClient.setEx(req.originalUrl, 3600, JSON.stringify(subjects));
       res.json(subjects);
     } catch (error) {
       console.log(error);
@@ -89,12 +94,12 @@ class SubjectController {
   static async createSubject(req, res) {
     try {
       const { category_id, subject_code, name, is_public } = req.body;
-      const user_id = req.user_id;
+      const user_id = req.session.user_id;
+      const admins = await User.getUsersByRole(1);
       let image_path = null;
       if (req.file) {
         image_path = req.file.filename;
       }
-
       const { error } = createSubjectValidation(req.body);
       if (error) {
         res.status(400).json({ message: error.details[0].message });
@@ -116,6 +121,18 @@ class SubjectController {
           status: "accepted",
           created_at: new Date(),
         });
+        const adminAccess = admins.map(async (admin) => {
+          await Access.createAccess({
+            user_id: admin.user_id,
+            subject_id,
+            editable: true,
+            status: "accepted",
+            created_at: new Date(),
+          });
+        });
+
+        await Promise.all(adminAccess);
+
         res.status(201).json({ message: "Subject created successfully" });
       }
     } catch (error) {

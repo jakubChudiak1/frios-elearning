@@ -1,33 +1,20 @@
 import React, { useEffect, useState } from "react";
-//a
 import "react-quill/dist/quill.snow.css";
 import { useAuth } from "./context/authContext";
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Subjects from "./pages/admin/Subjects";
-import SignIn from "./pages/SignIn";
+import { Route, Routes, Navigate } from "react-router-dom";
 import MainLayout from "./layout/main_layout/MainLayout";
-
-import apiConfig from "./config/api.config";
-import SignUp from "./pages/SignUp";
-import SearchedSubjects from "./pages/SearchedSubjects";
-import SubjectDetails from "./pages/subject-details/SubjectDetails";
 import ChapterLayout from "./layout/chapter_layout/ChapterLayout";
-import Chapter from "./pages/chapter/Chapter";
-import MySubjects from "./pages/my-subjects/MySubjects";
-import CategorySubjects from "./pages/CategorySubjects";
-import Users from "./pages/admin/Users";
-import RequireAuth from "./components/protected_pages/RequireAuth";
-import Accesses from "./pages/admin/Accesses";
 import { useLocation } from "react-router-dom";
 import WebFont from "webfontloader";
+import { useAddSubjectMutation } from "./api/endpoints/subjectsEndpoints";
+import RequireAccess from "./components/protected_routes/RequireAccess";
+import { mainLayoutRoutes } from "./routes/mainLayoutRoutes";
+import "react-toastify/dist/ReactToastify.min.css";
 import "./assets/css/style.css";
 import "./assets/js/script";
-import { useGetSubjectsListQuery } from "./api/endpoints/subjectsEndpoints";
-import { useAddSubjectMutation } from "./api/endpoints/subjectsEndpoints";
+import { chapterLayoutRoutes } from "./routes/chapterLayoutRoutes";
 
 const App = () => {
-  const { data, isLoading } = useGetSubjectsListQuery();
   const [addSubject] = useAddSubjectMutation();
   const { user, authenticated, setAuthenticated } = useAuth();
   const location = useLocation();
@@ -79,28 +66,28 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route element={<Subjects />} path="/subjects" />
-          <Route element={<MySubjects />} path="/my-subjects" />
-          <Route element={<SignIn />} path="/signin" />
-          <Route element={<SignUp />} path="/signup" />
-          <Route element={<SubjectDetails />} path="/subject/:subject_id" />
-          <Route element={<SearchedSubjects />} path="/subjects/search" />
-          <Route element={<CategorySubjects />} path="/subjects/category" />
-          <Route element={<Users />} path="/users" />
-          <Route element={<Accesses />} path="/accesses" />
+          {mainLayoutRoutes.map((route) =>
+            route.index ? (
+              <Route index key={route.id} element={route.element} />
+            ) : (
+              <Route path={route.path} key={route.id} element={route.element} />
+            ),
+          )}
         </Route>
-        <Route element={<RequireAuth />}>
+
+        <Route element={<RequireAccess />}>
           <Route
             path="/:subject_id/chapter/:chapter_id"
             element={<ChapterLayout />}
           >
-            <Route index element={<Chapter />} />
+            {chapterLayoutRoutes.map((route) => (
+              <Route index key={route.id} element={route.element} />
+            ))}
           </Route>
         </Route>
       </Routes>
 
-      {/* <div>
+      {/*   <div>
         <h1>Create a Subject</h1>
         <form onSubmit={handleFormSubmit}>
           <div>

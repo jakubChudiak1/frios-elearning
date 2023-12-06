@@ -1,6 +1,6 @@
 const checkRole = (id_role) => {
   return (req, res, next) => {
-    const userRole = req.id_role;
+    const userRole = req.session.id_role;
     if (userRole === id_role) {
       next();
     } else {

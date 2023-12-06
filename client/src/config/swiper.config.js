@@ -1,9 +1,9 @@
 const subjectsBreakpoints = {
   100: {
-    slidesPerView: 1,
+    slidesPerView: 1.1,
   },
   200: {
-    slidesPerView: 1,
+    slidesPerView: 1.1,
   },
   300: {
     slidesPerView: 1.1,

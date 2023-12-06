@@ -16,18 +16,29 @@ class User {
     try {
       const query = "SELECT * FROM users WHERE email = ?";
       const result = await db.query(query, email);
-      return result;
+      return result[0];
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  static async getUserById(Id) {
+  static async getUserById(userId) {
     try {
       const query =
-        "SELECT user_id,name,surname,email,id_role FROM users WHERE user_id = ?";
-      const result = await db.query(query, Id);
+        "SELECT u.user_id,u.name,u.surname,u.email,u.id_role,r.name AS role_name FROM users u LEFT JOIN roles r ON u.id_role = r.id_role WHERE user_id = ?";
+      const result = await db.query(query, userId);
       return result[0];
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async getUsersByRole(roleId) {
+    try {
+      const query =
+        "SELECT user_id,name,surname,email,id_role FROM users WHERE id_role = ?";
+      const results = await db.query(query, roleId);
+      return results;
     } catch (error) {
       throw new Error(error);
     }
@@ -36,7 +47,7 @@ class User {
   static async createUser(user) {
     try {
       const { email, cryptedPassword, name, surname, id_role = 3 } = user;
-
+      console.log("userCreated", db);
       const query =
         "INSERT INTO users (email,password,name,surname,id_role) VALUES (?,?,?,?,?)";
       const result = await db.query(query, [

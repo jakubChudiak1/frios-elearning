@@ -7,10 +7,6 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
   const { subject_id } = useParams();
 
   const [scrolled, setScrolled] = useState(false);
-  const [chaptersArr, setChapterArr] = useState(() => {
-    const storedChapters = localStorage.getItem("openedChapters");
-    return storedChapters ? JSON.parse(storedChapters) : [];
-  });
 
   let mainChapterIndex = 0;
 
@@ -19,10 +15,6 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
     height: scrolled ? "100%" : "calc(100% - 80px)",
     transition: "top 0.1s ease-in-out",
   };
-
-  useEffect(() => {
-    localStorage.setItem("openedChapters", JSON.stringify(chaptersArr));
-  }, [chaptersArr]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +33,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
   return (
     <>
       <aside
-        className=" fixed right-0 top-[80px]  z-[1]  w-[20%] border-l-[1px] border-gray-100"
+        className=" fixed right-0 top-[80px]  z-[1] w-full  border-l-[1px] border-gray-100 xs:w-[300px]"
         style={sidebarStyles}
       >
         <div className="relative flex h-full flex-col overflow-y-auto">
@@ -51,18 +43,16 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
           </div>
           <div className="z-[1] overflow-y-auto overflow-x-hidden">
             {chapters?.map((chapter) => {
-              if (chapter?.main_chapter === null) {
-                mainChapterIndex++;
-              }
+              mainChapterIndex++;
               return (
                 <ChapterMenuItem
                   key={chapter.chapter_id}
                   chapter={chapter}
                   chapters={chapters}
                   subject_id={subject_id}
-                  mainChapterIndex={mainChapterIndex}
-                  chaptersArr={chaptersArr}
-                  setChapterArr={setChapterArr}
+                  depth={1}
+                  parentIndex={mainChapterIndex}
+                  index={0}
                 />
               );
             })}

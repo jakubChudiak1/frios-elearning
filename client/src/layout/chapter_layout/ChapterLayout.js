@@ -1,51 +1,69 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import ChapterNavbar from "./ChapterNavbar";
 import Footer from "../main_layout/Footer";
 import ChapterSideBar from "./ChapterSideBar";
-import apiConfig from "../../config/api.config";
-import useFetchData from "../../hooks/useFetchData";
-import GlobalLoading from "../../components/global-loading/GlobalLoading";
+import { useGetSubjectChaptersQuery } from "../../api/endpoints/chaptersEndpoints";
+import { ArrowForwardIos } from "@mui/icons-material";
+import { motion } from "framer-motion";
 
 const ChapterLayout = () => {
-  const { authenticated, user } = useAuth();
+  const { authenticated, user, loading } = useAuth();
   const { subject_id } = useParams();
-  const chapters = useFetchData(
-    apiConfig.chapterRoutes.getSubjectChapters(subject_id),
-  );
+  const { data: chapters } = useGetSubjectChaptersQuery(subject_id);
   const [sidebar, setSidebar] = useState(
     localStorage.getItem("sidebar") === "true",
   );
-
   const sideBarHandler = () => {
     setSidebar((prev) => !prev);
     localStorage.setItem("sidebar", !sidebar);
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth < 1024) {
+        localStorage.setItem("sidebar", setSidebar(false));
+        localStorage.setItem("sidebar", false);
+      } else {
+        localStorage.setItem("sidebar", setSidebar(true));
+        localStorage.setItem("sidebar", true);
+      }
+    });
+  }, []);
+
+  if (loading) {
+    return <></>;
+  }
+  console.log(sidebar);
   return (
     <div className=" flex flex-col ">
       <ChapterNavbar authenticated={authenticated} user={user} />
       <main
         className={`relative flex ${
           sidebar ? "pl-2 2xl:pl-5" : "px-2 2xl:px-5"
-        }`}
+        } ${sidebar ? "w-[calc(100%-300px)]" : "w-full"}`}
       >
-        <div className={`${sidebar ? "w-[80%]" : "w-full"}`}>
-          <Outlet />
-        </div>
-        {sidebar ? (
-          <ChapterSideBar
-            chapters={chapters.data}
-            sidebar={sidebar}
-            sideBarHandler={sideBarHandler}
-          />
-        ) : (
-          <p className="absolute right-0 top-[30%]" onClick={sideBarHandler}>
-            pes
-          </p>
-        )}
+        <Outlet />
       </main>
+      {sidebar ? (
+        <ChapterSideBar
+          chapters={chapters}
+          sidebar={sidebar}
+          sideBarHandler={sideBarHandler}
+        />
+      ) : (
+        <motion.div
+          className="absolute right-5 top-[13%] z-[1000] flex cursor-pointer items-center text-[#a855f7]"
+          onClick={sideBarHandler}
+          whileHover={{
+            x: 5,
+          }}
+        >
+          <p className="hidden md:block">Otvoriť</p>
+          <ArrowForwardIos fontSize="large" />
+        </motion.div>
+      )}
       <Footer />
     </div>
   );

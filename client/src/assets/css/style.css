@@ -13,7 +13,7 @@ html {
 
 body {
   font-family: "Poppins";
-  min-width: 318px;
+  min-width: 310px;
 }
 
 h1 {
@@ -54,6 +54,13 @@ li {
   font-size: 14px;
 }
 
+@media (min-width: 475px) {
+  .container {
+    min-width: 475px;
+    max-width: unset;
+  }
+}
+
 ::placeholder {
   text-transform: capitalize;
 }
@@ -68,6 +75,16 @@ li {
   color: #a855f7 !important;
 }
 
+@media (max-width: 767px) {
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+}
+
 /***swiper ***/
 .swiper-button-disabled {
   display: none !important;
@@ -78,6 +95,11 @@ li {
   top: var(--swiper-navigation-top-offset, 25%) !important;
   transform: translateY(50%);
   color: #a855f7 !important;
+}
+
+/***swiper lazyload ***/
+.swiper-lazy-preloader {
+  --swiper-preloader-color: #a855f7 !important;
 }
 
 @media (max-width: 1200px) {
@@ -99,4 +121,10 @@ li {
   .swiper-button-next {
     display: none;
   }
+}
+
+/*** notifications ***/
+
+.progress-bar {
+  background-color: #a855f7;
 }

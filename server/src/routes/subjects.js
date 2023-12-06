@@ -2,14 +2,15 @@ import express from "express";
 import SubjectController from "../controllers/subjectController.js";
 import verifyToken from "../middlewares/authToken.js";
 import fileUpload from "../middlewares/fileUpload.js";
+import cacheData from "../middlewares/cache.js";
 const router = express.Router();
 
-router.get("", SubjectController.getSubjects);
+router.get("", cacheData, SubjectController.getSubjects);
 router.get("/search", SubjectController.getSubjectByString);
 router.get("/creator", SubjectController.getSubjectByCreator);
 router.get("/recommended", SubjectController.getRecommendedSubjects);
 router.get("/category", SubjectController.getSubjectsByCategory);
-router.get("/status", SubjectController.getSubjectsByStatus);
+router.get("/status", cacheData, SubjectController.getSubjectsByStatus);
 router.get("/name", SubjectController.getSubjectByName);
 router.get("/:subject_id", SubjectController.getSubjectById);
 
