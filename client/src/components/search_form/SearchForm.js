@@ -16,7 +16,7 @@ const SearchForm = ({ onClose }) => {
   };
 
   return (
-    <div className="mt-2 block w-full flex-grow overflow-hidden border bg-gray-100 py-1 md:mt-0 md:w-1/3 md:rounded-2xl">
+    <div className="mt-2 block w-full flex-grow overflow-hidden border bg-gray-100 py-1 lg:mt-0 lg:w-1/3 lg:rounded-2xl">
       <form
         className="flex h-full flex-row-reverse items-center"
         onSubmit={searchHandler}

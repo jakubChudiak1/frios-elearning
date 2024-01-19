@@ -14,6 +14,14 @@ export const accessApi = apiSlice.injectEndpoints({
       query: (status) => `accesses/users-subjects?status=${status}`,
       providesTags: ["Subjects", "Authentication", "Accesses"],
     }),
+    getUsersRequests: build.query({
+      query: () => "accesses/user-requests",
+      providesTags: ["Accesses", "Authentication"],
+    }),
+    getEditableSubjects: build.query({
+      query: () => "accesses/editable-subjects",
+      providesTags: ["Accesses", "Authentication"],
+    }),
     acceptStatus: build.mutation({
       query: (accessId) => ({
         url: `accesses/accept-status/${accessId}`,
@@ -49,7 +57,9 @@ export const accessApi = apiSlice.injectEndpoints({
 export const {
   useGetAccessesListQuery,
   useGetAccessStatusQuery,
+  useGetEditableSubjectsQuery,
   useGetUsersSubjectsByStatusQuery,
+  useGetUsersRequestsQuery,
   useAddAccessMutation,
   useAcceptStatusMutation,
   useRejectStatusMutation,

@@ -13,4 +13,5 @@ router.get(
   "/:subject_id/chapter/:chapter_id",
   ChapterController.getChaptersContent
 );
+router.patch("/chapter/:chapter_id", ChapterController.updateChaptersContent);
 export default router;

@@ -3,6 +3,7 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import LockOutlined from "@mui/icons-material/LockOutlined";
+import EmailOutlined from "@mui/icons-material/EmailOutlined";
 
 const main = [
   {
@@ -49,9 +50,15 @@ const teacher = [
   },
   {
     id: 3,
-    name: "študenti",
-    icon: <SchoolOutlinedIcon fontSize="medium" />,
-    path: "/students",
+    name: "moje žiadosti",
+    icon: <LockOutlined fontSize="medium" />,
+    path: "/my-requests",
+  },
+  {
+    id: 4,
+    name: "žiadosti",
+    icon: <EmailOutlined fontSize="medium" />,
+    path: "/requests",
   },
 ];
 

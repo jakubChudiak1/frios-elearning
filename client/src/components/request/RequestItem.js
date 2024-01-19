@@ -1,24 +1,28 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import apiConfig from "../../config/api.config";
 import { dateFormater } from "../../utils/dateFormatter";
 import { useDeleteAccessMutation } from "../../api/endpoints/accessesEndpoints";
+import RemoveRequest from "./RemoveRequest";
+import AcceptRequest from "./AcceptRequest";
+import RejectRequest from "./RejectRequest";
 const RequestItem = ({ userRequest }) => {
   const [deleteAccess] = useDeleteAccessMutation();
-
+  const location = useLocation();
   const removeRequestHandler = (access_id) => {
     deleteAccess(access_id);
   };
-
+  console.log(location);
   return (
-    <div className=" grid w-full grid-cols-[1fr_2fr_1fr] gap-3 border-b border-gray-100 py-2">
-      <div className="aspect-[1/.45] h-auto  cursor-pointer overflow-hidden">
+    <div className=" grid w-full grid-cols-[1fr] gap-3 border-b border-gray-100 py-2 xs:grid-cols-[1fr_max-content_1fr] sm:grid-cols-[max-content_1fr_max-content]">
+      <div className=" hidden h-[7rem] w-[12rem] cursor-pointer overflow-hidden xs:block ">
         <img
           src={apiConfig.images.subjectImage(userRequest?.image_path)}
           alt=""
           className=" h-full w-full object-cover"
         />
       </div>
-      <div className="flex cursor-pointer flex-col break-words">
+      <div className="flex cursor-pointer flex-col break-words capitalize">
         <h3 className="no text-[16px] capitalize">
           {userRequest?.subjects_name}
         </h3>
@@ -38,20 +42,32 @@ const RequestItem = ({ userRequest }) => {
             </div>
           </div>
           <div className="flex items-center gap-1 text-[14px]">
-            <span className="font-semibold capitalize">žiadosť odoslaná:</span>
-            <span>{dateFormater(userRequest?.created_at)}</span>
+            <div className="flex flex-col items-center gap-1 sm:flex-row sm:gap-3">
+              {location.pathname === "/requests" && (
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold capitalize">
+                    žiadosť poslal:
+                  </span>
+                  <span>{userRequest?.users_name}</span>
+                </div>
+              )}
+              <span className="font-semibold capitalize">
+                žiadosť odoslaná:
+              </span>
+              <span>{dateFormater(userRequest?.created_at)}</span>
+            </div>
           </div>
         </div>
       </div>
       <div className="self-start">
-        <p
-          className="cursor-pointer capitalize text-[#a855f7] hover:text-[#b373ef]"
-          onClick={() => {
-            removeRequestHandler(userRequest?.access_id);
-          }}
-        >
-          odstrániť žiadosť
-        </p>
+        {location.pathname === "/requests" ? (
+          <div className="flex flex-col">
+            <AcceptRequest userRequest={userRequest} />
+            <RejectRequest userRequest={userRequest} />
+          </div>
+        ) : (
+          <RemoveRequest userRequest={userRequest} />
+        )}
       </div>
     </div>
   );

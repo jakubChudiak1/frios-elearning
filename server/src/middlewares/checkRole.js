@@ -1,11 +1,18 @@
-const checkRole = (id_role) => {
-  return (req, res, next) => {
-    const userRole = req.session.id_role;
-    if (userRole === id_role) {
-      next();
-    } else {
-      res.status(400).json({ message: "Access Denied" });
+import User from "../models/user.js";
+
+const checkRole = (roles) => {
+  return async (req, res, next) => {
+    try {
+      const user = await User.getUserById(req.session.user_id);
+      if (roles.includes(user.id_role)) {
+        next();
+      } else {
+        res.status(400).json({ message: "Access Denied" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
     }
   };
 };
+
 export default checkRole;

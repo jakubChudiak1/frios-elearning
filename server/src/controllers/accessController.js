@@ -21,6 +21,17 @@ class AccessController {
     }
   }
 
+  static async getEditableSubjects(req, res) {
+    try {
+      const userId = req.session.user_id;
+      console.log(userId);
+      const editableSubjects = await Access.getEditableSubjects(userId);
+      res.json(editableSubjects);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async getAccessByStatus(req, res) {
     try {
       const { status } = req.query;
@@ -57,6 +68,14 @@ class AccessController {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  static async getUsersRequests(req, res) {
+    try {
+      const user_id = req.session.user_id;
+      const requests = await Access.getUsersRequests(user_id);
+      res.json(requests);
+    } catch (error) {}
   }
 
   static async getAccessedSubjectByUser(req, res) {

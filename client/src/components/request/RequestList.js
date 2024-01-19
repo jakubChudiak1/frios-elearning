@@ -1,16 +1,22 @@
 import React from "react";
 import RequestItem from "./RequestItem";
-
+import ArrowBack from "../UI/ArrowBack";
 const RequestList = ({ usersRequests }) => {
   return (
-    <div className="flex w-full flex-col p-3">
-      <h2 className="text-[20px] capitalize">vaše žiadosti</h2>
-      <div className="">
-        {usersRequests?.map((userRequest) => (
-          <RequestItem key={userRequest.access_id} userRequest={userRequest} />
-        ))}
-      </div>
-    </div>
+    <>
+      <ArrowBack link={"/"} />
+      {usersRequests && (
+        <div className="flex w-full flex-col lg:px-3">
+          <h2 className="text-[20px] capitalize">{`žiadosti (${usersRequests?.length})`}</h2>
+          {usersRequests?.map((userRequest) => (
+            <RequestItem
+              key={userRequest.access_id}
+              userRequest={userRequest}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

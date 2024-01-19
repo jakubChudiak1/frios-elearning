@@ -32,6 +32,14 @@ h4 {
   font-size: 24px;
 }
 
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
 h1,
 h2,
 h3,
@@ -48,17 +56,11 @@ a {
 
 p {
   font-size: 14px;
+  word-break: break-word;
 }
 
 li {
   font-size: 14px;
-}
-
-@media (min-width: 475px) {
-  .container {
-    min-width: 475px;
-    max-width: unset;
-  }
 }
 
 ::placeholder {
@@ -74,14 +76,443 @@ li {
 .css-1szo49z-MuiCircularProgress-root {
   color: #a855f7 !important;
 }
+/*** toolbar ***/
+#toolbar {
+  z-index: 1000;
+  background-color: white;
+}
+
+/*** quill classes ***/
+
+.chapter-content {
+  white-space: break-spaces;
+  word-wrap: break-word;
+}
+
+.ql-syntax {
+  background-color: #23241f;
+  color: #f8f8f2;
+  overflow: visible;
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.ql-code {
+  font-size: 12px;
+  padding: 2px 4px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+.ql-bg-black {
+  background-color: #000;
+}
+
+.ql-bg-red {
+  background-color: #e60000;
+}
+
+.ql-bg-orange {
+  background-color: #f90;
+}
+
+.ql-bg-yellow {
+  background-color: #ff0;
+}
+
+.ql-bg-green {
+  background-color: #008a00;
+}
+
+.ql-bg-blue {
+  background-color: #06c;
+}
+
+.ql-bg-purple {
+  background-color: #93f;
+}
+
+.ql-color-white {
+  color: #fff;
+}
+
+.ql-color-red {
+  color: #e60000;
+}
+
+.ql-color-orange {
+  color: #f90;
+}
+
+.ql-color-yellow {
+  color: #ff0;
+}
+
+.ql-color-green {
+  color: #008a00;
+}
+
+.ql-color-blue {
+  color: #06c;
+}
+
+.ql-color-purple {
+  color: #93f;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-justify {
+  text-align: justify;
+}
+
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-list {
+  list-style: auto;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  padding-left: 1.5em;
+}
+
+.chapter-content ul {
+  list-style: disc;
+}
+
+.chapter-content ol li {
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-increment: list-0;
+}
+
+.chapter-content ol li:before {
+  content: counter(list-0, decimal) ". ";
+}
+
+.chapter-content ul > li::before {
+  content: "\2022";
+}
+
+.chapter-content ol > li,
+.chapter-content ul > li {
+  list-style-type: none;
+}
+
+.chapter-content li:not(.ql-direction-rtl)::before {
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+}
+
+.chapter-content ol li.ql-indent-1 {
+  counter-increment: list-1;
+}
+
+.chapter-content ol li.ql-indent-1:before {
+  content: counter(list-1, lower-alpha) ". ";
+}
+
+.chapter-content ol li.ql-indent-1 {
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-2 {
+  counter-increment: list-2;
+}
+
+.chapter-content ol li.ql-indent-2:before {
+  content: counter(list-2, lower-roman) ". ";
+}
+
+.chapter-content ol li.ql-indent-2 {
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-3 {
+  counter-increment: list-3;
+}
+
+.chapter-content ol li.ql-indent-3:before {
+  content: counter(list-3, decimal) ". ";
+}
+
+.chapter-content ol li.ql-indent-3 {
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-4 {
+  counter-increment: list-4;
+}
+
+.chapter-content ol li.ql-indent-4:before {
+  content: counter(list-4, lower-alpha) ". ";
+}
+
+.chapter-content ol li.ql-indent-4 {
+  counter-reset: list-5 list-6 list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-5 {
+  counter-increment: list-5;
+}
+
+.chapter-content ol li.ql-indent-5:before {
+  content: counter(list-5, lower-roman) ". ";
+}
+
+.chapter-content ol li.ql-indent-5 {
+  counter-reset: list-6 list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-6 {
+  counter-increment: list-6;
+}
+
+.chapter-content ol li.ql-indent-6:before {
+  content: counter(list-6, decimal) ". ";
+}
+
+.chapter-content ol li.ql-indent-6 {
+  counter-reset: list-7 list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-7 {
+  counter-increment: list-7;
+}
+
+.chapter-content ol li.ql-indent-7:before {
+  content: counter(list-7, lower-alpha) ". ";
+}
+
+.chapter-content ol li.ql-indent-7 {
+  counter-reset: list-8 list-9;
+}
+
+.chapter-content ol li.ql-indent-8 {
+  counter-increment: list-8;
+}
+
+.chapter-content ol li.ql-indent-8:before {
+  content: counter(list-8, lower-roman) ". ";
+}
+
+.chapter-content ol li.ql-indent-8 {
+  counter-reset: list-9;
+}
+
+.chapter-content ol li.ql-indent-9 {
+  counter-increment: list-9;
+}
+
+.chapter-content ol li.ql-indent-9:before {
+  content: counter(list-9, decimal) ". ";
+}
+
+.chapter-content .ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+
+.chapter-content li.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 4.5em;
+}
+
+.chapter-content .ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 3em;
+}
+
+.chapter-content li.ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 4.5em;
+}
+
+.chapter-content .ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+
+.chapter-content li.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 7.5em;
+}
+.chapter-content .ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 6em;
+}
+
+.chapter-content li.ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 7.5em;
+}
+
+.chapter-content .ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 9em;
+}
+
+.chapter-content li.ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 10.5em;
+}
+
+.chapter-content .ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 9em;
+}
+
+.chapter-content li.ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 10.5em;
+}
+
+.chapter-content .ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 12em;
+}
+
+.chapter-content li.ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 13.5em;
+}
+
+.chapter-content .ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 12em;
+}
+
+.chapter-content li.ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 13.5em;
+}
+
+.chapter-content .ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 15em;
+}
+
+.chapter-content li.ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 16.5em;
+}
+
+.chapter-content .ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 15em;
+}
+
+.chapter-content li.ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 16.5em;
+}
+
+.chapter-content .ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+
+.chapter-content li.ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 19.5em;
+}
+
+.chapter-content .ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 18em;
+}
+
+.chapter-content li.ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 19.5em;
+}
+
+.chapter-content .ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 21em;
+}
+
+.chapter-content li.ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 22.5em;
+}
+
+.chapter-content .ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 21em;
+}
+
+.chapter-content li.ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 22.5em;
+}
+
+.chapter-content .ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 24em;
+}
+
+.chapter-content li.ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 25.5em;
+}
+
+.chapter-content .ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 24em;
+}
+
+.chapter-content li.ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 25.5em;
+}
+
+.chapter-content .ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 27em;
+}
+
+.chapter-content li.ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 28.5em;
+}
+
+.chapter-content .ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 27em;
+}
+
+.chapter-content li.ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 28.5em;
+}
+
+.ql-link {
+  text-decoration: underline;
+  color: #a855f7;
+}
+
+.ql-warning {
+  display: block;
+  width: 100%;
+  background-color: rgb(200, 52, 52);
+  padding: 5px;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.ql-important {
+  display: block;
+  width: 100%;
+  background-color: yellow;
+  padding: 5px;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.ql-exercise {
+  display: block;
+  width: 100%;
+  background-color: #008a00;
+  padding: 5px;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/*** responsive ***/
+
+@media (min-width: 475px) {
+  .container {
+    min-width: 475px;
+    max-width: unset;
+  }
+}
 
 @media (max-width: 767px) {
   h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 19px;
+  }
+
+  h4 {
+    font-size: 18px;
   }
 }
 
@@ -102,10 +533,31 @@ li {
   --swiper-preloader-color: #a855f7 !important;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .swiper-button-prev,
   .swiper-button-next {
-    transform: none;
+    transform: translateY(30%);
+  }
+}
+
+@media (max-width: 1100px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: translateY(10%);
+  }
+}
+
+@media (max-width: 1023px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: translateY(50%);
+  }
+}
+
+@media (max-width: 800px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: translateY(30%);
   }
 }
 
@@ -113,6 +565,7 @@ li {
   .swiper-button-prev::after,
   .swiper-button-next::after {
     font-size: 34px;
+    transform: none;
   }
 }
 

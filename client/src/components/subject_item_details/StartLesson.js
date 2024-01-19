@@ -14,7 +14,6 @@ const StartLesson = ({ subjectDetails }) => {
   const { data: accessStatus } = useGetAccessStatusQuery(subject_id);
   const [addAccess] = useAddAccessMutation();
   const navigate = useNavigate();
-
   const accessHandler = () => {
     addAccess({
       user_id: user?.user_id,
@@ -52,7 +51,8 @@ const StartLesson = ({ subjectDetails }) => {
               className="w-full bg-purple-500 px-2 py-2 text-[14px] font-medium text-white"
               disabled={
                 accessStatus?.status === "accepted" ||
-                accessStatus?.status === "pending"
+                accessStatus?.status === "pending" ||
+                accessStatus?.status === "rejected"
               }
               onClick={
                 authenticated

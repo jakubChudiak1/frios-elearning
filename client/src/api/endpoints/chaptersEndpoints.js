@@ -9,8 +9,18 @@ export const chapterApi = apiSlice.injectEndpoints({
       query: ({ subjectId, chapterId }) =>
         `chapters/${subjectId}/chapter/${chapterId}`,
     }),
+    updateChaptersContent: build.mutation({
+      query: ({ chapterId, ...chapter }) => ({
+        url: `chapters/chapter/${chapterId}`,
+        method: "PATCH",
+        body: chapter,
+      }),
+    }),
   }),
 });
 
-export const { useGetSubjectChaptersQuery, useGetChaptersContentQuery } =
-  chapterApi;
+export const {
+  useGetSubjectChaptersQuery,
+  useGetChaptersContentQuery,
+  useUpdateChaptersContentMutation,
+} = chapterApi;

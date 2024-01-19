@@ -12,7 +12,6 @@ const UserProfileImage = ({ user, handleMenuClick }) => {
   );
 
   const userMenuHandler = () => {
-    console.log(userMenu);
     setUserMenu(!userMenu);
   };
   return (

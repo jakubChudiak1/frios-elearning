@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "react-quill/dist/quill.snow.css";
-import { useAuth } from "./context/authContext";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import MainLayout from "./layout/main_layout/MainLayout";
 import ChapterLayout from "./layout/chapter_layout/ChapterLayout";
-import { useLocation } from "react-router-dom";
 import WebFont from "webfontloader";
 import { useAddSubjectMutation } from "./api/endpoints/subjectsEndpoints";
 import RequireAccess from "./components/protected_routes/RequireAccess";
 import { mainLayoutRoutes } from "./routes/mainLayoutRoutes";
+import { chapterLayoutRoutes } from "./routes/chapterLayoutRoutes";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./assets/css/style.css";
 import "./assets/js/script";
-import { chapterLayoutRoutes } from "./routes/chapterLayoutRoutes";
-
+import "./assets/css/quill.styles.css";
+import "highlight.js/styles/default.css";
 const App = () => {
   const [addSubject] = useAddSubjectMutation();
-  const { user, authenticated, setAuthenticated } = useAuth();
   const location = useLocation();
   const [userData, setUserData] = useState({
     email: "",
@@ -29,7 +26,6 @@ const App = () => {
     is_public: false,
     image_path: "",
   });
-
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -85,9 +81,10 @@ const App = () => {
             ))}
           </Route>
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-
-      {/*   <div>
+      {/* 
+      <div>
         <h1>Create a Subject</h1>
         <form onSubmit={handleFormSubmit}>
           <div>

@@ -12,6 +12,7 @@ import Users from "../pages/admin/Users";
 import MySubjects from "../pages/user/MySubjects";
 import SubjectDetails from "../pages/default/SubjectDetails";
 import MyRequests from "../pages/user/MyRequests";
+import Requests from "../pages/teacher/Requests";
 
 export const mainLayoutRoutes = [
   {
@@ -70,7 +71,7 @@ export const mainLayoutRoutes = [
     id: 9,
     path: "/users",
     element: (
-      <RequireRole roleId={1}>
+      <RequireRole roles={[1, 2]}>
         <Users />
       </RequireRole>
     ),
@@ -91,6 +92,15 @@ export const mainLayoutRoutes = [
       <RequireAuth>
         <MyRequests />
       </RequireAuth>
+    ),
+  },
+  {
+    id: 12,
+    path: "requests",
+    element: (
+      <RequireRole roles={[1, 2]}>
+        <Requests />
+      </RequireRole>
     ),
   },
 ];

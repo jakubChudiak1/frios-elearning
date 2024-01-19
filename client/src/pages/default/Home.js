@@ -13,12 +13,13 @@ const Home = () => {
   const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
   const { data: categories } = useGetCategoriesListQuery();
   const { data: usersSubjects } = useGetUsersSubjectsByStatusQuery("accepted");
-  console.log(publicSubjects);
   return (
     <Section>
       <CategoryList categories={categories} />
       {authenticated && usersSubjects?.length > 0 && (
-        <SubjectList subjects={usersSubjects} text={"moje predmety"} />
+        <div>
+          <SubjectList subjects={usersSubjects} text={"moje predmety"} />
+        </div>
       )}
       <SubjectList subjects={publicSubjects} text={"verejné predmety"} />
       <SubjectList subjects={privateSubjects} text={"súkromné predmety"} />

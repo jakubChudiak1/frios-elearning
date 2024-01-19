@@ -15,9 +15,9 @@ const ChapterMenuItem = ({
   return (
     <>
       <div
-        className={`border-b-[1px] border-[lightgray] ${
+        className={`border-b-[1px] border-[lightgray] pr-2 ${
           chapter?.main_chapter == null ? "bg-gray-50" : "bg-white"
-        } ${`px-${depth}`} py-4 font-semibold hover:bg-gray-100`}
+        } py-4 pl-[10px] font-semibold hover:bg-gray-100`}
       >
         <Link
           to={`/${subject_id}/chapter/${chapter?.chapter_id}`}
@@ -29,16 +29,18 @@ const ChapterMenuItem = ({
           <div className="flex justify-between gap-1">
             <h3
               className={`${
-                chapter?.main_chapter == null ? "text-[16px]" : " text-[14px]"
-              } capitalize`}
+                chapter?.main_chapter == null ? "text-[14px]" : " text-[12px]"
+              } flex gap-1 capitalize `}
             >
-              <span>{parentIndex}</span>
               <span>
-                {`${index ? `.${index}` : ""}`} {`${chapter?.name}`}
+                {parentIndex}.{`${index ? `${index}` : ""}`}
               </span>
+              <span>{`${chapter?.name}`}</span>
             </h3>
             <div
-              className={`transition-transform ${opened ? "rotate-180" : ""}`}
+              className={`self-baseline transition-transform ${
+                opened ? "rotate-180" : ""
+              }`}
             >
               {chapter?.sideChapters && chapter?.sideChapters?.length > 0 && (
                 <KeyboardArrowDown />

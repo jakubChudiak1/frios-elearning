@@ -44,5 +44,16 @@ class Chapter {
       throw new Error(error);
     }
   }
+
+  static async updateChaptersContent(chapterId, chapter) {
+    try {
+      const { content } = chapter;
+      const query = "UPDATE chapters SET content = ? WHERE chapter_id = ?";
+      const newContent = await db.query(query, [content, chapterId]);
+      return newContent;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 export default Chapter;

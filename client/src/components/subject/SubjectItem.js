@@ -32,11 +32,11 @@ const SubjectItem = ({ subject, loader }) => {
           {hovered && <Overlay />}
         </div>
 
-        <div className="flex flex-col pt-2">
+        <div className="flex flex-col pt-2 capitalize">
           <h3 className="break-words text-[16px] font-semibold capitalize">
             {subject.subjects_name}
           </h3>
-          <p className="pt-1 text-[12px]">{subject.creators_name}</p>
+          <p className=" text-[12px]">{subject.creators_name}</p>
           <div className="flex justify-between">
             <p className="capitalize">Počet kapitol</p>
             <p>{subject.chapter_count}</p>

@@ -12,30 +12,14 @@ const ChapterLayout = () => {
   const { authenticated, user, loading } = useAuth();
   const { subject_id } = useParams();
   const { data: chapters } = useGetSubjectChaptersQuery(subject_id);
-  const [sidebar, setSidebar] = useState(
-    localStorage.getItem("sidebar") === "true",
-  );
+  const [sidebar, setSidebar] = useState(true);
   const sideBarHandler = () => {
     setSidebar((prev) => !prev);
-    localStorage.setItem("sidebar", !sidebar);
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth < 1024) {
-        localStorage.setItem("sidebar", setSidebar(false));
-        localStorage.setItem("sidebar", false);
-      } else {
-        localStorage.setItem("sidebar", setSidebar(true));
-        localStorage.setItem("sidebar", true);
-      }
-    });
-  }, []);
 
   if (loading) {
     return <></>;
   }
-  console.log(sidebar);
   return (
     <div className=" flex flex-col ">
       <ChapterNavbar authenticated={authenticated} user={user} />
@@ -46,13 +30,14 @@ const ChapterLayout = () => {
       >
         <Outlet />
       </main>
-      {sidebar ? (
-        <ChapterSideBar
-          chapters={chapters}
-          sidebar={sidebar}
-          sideBarHandler={sideBarHandler}
-        />
-      ) : (
+      {
+        sidebar ? (
+          <ChapterSideBar
+            chapters={chapters}
+            sidebar={sidebar}
+            sideBarHandler={sideBarHandler}
+          />
+        ) : null /*  (
         <motion.div
           className="absolute right-5 top-[13%] z-[1000] flex cursor-pointer items-center text-[#a855f7]"
           onClick={sideBarHandler}
@@ -63,7 +48,8 @@ const ChapterLayout = () => {
           <p className="hidden md:block">Otvoriť</p>
           <ArrowForwardIos fontSize="large" />
         </motion.div>
-      )}
+      ) */
+      }
       <Footer />
     </div>
   );

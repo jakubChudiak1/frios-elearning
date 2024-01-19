@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchForm from "../../components/search_form/SearchForm";
 import UserProfileImage from "../../components/user_profile/UserProfileImage";
+import { useMediaQuery } from "react-responsive";
+
 const Navbar = ({ authenticated, user }) => {
   return (
     <header className="relative w-full pb-1 pt-5">

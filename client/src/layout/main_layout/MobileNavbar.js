@@ -8,10 +8,12 @@ import MobileSideBar from "./MobileSideBar";
 import SearchForm from "../../components/search_form/SearchForm";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 const MobileNavbar = ({ authenticated, user, activeMenu }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toggled, setToggled] = useState(false);
+  const showSearchBar = useMediaQuery({ query: "max-width:768px" });
 
   const sidebarRef = useOnclickOutside(
     () => {

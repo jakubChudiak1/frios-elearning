@@ -18,7 +18,7 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
     <div
       className={`${
         userMenu ? "block" : "hidden"
-      } absolute right-0 top-[100%] z-[1000] mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
+      } absolute right-0 top-[100%] z-[5000] mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
       ref={ref}
     >
       <div className="flex flex-col">

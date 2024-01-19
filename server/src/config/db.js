@@ -1,4 +1,3 @@
-// db.js
 import mariadb from "mariadb";
 import dotenv from "dotenv";
 

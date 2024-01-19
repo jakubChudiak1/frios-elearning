@@ -21,6 +21,7 @@ class Access {
       throw new Error(error);
     }
   }
+
   static async getAccessByStatus(status) {
     try {
       const query =
@@ -42,11 +43,33 @@ class Access {
     }
   }
 
+  static async getEditableSubjects(userId) {
+    try {
+      const query =
+        "SELECT a.access_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? AND editable = TRUE GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
+      const results = await db.query(query, userId);
+      return results;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async getUsersSubjectsByStatus(userId, status) {
     try {
       const query =
         "SELECT a.access_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? and a.status = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
       const results = await db.query(query, [userId, status]);
+      return results;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async getUsersRequests(userId) {
+    try {
+      const query =
+        "SELECT a.access_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(uc.name, ' ', uc.surname) AS creators_name,CONCAT(u.name, ' ', u.surname) AS users_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users uc ON s.user_id = uc.user_id LEFT JOIN accesses a ON s.subject_id = a.subject_id LEFT JOIN users u ON u.user_id = a.user_id  WHERE s.user_Id = ? AND a.status = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
+      const results = await db.query(query, [userId, "pending"]);
       return results;
     } catch (error) {
       throw new Error(error);
