@@ -830,7 +830,7 @@
     monospace;
 }
 .ql-snow .ql-picker.ql-size {
-  width: 98px;
+  width: 50px;
 }
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item::before {
@@ -980,23 +980,23 @@
 .ql-editor .ql-warning {
   display: block;
   width: 100%;
-  background-color: rgb(232, 52, 52);
-  padding: 5px;
+  background-color: rgb(229, 92, 92);
+  padding: 8px 5px;
   margin: 5px 0;
 }
 
 .ql-editor .ql-important {
   display: block;
   width: 100%;
-  background-color: yellow;
-  padding: 5px;
+  background-color: rgb(247, 247, 61);
+  padding: 8px 5px;
   margin: 5px 0;
 }
 
 .ql-editor .ql-exercise {
   display: block;
   width: 100%;
-  background-color: #008a00;
-  padding: 5px;
+  background-color: #3fa63f;
+  padding: 8px 5px;
   margin: 5px 0;
 }

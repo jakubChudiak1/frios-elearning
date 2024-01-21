@@ -41,7 +41,7 @@ export const subjectsApi = apiSlice.injectEndpoints({
     }),
     updateSubject: build.mutation({
       query: ({ subjectId, ...subject }) => ({
-        url: `/subjects/update-subject/${subjectId}`,
+        url: `subjects/update-subject/${subjectId}`,
         method: "PATCH",
         body: subject,
       }),

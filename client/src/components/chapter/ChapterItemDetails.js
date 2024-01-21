@@ -13,9 +13,9 @@ const ChapterItemDetails = ({ chapterDetails }) => {
 
       <Editor data={chapterDetails?.content} />
 
-      {/* <div className="chapter-content mr-5 pt-2">
+      <div className="chapter-content mr-5 pt-2">
         {HtmlParser(chapterDetails?.content)}
-      </div> */}
+      </div>
     </div>
   );
 };

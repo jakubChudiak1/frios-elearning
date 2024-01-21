@@ -7,7 +7,7 @@ const Requests = () => {
   console.log(usersRequests);
   return (
     <Section>
-      <RequestList usersRequests={usersRequests} />
+      <RequestList usersRequests={usersRequests} header={"žiadosti"} />
     </Section>
   );
 };

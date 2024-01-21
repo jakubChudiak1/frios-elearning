@@ -9,7 +9,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import ErrorMessage from "../UI/ErrorMessage";
 import Label from "../UI/Label";
 import { useSigninMutation } from "../../api/endpoints/authEndpoints";
-//https://stackoverflow.com/questions/69280351/redux-rtk-query-invalidatestags-not-called-after-mutation
+
 const SignInForm = () => {
   const [signin, { error }] = useSigninMutation();
   const [errorMessage, setErrorMessage] = useState();

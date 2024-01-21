@@ -8,7 +8,7 @@ const MyRequests = () => {
 
   return (
     <Section>
-      <RequestList usersRequests={usersRequests} />
+      <RequestList usersRequests={usersRequests} header={"moje žiadosti"} />
     </Section>
   );
 };

@@ -466,7 +466,7 @@ li {
   display: block;
   width: 100%;
   background-color: rgb(200, 52, 52);
-  padding: 5px;
+  padding: 8px 5px;
   font-size: 14px;
   margin: 5px 0;
 }
@@ -475,7 +475,7 @@ li {
   display: block;
   width: 100%;
   background-color: yellow;
-  padding: 5px;
+  padding: 8px 5px;
   font-size: 14px;
   margin: 5px 0;
 }
@@ -484,7 +484,7 @@ li {
   display: block;
   width: 100%;
   background-color: #008a00;
-  padding: 5px;
+  padding: 8px 5px;
   font-size: 14px;
   margin: 5px 0;
 }

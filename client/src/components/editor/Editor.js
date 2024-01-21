@@ -20,7 +20,7 @@ const Editor = ({ data }) => {
   const updateChaptersDataHandler = async () => {
     await updateChaptersContent({ chapterId: chapter_id, content: datas });
   };
-  console.log(datas);
+
   return (
     <div className="relative flex h-full w-full flex-col">
       <Toolbar submitData={updateChaptersDataHandler} />
