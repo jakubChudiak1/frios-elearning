@@ -7,8 +7,11 @@ import Input from "../UI/Input";
 import Button from "../UI/Button";
 import ErrorMessage from "../UI/ErrorMessage";
 import Label from "../UI/Label";
+import { useSignupMutation } from "../../api/endpoints/authEndpoints";
 
 const SignUpForm = () => {
+  const [signup] = useSignupMutation();
+
   const signupForm = useFormik({
     initialValues: {
       name: "",
@@ -27,10 +30,8 @@ const SignUpForm = () => {
         .required("password is required"),
     }),
     onSubmit: async (values) => {
-      console.log(values);
       try {
-        const response = await axios.post("/auth/signup", values);
-        console.log(response);
+        await signup(values);
         signupForm.resetForm();
       } catch (error) {
         console.error(error);

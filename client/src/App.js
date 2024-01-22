@@ -3,7 +3,6 @@ import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import MainLayout from "./layout/main_layout/MainLayout";
 import ChapterLayout from "./layout/chapter_layout/ChapterLayout";
 import WebFont from "webfontloader";
-import { useAddSubjectMutation } from "./api/endpoints/subjectsEndpoints";
 import RequireAccess from "./components/protected_routes/RequireAccess";
 import { mainLayoutRoutes } from "./routes/mainLayoutRoutes";
 import { chapterLayoutRoutes } from "./routes/chapterLayoutRoutes";

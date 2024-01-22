@@ -6,6 +6,8 @@ import { useAuth } from "../../context/authContext";
 import { useGetSubjectsByStatusQuery } from "../../api/endpoints/subjectsEndpoints";
 import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
 import { useGetUsersSubjectsByStatusQuery } from "../../api/endpoints/accessesEndpoints";
+import AddSubjectForm from "../../components/subject/AddSubjectForm";
+import PageOverlay from "../../components/UI/PageOverlay";
 
 const Home = () => {
   const { authenticated } = useAuth();
@@ -13,6 +15,7 @@ const Home = () => {
   const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
   const { data: categories } = useGetCategoriesListQuery();
   const { data: usersSubjects } = useGetUsersSubjectsByStatusQuery("accepted");
+
   return (
     <Section>
       <CategoryList categories={categories} />

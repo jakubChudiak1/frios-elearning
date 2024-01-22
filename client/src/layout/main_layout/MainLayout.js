@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import GlobalLoading from "../../components/global-loading/GlobalLoading";
 import MobileNavbar from "./MobileNavbar";
 import { useMediaQuery } from "react-responsive";
+import PageOverlay from "../../components/UI/PageOverlay";
 
 const MainLayout = () => {
   const { user, authenticated, loading } = useAuth();
