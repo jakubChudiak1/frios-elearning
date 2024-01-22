@@ -17,5 +17,7 @@ Editácia obsahu predmetu
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/45e8435c-0f29-42d0-a7e4-54dac1b8d0c2)
 Žiadosti o prístup
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/74acd7b6-f956-4dca-8f35-a61a680741da)
+Dátovy model
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/005a8c9b-1afe-404b-89ac-3a48a23cad1c)
 
 
