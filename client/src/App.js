@@ -13,38 +13,7 @@ import "./assets/js/script";
 import "./assets/css/quill.styles.css";
 import "highlight.js/styles/default.css";
 const App = () => {
-  const [addSubject] = useAddSubjectMutation();
   const location = useLocation();
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-  });
-  const [subjectData, setSubjectData] = useState({
-    category_id: "",
-    subject_code: "",
-    name: "",
-    is_public: false,
-    image_path: "",
-  });
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("category_id", subjectData.category_id);
-    formData.append("subject_code", subjectData.subject_code);
-    formData.append("name", subjectData.name);
-    formData.append("is_public", subjectData.is_public ? 1 : 0);
-
-    if (file) {
-      formData.append("upload", file);
-    }
-    addSubject(formData);
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,59 +52,6 @@ const App = () => {
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {/* 
-      <div>
-        <h1>Create a Subject</h1>
-        <form onSubmit={handleFormSubmit}>
-          <div>
-            <label>Category ID:</label>
-            <input
-              type="number"
-              value={subjectData.category_id}
-              onChange={(e) =>
-                setSubjectData({ ...subjectData, category_id: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <label>Subject Code:</label>
-            <input
-              type="text"
-              value={subjectData.subject_code}
-              onChange={(e) =>
-                setSubjectData({ ...subjectData, subject_code: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              value={subjectData.name}
-              onChange={(e) =>
-                setSubjectData({ ...subjectData, name: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <label>Is Public:</label>
-            <input
-              type="checkbox"
-              checked={subjectData.is_public}
-              onChange={(e) =>
-                setSubjectData({ ...subjectData, is_public: e.target.checked })
-              }
-            />
-          </div>
-          <div>
-            <label>Upload Image:</label>
-            <input type="file" onChange={handleFileChange} />
-          </div>
-          <div>
-            <button type="submit">Create Subject</button>
-          </div>
-        </form>
-      </div> */}
     </>
   );
 };

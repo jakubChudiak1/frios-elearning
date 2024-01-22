@@ -31,7 +31,6 @@ Size.whitelist = [
 ];
 const ColorClass = Quill.import("attributors/class/color");
 const BackgroundClass = Quill.import("attributors/class/background");
-const Parchment = Quill.import("parchment");
 
 export const register = () => {
   Quill.register(Link, true);
@@ -49,15 +48,4 @@ export const register = () => {
   Quill.register(WarningFormat, true);
   Quill.register(ExerciseFormat, true);
   Quill.register(ImageFormat, true);
-  Quill.register(
-    new Parchment.Attributor.Style("display", "display", {
-      whitelist: ["inline"],
-    }),
-  );
-  Quill.register(
-    new Parchment.Attributor.Style("float", "float", {
-      whitelist: ["left", "right", "center"],
-    }),
-  );
-  Quill.register(new Parchment.Attributor.Style("margin", "margin", {}));
 };

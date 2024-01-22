@@ -11,7 +11,7 @@ const ChapterItemDetails = ({ chapterDetails }) => {
       <ArrowBack link={`/subject/${subject_id}`} />
       <h2 className="capitalize">{chapterDetails?.name}</h2>
 
-      <Editor data={chapterDetails?.content} />
+      {/*  <Editor data={chapterDetails?.content} /> */}
 
       <div className="chapter-content mr-5 pt-2">
         {HtmlParser(chapterDetails?.content)}
