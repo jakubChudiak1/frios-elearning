@@ -11,6 +11,8 @@ Použivateľove žiadosti
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/371b1b53-f02d-4783-a002-5418e33762ab)
 Použivateľove predmety
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/980ac42f-b9a0-4b85-98c2-cdab844e8d43)
+Obsah predmetu
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/700dcad2-6796-4e86-869b-28a8b156e629)
 Editácia obsahu predmetu
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/45e8435c-0f29-42d0-a7e4-54dac1b8d0c2)
 Žiadosti o prístup
