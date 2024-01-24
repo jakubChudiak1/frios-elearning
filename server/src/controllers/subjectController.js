@@ -20,8 +20,8 @@ class SubjectController {
     try {
       const { is_public } = req.query;
       const subjects = await Subject.getSubjectsByStatus(is_public);
-      console.log("not fetchedd");
-      await redisClient.setEx(req.originalUrl, 3600, JSON.stringify(subjects));
+      /* console.log("not fetchedd");
+      await redisClient.setEx(req.originalUrl, 3600, JSON.stringify(subjects)); */
       res.json(subjects);
     } catch (error) {
       console.log(error);
@@ -93,7 +93,9 @@ class SubjectController {
 
   static async createSubject(req, res) {
     try {
-      const { category_id, subject_code, name, is_public } = req.body;
+      console.log(req.body);
+      const { category_id, subject_code, name, is_public, description } =
+        req.body;
       const user_id = req.session.user_id;
       const admins = await User.getUsersByRole(1);
       let image_path = null;
@@ -112,6 +114,7 @@ class SubjectController {
           name,
           is_public,
           image_path,
+          description,
         });
         const subject_id = Number(newSubject);
         await Access.createAccess({
@@ -144,13 +147,16 @@ class SubjectController {
     try {
       const { subject_id } = req.params;
       const image = await Subject.getSubjectById(subject_id);
+
       if (
+        image &&
         image.image_path &&
         fs.existsSync(`public/images/${image.image_path}`)
       ) {
         console.log(image.image_path);
         fs.unlinkSync(`public/images/${image.image_path}`);
       }
+
       const subject = await Subject.deleteSubject(subject_id);
       res.status(201).json({ message: "Subject deleted successfully" });
     } catch (error) {
@@ -160,12 +166,16 @@ class SubjectController {
 
   static async updateSubject(req, res) {
     try {
-      const { subject_code, name, is_public } = req.body;
+      const { category_id, subject_code, name, is_public, description } =
+        req.body;
+      console.log("body", req.body);
       const { subject_id } = req.params;
       const updatedSubject = await Subject.updateSubject(subject_id, {
+        category_id,
         subject_code,
         name,
         is_public,
+        description,
       });
       res.status(201).json({ message: "Subject updated successfully" });
     } catch (error) {

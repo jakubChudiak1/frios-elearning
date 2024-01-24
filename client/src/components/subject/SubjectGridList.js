@@ -6,7 +6,7 @@ import ArrowBack from "../UI/ArrowBack";
 const SubjectGridList = ({ subjects, text }) => {
   return (
     <>
-      <ArrowBack link={"/"} />
+      <ArrowBack link={"/"} showed={"hidden"} />
       {subjects && (
         <Grid text={text}>
           {subjects?.map((subject) => (

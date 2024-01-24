@@ -8,6 +8,7 @@ const Input = (props) => {
       type={props.type}
       onBlur={props.onBlur}
       onChange={props.onChange}
+      checked={props.checked}
       value={props.value}
     />
   );

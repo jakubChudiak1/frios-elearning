@@ -7,7 +7,7 @@ const SubjectItemDetails = ({ subjectDetails }) => {
       {subjectDetails && (
         <div className="relative">
           <div className=" z-10 flex flex-col">
-            <ArrowBack link={"/"} />
+            <ArrowBack link={"/"} showed={"hidden"} />
             <h2 className="uppercase">{subjectDetails?.name}</h2>
             <div className="my-2 flex flex-col items-baseline gap-3 capitalize sm:flex-row sm:items-center">
               <div className="flex items-center gap-1">
@@ -23,7 +23,9 @@ const SubjectItemDetails = ({ subjectDetails }) => {
                 <p>{subjectDetails?.chapter_count}</p>
               </div>
             </div>
-            <p className="break-words">{subjectDetails?.description}</p>
+            <p className="whitespace-pre break-words">
+              {subjectDetails?.description}
+            </p>
             <StartLesson subjectDetails={subjectDetails} />
           </div>
         </div>

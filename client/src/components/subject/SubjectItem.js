@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import apiConfig from "../../config/api.config";
 import { Link } from "react-router-dom";
 import Overlay from "../UI/Overlay";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import SubjectModification from "./SubjectModification";
+import { useSelector } from "react-redux";
 const SubjectItem = ({ subject, loader }) => {
+  const { editModeState } = useSelector((state) => state.editModeState);
   const [hovered, setHovered] = useState(false);
-
   const handleMouseEnter = () => {
     setHovered(true);
   };
@@ -20,7 +21,7 @@ const SubjectItem = ({ subject, loader }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link to={`/subject/${subject.subject_id}`}>
+      <Link to={`/subject/${subject?.subject_id}`}>
         <div className="relative aspect-[1/.5] w-full overflow-hidden">
           <img
             loading="lazy"
@@ -30,6 +31,12 @@ const SubjectItem = ({ subject, loader }) => {
           />
           {loader && <div className="swiper-lazy-preloader"></div>}
           {hovered && <Overlay />}
+          {editModeState && (
+            <SubjectModification
+              subject_id={subject.subject_id}
+              subject={subject}
+            />
+          )}
         </div>
 
         <div className="flex flex-col pt-2 capitalize">

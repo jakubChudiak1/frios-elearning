@@ -8,10 +8,10 @@ const ChapterItemDetails = ({ chapterDetails }) => {
   console.log(chapterDetails?.content);
   return (
     <div className="flex flex-col">
-      <ArrowBack link={`/subject/${subject_id}`} />
+      <ArrowBack link={`/subject/${subject_id}`} showed={"block"} />
       <h2 className="capitalize">{chapterDetails?.name}</h2>
 
-      {/*  <Editor data={chapterDetails?.content} /> */}
+      <Editor data={chapterDetails?.content} />
 
       <div className="chapter-content mr-5 pt-2">
         {HtmlParser(chapterDetails?.content)}

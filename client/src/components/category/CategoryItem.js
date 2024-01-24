@@ -9,7 +9,7 @@ const CategoryItem = ({ category }) => {
 
   return (
     <div
-      className="cursor-pointer whitespace-nowrap rounded-lg bg-gray-100 px-3 py-2  hover:bg-gray-200"
+      className="cursor-pointer  whitespace-nowrap rounded-lg bg-gray-100 px-3 py-2 capitalize  hover:bg-gray-200"
       onClick={categoryHandler}
     >
       {category?.name}

@@ -1,9 +1,9 @@
 import React from "react";
 import UserProfileImage from "./UserProfileImage";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSignoutMutation } from "../../api/endpoints/authEndpoints";
-import { useSelector } from "react-redux";
+import EditModeButton from "./EditModeButton";
+
 const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
   const navigate = useNavigate();
   const [signout] = useSignoutMutation();
@@ -11,14 +11,12 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
     signout();
     setUserMenu(false);
     navigate("/");
-    localStorage.removeItem("openedChapters");
   };
-
   return (
     <div
       className={`${
         userMenu ? "block" : "hidden"
-      } absolute right-0 top-[100%] z-[5000] mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
+      } absolute right-0 top-[100%] z-[10000] mt-3 h-[300px] w-[200px] border border-gray-200 bg-white `}
       ref={ref}
     >
       <div className="flex flex-col">
@@ -33,6 +31,7 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
               <p className="text-[12px]">{user?.role_name}</p>
             </div>
           </div>
+          {(user?.id_role === 1 || user?.id_role === 2) && <EditModeButton />}
           <p className="cursor-pointer" onClick={signoutHandler}>
             Sign out
           </p>

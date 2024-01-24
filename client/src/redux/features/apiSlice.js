@@ -19,6 +19,7 @@ export const apiSlice = createApi({
     "UNKNOWN_ERROR",
     "Accesses",
     "Files",
+    "Categories",
   ],
   endpoints: () => ({}),
 });

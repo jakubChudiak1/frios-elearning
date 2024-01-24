@@ -46,9 +46,21 @@ class Access {
   static async getEditableSubjects(userId) {
     try {
       const query =
-        "SELECT a.access_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? AND editable = TRUE GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
+        "SELECT a.access_id,s.category_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? AND editable = TRUE GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
       const results = await db.query(query, userId);
       return results;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async getIsSubjectEditableByUser(userId, subjectId) {
+    try {
+      const query =
+        "SELECT access_id,subject_id,editable from accesses WHERE subject_id = ? AND user_id = ? AND editable = TRUE";
+      const results = await db.query(query, [subjectId, userId]);
+      console.log("isEitable:", results.length > 0);
+      return results.length > 0;
     } catch (error) {
       throw new Error(error);
     }
@@ -57,7 +69,7 @@ class Access {
   static async getUsersSubjectsByStatus(userId, status) {
     try {
       const query =
-        "SELECT a.access_id, s.subject_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? and a.status = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
+        "SELECT a.access_id, s.subject_id,s.category_id,s.subject_code, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? and a.status = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
       const results = await db.query(query, [userId, status]);
       return results;
     } catch (error) {

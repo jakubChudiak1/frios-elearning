@@ -12,24 +12,30 @@ export const subjectsApi = apiSlice.injectEndpoints({
     }),
     getSubjectById: build.query({
       query: (subjectId) => `subjects/${subjectId}`,
+      providesTags: ["Subjects"],
     }),
     getSubjectByName: build.query({
       query: (subjectName) => `subjects/name?name=${subjectName}`,
+      providesTags: ["Subjects"],
     }),
     getSubjectsByCreator: build.query({
       query: ({ userId, subjectId }) =>
         `subjects/creator?user_id=${userId}&subject_id=${subjectId}`,
+      providesTags: ["Subjects"],
     }),
     getRecommendedSubjects: build.query({
       query: ({ categoryName, subjectId }) =>
         `subjects/recommended?category_name=${categoryName}&subject_id=${subjectId}`,
+      providesTags: ["Subjects"],
     }),
     getSubjectsByCategory: build.query({
       query: (categoryName) =>
         `subjects/category?category_name=${categoryName}`,
+      providesTags: ["Subjects"],
     }),
     getSubjectByString: build.query({
       query: (str) => `subjects/search?q=${str}`,
+      providesTags: ["Subjects"],
     }),
     addSubject: build.mutation({
       query: (subject) => ({
@@ -45,12 +51,14 @@ export const subjectsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: subject,
       }),
+      invalidatesTags: ["Subjects"],
     }),
     deleteSubject: build.mutation({
       query: (subjectId) => ({
         url: `/subjects/delete-subject/${subjectId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Subjects"],
     }),
   }),
 });

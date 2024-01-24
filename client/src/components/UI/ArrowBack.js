@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { KeyboardBackspace } from "@mui/icons-material";
-const ArrowBack = ({ link }) => {
+const ArrowBack = ({ link, showed }) => {
   return (
-    <Link to={link} className="block cursor-pointer lg:hidden">
+    <Link to={link} className={`block cursor-pointer lg:${showed}`}>
       <motion.div
         className="flex items-center capitalize text-[#a855f7]"
         whileHover={{ x: -5 }}

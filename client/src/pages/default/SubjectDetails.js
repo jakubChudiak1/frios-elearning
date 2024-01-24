@@ -25,10 +25,12 @@ const SubjectDetails = () => {
       <ToastContainer />
       <Section>
         <SubjectItemDetails subjectDetails={subjectDetails} />
-        <SubjectList
-          subjects={subjectsByCategory}
-          text={"odporúčané predmety"}
-        />
+        {subjectsByCategory?.length > 0 && (
+          <SubjectList
+            subjects={subjectsByCategory}
+            text={"odporúčané predmety"}
+          />
+        )}
         {subjectsByCreator?.length > 0 && (
           <SubjectList
             subjects={subjectsByCreator}

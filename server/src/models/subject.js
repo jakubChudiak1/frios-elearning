@@ -4,7 +4,7 @@ class Subject {
   static async getSubjects() {
     try {
       const query =
-        "SELECT s.subject_id,s.subject_code, s.name AS subjects_name  , s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,s.subject_code, s.name AS subjects_name  , s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const result = await db.query(query);
       return result;
     } catch (error) {
@@ -15,7 +15,7 @@ class Subject {
   static async getSubjectsByStatus(isPublic) {
     try {
       const query =
-        "SELECT s.subject_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.is_public = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.is_public = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const result = await db.query(query, [isPublic]);
       return result;
     } catch (error) {
@@ -36,7 +36,7 @@ class Subject {
   static async getSubjectById(id) {
     try {
       const query =
-        "SELECT s.subject_id,s.subject_code, s.name,ca.name as category_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.backdrop_path,s.description,s.user_id FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE s.subject_id = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,s.subject_code, s.name,ca.name as category_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.backdrop_path,s.description,s.user_id FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE s.subject_id = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const result = await db.query(query, [id]);
       return result[0];
     } catch (error) {
@@ -47,7 +47,7 @@ class Subject {
   static async getSubjectsByString(str) {
     try {
       const query =
-        "SELECT s.subject_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path,CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.name LIKE ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path,CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.name LIKE ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const results = await db.query(query, [`%${str}%`]);
       return results;
     } catch (error) {
@@ -58,7 +58,7 @@ class Subject {
   static async getSubjectsByCreator(user_id, subject_id) {
     try {
       const query =
-        "SELECT s.subject_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.user_id = ? AND s.subject_id <> ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id WHERE s.user_id = ? AND s.subject_id <> ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const results = await db.query(query, [user_id, subject_id]);
       return results;
     } catch (error) {
@@ -69,7 +69,7 @@ class Subject {
   static async getSubjectsByCategory(category_name) {
     try {
       const query =
-        "SELECT s.subject_id,ca.name as category_name,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE ca.name = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,ca.name as category_name,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE ca.name = ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const results = await db.query(query, [category_name]);
       return results;
     } catch (error) {
@@ -80,7 +80,7 @@ class Subject {
   static async getRecommendedSubjects(category_name, subject_id) {
     try {
       const query =
-        "SELECT s.subject_id,ca.name as category_name,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE ca.name = ? AND s.subject_id <> ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
+        "SELECT s.subject_id,s.category_id,ca.name as category_name,s.subject_code, s.name AS subjects_name, s.is_public,s.image_path, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count,s.description FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN categories ca ON s.category_id = ca.category_id WHERE ca.name = ? AND s.subject_id <> ? GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path ORDER BY s.subject_id";
       const results = await db.query(query, [category_name, subject_id]);
       return results;
     } catch (error) {
@@ -97,9 +97,10 @@ class Subject {
         name,
         is_public,
         image_path,
+        description,
       } = subject;
       const query =
-        "INSERT INTO subjects (category_id,user_id,subject_code,name,is_public,image_path) VALUES (?,?,?,?,?,?)";
+        "INSERT INTO subjects (category_id,user_id,subject_code,name,is_public,image_path,description) VALUES (?,?,?,?,?,?,?)";
       const result = await db.query(query, [
         category_id,
         user_id,
@@ -107,6 +108,7 @@ class Subject {
         name,
         is_public,
         image_path,
+        description,
       ]);
       return result.insertId;
     } catch (error) {
@@ -114,12 +116,24 @@ class Subject {
     }
   }
 
-  static async updateSubject(id, subject) {
+  static async updateSubject(subjectId, subject) {
     try {
-      const { subject_code, name, is_public } = subject;
+      console.log("subjectId", subjectId);
+      const { category_id, subject_code, name, is_public, description } =
+        subject;
+      console.log("to update", subject);
       const query =
-        "UPDATE subjects SET subject_code = ?, name = ?, is_public = ? WHERE is_public = ?";
-      const result = await db.query(query, [subject_code, name, is_public, id]);
+        "UPDATE subjects SET category_id = ?, subject_code = ?, name = ?, is_public = ?,description=? WHERE subject_id = ?";
+      console.log("SQL Query:", query);
+      const result = await db.query(query, [
+        category_id,
+        subject_code,
+        name,
+        is_public,
+        description,
+        subjectId,
+      ]);
+      console.log(result);
       return result;
     } catch (error) {
       throw new Error(error);

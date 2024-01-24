@@ -25,7 +25,7 @@ const GlobalLoading = () => {
     <>
       {isLoading && (
         <div
-          className={`pointer-events-none fixed top-0 z-10 flex h-screen w-full items-center justify-center bg-white  md:top-[10%] md:w-full  lg:w-[calc(100%-140px)] 
+          className={`pointer-events-none fixed top-0 z-[10000] flex h-screen w-full items-center justify-center bg-white  md:top-[10%] md:w-full  lg:w-[calc(100%-140px)] 
       `}
         >
           <CircularProgress

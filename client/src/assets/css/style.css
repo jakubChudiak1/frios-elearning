@@ -84,6 +84,64 @@ input::file-selector-button {
   border-radius: 3px;
   background-color: #a855f7;
 }
+
+/*** add category button ***/
+.form input {
+  width: 100%;
+  height: 100%;
+  color: black;
+  border: none;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.form label {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid white;
+}
+
+.form label::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid #a855f7;
+  transform: translateX(-60%);
+  transition: all 0.3s ease;
+}
+
+.content-name {
+  position: absolute;
+  bottom: 10%;
+  left: 35px;
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.form input:focus {
+  outline: none;
+}
+
+.form input:focus + .label-name .content-name,
+.form input:valid + .label-name .content-name {
+  transform: translateY(-80%);
+  font-size: 11px;
+  left: 30px;
+  color: #a855f7;
+}
+
+.form input:focus + .label-name::after,
+.form input:valid + .label-name::after {
+  transform: translateX(0%);
+}
 /*** overlay ***/
 .page-overlay {
   background: linear-gradient(
@@ -92,7 +150,7 @@ input::file-selector-button {
     rgba(0, 0, 0, 0.75) 43.07%,
     rgba(0, 0, 0, 0.8) 100%
   );
-  height: 100vh;
+  height: 100%;
   min-width: 320px;
   position: fixed;
   top: 0;
@@ -100,6 +158,8 @@ input::file-selector-button {
   width: 100vw;
   z-index: 10000;
 }
+
+/*** switch ***/
 
 /*** swiper ***/
 .swiper-slide {
