@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const { editModeState } = useSelector((state) => state.editModeState);
-  console.log(editModeState);
   const { authenticated } = useAuth();
   const { data: publicSubjects } = useGetSubjectsByStatusQuery(1);
   const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
@@ -25,7 +24,11 @@ const Home = () => {
       <CategoryList categories={categories} />
       {authenticated && usersSubjects?.length > 0 && (
         <div>
-          <SubjectList subjects={usersSubjects} text={"moje predmety"} />
+          <SubjectList
+            subjects={usersSubjects}
+            text={"moje predmety"}
+            editable={true}
+          />
         </div>
       )}
       {publicSubjects && (

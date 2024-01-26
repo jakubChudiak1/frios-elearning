@@ -8,7 +8,7 @@ const checkEditable = async (req, res, next) => {
       req.session.user_id,
       subject_id
     );
-
+    console.log(isEditable);
     if (isEditable) {
       next();
     } else {

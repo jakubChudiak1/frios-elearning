@@ -50,13 +50,38 @@ class ChapterController {
       console.log(chapters);
     }
   }
+
+  static async createMainChapter(req, res) {
+    try {
+      const { subject_id, name } = req.body;
+      const chapter = await Chapter.createMainChapter({
+        subject_id,
+        name,
+      });
+      res.status(200).json({ message: "Chapter created successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async createSideChapter(req, res) {
+    try {
+      const { subject_id, name, main_chapter } = req.body;
+      const chapter = await Chapter.createSideChapter({
+        subject_id,
+        name,
+        main_chapter,
+      });
+      res.status(200).json({ message: "Chapter created successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async updateChaptersContent(req, res) {
     try {
       const { chapter_id } = req.params;
       const { content } = req.body;
-      console.log("called");
-      console.log("content", content);
-      console.log("chapter_id", chapter_id);
       const newContent = await Chapter.updateChaptersContent(chapter_id, {
         content,
       });

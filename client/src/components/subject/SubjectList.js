@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const SubjectList = ({ subjects, text }) => {
+const SubjectList = ({ subjects, text, editable }) => {
   return (
     <>
       {subjects && (
@@ -25,6 +25,7 @@ const SubjectList = ({ subjects, text }) => {
                   <SubjectItem
                     key={subject.subject_id}
                     subject={subject}
+                    editable={editable}
                     loader={true}
                   />
                 </SwiperSlide>

@@ -28,8 +28,6 @@ const UpdateSubjectForm = React.forwardRef(
         description: Yup.string(),
       }),
       onSubmit: async (values) => {
-        console.log("values", values);
-        console.log("eke", subject_id);
         try {
           await updateSubject({
             subjectId: subject_id,

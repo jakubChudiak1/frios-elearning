@@ -45,6 +45,29 @@ class Chapter {
     }
   }
 
+  static async createMainChapter(chapter) {
+    try {
+      const { subject_id, name } = chapter;
+      const query = "INSERT INTO chapters (subject_id,name) VALUES (?,?)";
+      const result = await db.query(query, [subject_id, name]);
+      return result.insertId;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async createSideChapter(chapter) {
+    try {
+      const { subject_id, name, main_chapter } = chapter;
+      const query =
+        "INSERT INTO chapters (subject_id,name,main_chapter) VALUES (?,?,?)";
+      const result = await db.query(query, [subject_id, name, main_chapter]);
+      return result.insertId;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async updateChaptersContent(chapterId, chapter) {
     try {
       const { content } = chapter;

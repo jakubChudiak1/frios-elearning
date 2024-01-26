@@ -23,7 +23,7 @@ const AddSubjectButton = () => {
         onClick={openAddSubjectModalHandler}
         className="absolute right-0 top-[60px] z-[10] mt-2 w-fit self-baseline bg-purple-500 p-2 capitalize text-white sm:top-[50px] "
       >
-        <p className="capitalize">new subject</p>
+        <p className="capitalize">nový predmet</p>
       </Button>
       {openAddSubjecModal && (
         <AddSubjectModal

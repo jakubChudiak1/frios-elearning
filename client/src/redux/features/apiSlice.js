@@ -20,6 +20,7 @@ export const apiSlice = createApi({
     "Accesses",
     "Files",
     "Categories",
+    "Chapters",
   ],
   endpoints: () => ({}),
 });

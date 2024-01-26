@@ -118,13 +118,10 @@ class Subject {
 
   static async updateSubject(subjectId, subject) {
     try {
-      console.log("subjectId", subjectId);
       const { category_id, subject_code, name, is_public, description } =
         subject;
-      console.log("to update", subject);
       const query =
         "UPDATE subjects SET category_id = ?, subject_code = ?, name = ?, is_public = ?,description=? WHERE subject_id = ?";
-      console.log("SQL Query:", query);
       const result = await db.query(query, [
         category_id,
         subject_code,
@@ -133,8 +130,17 @@ class Subject {
         description,
         subjectId,
       ]);
-      console.log(result);
       return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async updateDescription(subjectId, subject) {
+    try {
+      const { description } = subject;
+      const query = "UPDATE subjects SET description = ? WHERE subject_id = ?";
+      const result = await db.query(query, [description, subjectId]);
     } catch (error) {
       throw new Error(error);
     }

@@ -27,7 +27,7 @@ const AddCategoryButton = () => {
         onChange={(event) => setCategoryName(event.target.value)}
       />
       <label htmlFor="text" className="label-name">
-        <span className="content-name capitalize">create category</span>
+        <span className="content-name capitalize">vytvorte kategóriu</span>
       </label>
     </form>
   );

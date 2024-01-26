@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ChapterMenuItem from "../../components/chapter/ChapterMenuItem";
 import { Close } from "@mui/icons-material";
+import AddChapter from "../../components/chapter/AddChapter";
+import { useSelector } from "react-redux";
 
 const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
+  const { editModeState } = useSelector((state) => state.editModeState);
   const { subject_id } = useParams();
-
   const [scrolled, setScrolled] = useState(false);
-
   let mainChapterIndex = 0;
-
   const sidebarStyles = {
     top: scrolled ? "0" : "80px",
     height: scrolled ? "100%" : "calc(100% - 80px)",
@@ -33,7 +33,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
   return (
     <>
       <aside
-        className=" fixed right-0 top-[80px]  z-[1] w-full  border-l-[1px] border-gray-100 xs:w-[300px]"
+        className=" fixed right-0 top-[80px]  z-[5000] w-full  border-l-[1px] border-gray-100 xs:w-[300px]"
         style={sidebarStyles}
       >
         <div className="relative flex h-full flex-col overflow-y-auto">
@@ -56,6 +56,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
                 />
               );
             })}
+            {editModeState && <AddChapter />}
           </div>
         </div>
       </aside>

@@ -29,6 +29,13 @@ router.patch(
   checkEditable,
   SubjectController.updateSubject
 );
+router.patch(
+  "/update-description/:subject_id",
+  verifyToken,
+  checkRole([1, 2]),
+  checkEditable,
+  SubjectController.updateDescription
+);
 router.delete(
   "/delete-subject/:subject_id",
   verifyToken,

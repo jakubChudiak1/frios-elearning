@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { KeyboardArrowDown } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import AddSideChapter from "./AddSideChapter";
 
 const ChapterMenuItem = ({
   chapter,
@@ -10,6 +12,7 @@ const ChapterMenuItem = ({
   index,
   parentIndex,
 }) => {
+  const { editModeState } = useSelector((state) => state.editModeState);
   const [opened, setOpened] = useState(false);
 
   return (
@@ -42,15 +45,15 @@ const ChapterMenuItem = ({
                 opened ? "rotate-180" : ""
               }`}
             >
-              {chapter?.sideChapters && chapter?.sideChapters?.length > 0 && (
-                <KeyboardArrowDown />
-              )}
+              {((chapter?.sideChapters && chapter?.sideChapters?.length > 0) ||
+                editModeState) && <KeyboardArrowDown />}
             </div>
           </div>
         </Link>
       </div>
       {opened && (
         <div>
+          {console.log(chapter?.main_chapter)}
           {chapter?.sideChapters?.map((subChapter, subIndex) => (
             <ChapterMenuItem
               key={subChapter?.chapter_id}
@@ -62,6 +65,9 @@ const ChapterMenuItem = ({
               parentIndex={`${parentIndex}${index ? `.${index}` : ""}`}
             />
           ))}
+          {editModeState && (
+            <AddSideChapter mainChapter={chapter?.chapter_id} />
+          )}
         </div>
       )}
     </>

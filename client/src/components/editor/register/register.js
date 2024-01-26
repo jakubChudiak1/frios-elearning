@@ -2,6 +2,7 @@ import { Quill } from "react-quill";
 import ImageResize from "quill-image-resize-module-react";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
+
 import { WarningFormat } from "../formats/WarningFormat";
 import { ImportantFormat } from "../formats/ImportantFormat";
 import { ExerciseFormat } from "../formats/ExerciseFormat";

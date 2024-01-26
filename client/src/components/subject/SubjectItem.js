@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import Overlay from "../UI/Overlay";
 import SubjectModification from "./SubjectModification";
 import { useSelector } from "react-redux";
-const SubjectItem = ({ subject, loader }) => {
+import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
+
+const SubjectItem = ({ subject, loader, editable }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const [hovered, setHovered] = useState(false);
   const handleMouseEnter = () => {
@@ -31,7 +33,7 @@ const SubjectItem = ({ subject, loader }) => {
           />
           {loader && <div className="swiper-lazy-preloader"></div>}
           {hovered && <Overlay />}
-          {editModeState && (
+          {editModeState && editable && (
             <SubjectModification
               subject_id={subject.subject_id}
               subject={subject}

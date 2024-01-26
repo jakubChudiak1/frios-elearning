@@ -1,7 +1,11 @@
 import StartLesson from "./StartLesson";
 import ArrowBack from "../UI/ArrowBack";
+import { useSelector } from "react-redux";
+import UpdateDescriptionForm from "./UpdateDescriptionForm";
 
 const SubjectItemDetails = ({ subjectDetails }) => {
+  const { editModeState } = useSelector((state) => state.editModeState);
+
   return (
     <>
       {subjectDetails && (
@@ -23,9 +27,14 @@ const SubjectItemDetails = ({ subjectDetails }) => {
                 <p>{subjectDetails?.chapter_count}</p>
               </div>
             </div>
-            <p className="whitespace-pre break-words">
-              {subjectDetails?.description}
-            </p>
+            {editModeState ? (
+              <UpdateDescriptionForm subject={subjectDetails} />
+            ) : (
+              <p className="whitespace-pre break-words">
+                {subjectDetails?.description}
+              </p>
+            )}
+
             <StartLesson subjectDetails={subjectDetails} />
           </div>
         </div>

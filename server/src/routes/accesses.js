@@ -2,6 +2,7 @@ import express from "express";
 import AccessController from "../controllers/accessController.js";
 import verifyToken from "../middlewares/authToken.js";
 import checkRole from "../middlewares/checkRole.js";
+import checkEditable from "../middlewares/checkEditable.js";
 
 const router = express.Router();
 
@@ -28,6 +29,13 @@ router.get(
   verifyToken,
   AccessController.getEditableSubjects
 );
+router.get(
+  "/is-editable/:subject_id",
+  verifyToken,
+  checkEditable,
+  AccessController.getIsSubjectEditableByUser
+);
+
 router.post("/add-access", verifyToken, AccessController.createAccess);
 router.patch("/update-status/:access_id", AccessController.updateStatus);
 

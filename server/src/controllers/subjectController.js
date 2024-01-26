@@ -168,7 +168,6 @@ class SubjectController {
     try {
       const { category_id, subject_code, name, is_public, description } =
         req.body;
-      console.log("body", req.body);
       const { subject_id } = req.params;
       const updatedSubject = await Subject.updateSubject(subject_id, {
         category_id,
@@ -178,6 +177,19 @@ class SubjectController {
         description,
       });
       res.status(201).json({ message: "Subject updated successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async updateDescription(req, res) {
+    const { subject_id } = req.params;
+    const { description } = req.body;
+    try {
+      const updatedDescription = await Subject.updateDescription(subject_id, {
+        description,
+      });
+      res.status(201).json({ message: "Description updated successfully" });
     } catch (error) {
       console.log(error);
     }

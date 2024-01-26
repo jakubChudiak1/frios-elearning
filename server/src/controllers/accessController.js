@@ -52,6 +52,20 @@ class AccessController {
     }
   }
 
+  static async getIsSubjectEditableByUser(req, res) {
+    try {
+      const user_id = req.session.user_id;
+      const subject_id = req.params;
+      const isEditable = await Access.getIsSubjectEditableByUser(
+        user_id,
+        subject_id
+      );
+      res.json(isEditable);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async getUsersSubjectsByStatus(req, res) {
     try {
       const user_id = req.session.user_id;

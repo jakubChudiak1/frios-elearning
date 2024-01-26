@@ -637,6 +637,7 @@
   background-color: #23241f;
   color: #f8f8f2;
   overflow: visible;
+  font-size: 12px;
 }
 .ql-snow .ql-editor img {
   max-width: 100%;
@@ -980,7 +981,7 @@
 .ql-editor .ql-warning {
   display: block;
   width: 100%;
-  background-color: rgb(229, 92, 92);
+  background-color: rgb(235 147 147);
   padding: 8px 5px;
   margin: 5px 0;
 }
@@ -996,7 +997,7 @@
 .ql-editor .ql-exercise {
   display: block;
   width: 100%;
-  background-color: #3fa63f;
+  background-color: #64e764;
   padding: 8px 5px;
   margin: 5px 0;
 }
