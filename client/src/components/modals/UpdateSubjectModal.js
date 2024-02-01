@@ -5,8 +5,8 @@ import UpdateSubjectForm from "../subject/UpdateSubjectForm";
 
 const UpdateSubjectModal = React.forwardRef(
   ({ subject_id, subject, closeUpdateSubjectModalHandler }, ref) => {
-    const modalRoot = document.getElementById("update-subject-modal");
-    console.log("subject_id modal", subject_id);
+    const modalRoot = document.getElementById("modal");
+
     return ReactDOM.createPortal(
       <>
         <PageOverlay />

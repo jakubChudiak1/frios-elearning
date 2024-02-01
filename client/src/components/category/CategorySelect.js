@@ -7,7 +7,7 @@ const CategorySelect = ({ onBlur, onChange, defaultValue }) => {
       name="category_id"
       onBlur={onBlur}
       onChange={onChange}
-      className="border border-black px-1 py-2 outline-none "
+      className="border border-black px-1 py-2 capitalize outline-none "
       defaultValue={defaultValue}
     >
       {categories?.map((category) => (

@@ -20,7 +20,7 @@ export const accessApi = apiSlice.injectEndpoints({
     }),
     getEditableSubjects: build.query({
       query: () => "accesses/editable-subjects",
-      providesTags: ["Accesses", "Authentication"],
+      providesTags: ["Accesses", "Subjects", "Authentication"],
     }),
     getIsSubjectEditable: build.query({
       query: (subjectId) => `/is-editable/${subjectId}`,

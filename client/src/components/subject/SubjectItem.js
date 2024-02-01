@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Overlay from "../UI/Overlay";
 import SubjectModification from "./SubjectModification";
 import { useSelector } from "react-redux";
-import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 
 const SubjectItem = ({ subject, loader, editable }) => {
   const { editModeState } = useSelector((state) => state.editModeState);

@@ -5,8 +5,10 @@ import CategoryList from "../../components/category/CategoryList";
 import { useAuth } from "../../context/authContext";
 import { useGetSubjectsByStatusQuery } from "../../api/endpoints/subjectsEndpoints";
 import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
-import { useGetUsersSubjectsByStatusQuery } from "../../api/endpoints/accessesEndpoints";
-import AddSubjectModal from "../../components/modals/AddSubjectModal";
+import {
+  useGetEditableSubjectsQuery,
+  useGetUsersSubjectsByStatusQuery,
+} from "../../api/endpoints/accessesEndpoints";
 import AddSubjectButton from "../../components/subject/AddSubjectButton";
 import { useSelector } from "react-redux";
 
@@ -17,24 +19,29 @@ const Home = () => {
   const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
   const { data: categories } = useGetCategoriesListQuery();
   const { data: usersSubjects } = useGetUsersSubjectsByStatusQuery("accepted");
+  const { data: editableSubjects } = useGetEditableSubjectsQuery(undefined, {
+    skip: !editModeState,
+  });
 
   return (
     <Section>
       {editModeState && <AddSubjectButton />}
       <CategoryList categories={categories} />
-      {authenticated && usersSubjects?.length > 0 && (
-        <div>
-          <SubjectList
-            subjects={usersSubjects}
-            text={"moje predmety"}
-            editable={true}
-          />
-        </div>
+      {editModeState && editableSubjects?.length > 0 && (
+        <SubjectList
+          subjects={editableSubjects}
+          text={"upravitelné predmety"}
+          editable={true}
+        />
       )}
-      {publicSubjects && (
+
+      {authenticated && usersSubjects?.length > 0 && (
+        <SubjectList subjects={usersSubjects} text={"moje predmety"} />
+      )}
+      {publicSubjects?.length > 0 && (
         <SubjectList subjects={publicSubjects} text={"verejné predmety"} />
       )}
-      {privateSubjects && (
+      {privateSubjects?.length > 0 && (
         <SubjectList subjects={privateSubjects} text={"súkromné predmety"} />
       )}
     </Section>

@@ -83,9 +83,9 @@ const admin = [
   },
   {
     id: 4,
-    name: "pristupy",
-    icon: <LockOutlined fontSize="medium" />,
-    path: "/accesses",
+    name: "žiadosti",
+    icon: <EmailOutlined fontSize="medium" />,
+    path: "/requests",
   },
 ];
 

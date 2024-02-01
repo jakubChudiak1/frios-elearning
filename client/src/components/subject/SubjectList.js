@@ -3,6 +3,7 @@ import SubjectItem from "./SubjectItem";
 import breakpoints from "../../config/swiper.config";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import "swiper/css";
 import "swiper/css/navigation";
 

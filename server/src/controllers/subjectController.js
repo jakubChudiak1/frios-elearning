@@ -93,11 +93,11 @@ class SubjectController {
 
   static async createSubject(req, res) {
     try {
-      console.log(req.body);
       const { category_id, subject_code, name, is_public, description } =
         req.body;
       const user_id = req.session.user_id;
       const admins = await User.getUsersByRole(1);
+      console.log(admins);
       let image_path = null;
       if (req.file) {
         image_path = req.file.filename;
@@ -125,13 +125,20 @@ class SubjectController {
           created_at: new Date(),
         });
         const adminAccess = admins.map(async (admin) => {
-          await Access.createAccess({
-            user_id: admin.user_id,
-            subject_id,
-            editable: true,
-            status: "accepted",
-            created_at: new Date(),
-          });
+          const checkAccess = await Access.checkAccessExists(
+            admin?.user_id,
+            subject_id
+          );
+          console.log("adminId:", admin?.user_id, checkAccess);
+          if (!checkAccess) {
+            await Access.createAccess({
+              user_id: admin.user_id,
+              subject_id,
+              editable: true,
+              status: "accepted",
+              created_at: new Date(),
+            });
+          }
         });
 
         await Promise.all(adminAccess);

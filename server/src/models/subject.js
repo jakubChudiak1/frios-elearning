@@ -151,14 +151,7 @@ class Subject {
     try {
       await connection.beginTransaction();
       await connection.query("DELETE FROM accesses WHERE subject_id = ?", [id]);
-      await connection.query(
-        "DELETE FROM chapters WHERE subject_id = ? AND main_chapter IS NOT NULL",
-        [id]
-      );
-      await connection.query(
-        "DELETE FROM chapters WHERE subject_id = ? AND main_chapter IS NULL",
-        [id]
-      );
+      await connection.query("DELETE FROM chapters WHERE subject_id = ?", [id]);
       await connection.query("DELETE FROM subjects WHERE subject_id = ?", [id]);
       await connection.commit();
     } catch (error) {

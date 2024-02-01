@@ -48,6 +48,7 @@ const SubjectModification = ({ subject_id, subject }) => {
       {openUpdateSubjectModal && (
         <UpdateSubjectModal
           ref={ref}
+          openUpdateSubjectModal={openUpdateSubjectModal}
           subject_id={subject_id}
           subject={subject}
           closeUpdateSubjectModalHandler={closeUpdateSubjectModalHandler}

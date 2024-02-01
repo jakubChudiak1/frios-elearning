@@ -5,6 +5,4 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   origin: "http://localhost:3000",
 };
-export function corsMw() {
-  return cors(corsOptions);
-}
+export default corsOptions;
