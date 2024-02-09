@@ -13,7 +13,7 @@ const authApi = apiSlice.injectEndpoints({
         body: user,
       }),
       invalidatesTags: (result, error, id) =>
-        result ? ["Authentication"] : [""],
+        result ? ["Authentication", "Accesses"] : [""],
     }),
     signup: build.mutation({
       query: (user) => ({
@@ -28,7 +28,7 @@ const authApi = apiSlice.injectEndpoints({
         url: "auth/signout",
         method: "POST",
       }),
-      invalidatesTags: ["Authentication"],
+      invalidatesTags: ["Authentication", "Accesses"],
     }),
   }),
 });

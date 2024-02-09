@@ -12,7 +12,6 @@ const SubjectModification = ({ subject_id, subject }) => {
   const ref = useOnClickOutside(() => {
     setOpenUpdateSubjectModal(false);
   });
-
   const openUpdateSubjectModalHandler = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -20,7 +19,6 @@ const SubjectModification = ({ subject_id, subject }) => {
   };
 
   const closeUpdateSubjectModalHandler = (event) => {
-    console.log("clicked");
     setOpenUpdateSubjectModal(false);
   };
 

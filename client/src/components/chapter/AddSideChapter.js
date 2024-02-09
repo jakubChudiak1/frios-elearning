@@ -29,7 +29,7 @@ const AddSideChapter = ({ mainChapter }) => {
           type="text"
           value={chaptersName}
           onChange={(event) => setChaptersName(event.target.value)}
-          placeholder="pridajte kapitolu"
+          placeholder={"pridajte kapitolu"}
           className="color h-full  w-full bg-transparent text-[12px] placeholder-black outline-none"
         />
       </div>

@@ -8,11 +8,11 @@ import ErrorMessage from "../UI/ErrorMessage";
 import { Close } from "@mui/icons-material";
 import CategorySelect from "../category/CategorySelect";
 import Button from "../UI/Button";
+import Editor from "../editor/Editor";
 
 const AddSubjectForm = React.forwardRef(
   ({ closeAddSubjectModalHandler }, ref) => {
     const [addSubject] = useAddSubjectMutation();
-
     const addSubjectForm = useFormik({
       initialValues: {
         name: "",
@@ -49,10 +49,9 @@ const AddSubjectForm = React.forwardRef(
         }
       },
     });
-
     return (
       <div
-        className="absolute left-[50%] top-[60%]  z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[30rem]  md:top-[55%] md:p-7  lg:left-[55%] lg:w-[45rem]"
+        className="absolute left-[50%] top-[70%]  z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[28rem]  md:top-[70%] md:p-7 lg:left-[55%]  lg:top-[56%] lg:w-[45rem]"
         ref={ref}
       >
         <div className="flex items-center justify-between">
@@ -141,12 +140,12 @@ const AddSubjectForm = React.forwardRef(
           <div className="flex w-full pt-2">
             <div className="flex w-full flex-col gap-1">
               <Label text={"popis"} required={false} />
-              <textarea
-                name="description"
-                value={addSubjectForm.values.description}
-                rows="5"
-                className="w-full border border-black p-1 outline-none"
-                onChange={addSubjectForm.handleChange}
+              <Editor
+                data={addSubjectForm.values.description}
+                onChange={(event) =>
+                  addSubjectForm.setFieldValue("description", event)
+                }
+                height="h-36"
               />
             </div>
           </div>

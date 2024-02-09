@@ -59,7 +59,7 @@ export const subjectsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: subject,
       }),
-      invalidatesTags: ["Subjects", "Accesses"],
+      invalidatesTags: ["Subjects"],
     }),
     deleteSubject: build.mutation({
       query: (subjectId) => ({

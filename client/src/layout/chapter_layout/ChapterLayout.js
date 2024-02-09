@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import ChapterNavbar from "./ChapterNavbar";
 import Footer from "../main_layout/Footer";
 import ChapterSideBar from "./ChapterSideBar";
 import { useGetSubjectChaptersQuery } from "../../api/endpoints/chaptersEndpoints";
-import { ArrowForwardIos } from "@mui/icons-material";
-import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 
 const ChapterLayout = () => {
+  const { editModeState } = useSelector((state) => state.editModeState);
   const { authenticated, user, loading } = useAuth();
   const { subject_id } = useParams();
   const { data: chapters } = useGetSubjectChaptersQuery(subject_id);
@@ -16,7 +17,9 @@ const ChapterLayout = () => {
   const sideBarHandler = () => {
     setSidebar((prev) => !prev);
   };
-
+  const { data: isEditable } = useGetIsSubjectEditableQuery(subject_id, {
+    skip: !editModeState,
+  });
   if (loading) {
     return <></>;
   }
@@ -35,6 +38,7 @@ const ChapterLayout = () => {
           <ChapterSideBar
             chapters={chapters}
             sidebar={sidebar}
+            isEditable={isEditable}
             sideBarHandler={sideBarHandler}
           />
         ) : null /*  (

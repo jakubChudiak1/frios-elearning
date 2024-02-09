@@ -1,9 +1,8 @@
 import React from "react";
 import SubjectItem from "./SubjectItem";
-import breakpoints from "../../config/swiper.config";
+import swiperBreakpoints from "../../config/swiper.config";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -12,11 +11,11 @@ const SubjectList = ({ subjects, text, editable }) => {
     <>
       {subjects && (
         <div className=" relative mt-5 flex flex-col align-baseline">
-          <h2 className="text-[20px] capitalize">{text}</h2>
+          <h2 className=" text-[18px] capitalize xs:text-[20px]">{text}</h2>
           <div className="relative mt-4">
             <Swiper
               modules={[Navigation]}
-              breakpoints={breakpoints.subjectsBreakpoints}
+              breakpoints={swiperBreakpoints({ subjects })}
               navigation
               spaceBetween={14}
               className="relative z-0"

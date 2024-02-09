@@ -8,6 +8,7 @@ import { Close } from "@mui/icons-material";
 import CategorySelect from "../category/CategorySelect";
 import Button from "../UI/Button";
 import { useUpdateSubjectMutation } from "../../api/endpoints/subjectsEndpoints";
+import Editor from "../editor/Editor";
 
 const UpdateSubjectForm = React.forwardRef(
   ({ subject_id, subject, closeUpdateSubjectModalHandler }, ref) => {
@@ -48,7 +49,7 @@ const UpdateSubjectForm = React.forwardRef(
     };
     return (
       <div
-        className="lg:top-[55%], absolute left-[50%] top-[50%]  z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3  xs:w-[30rem] md:p-7 lg:left-[55%]  lg:w-[45rem] "
+        className="absolute left-[50%] top-[65%] z-[10000]  w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[30rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] "
         ref={ref}
         onClick={handleClickInsideForm}
       >
@@ -139,12 +140,12 @@ const UpdateSubjectForm = React.forwardRef(
           <div className="flex w-full pt-2">
             <div className="flex w-full flex-col gap-1">
               <Label text={"popis"} required={false} />
-              <textarea
-                name="description"
-                value={updateSubjectForm.values.description}
-                rows="5"
-                className="w-full border border-black p-1 outline-none"
-                onChange={updateSubjectForm.handleChange}
+              <Editor
+                data={updateSubjectForm.values.description}
+                onChange={(event) =>
+                  updateSubjectForm.setFieldValue("description", event)
+                }
+                height="h-36"
               />
             </div>
           </div>

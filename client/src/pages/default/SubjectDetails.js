@@ -11,14 +11,20 @@ import { ToastContainer } from "react-toastify";
 const SubjectDetails = () => {
   const { subject_id } = useParams();
   const { data: subjectDetails } = useGetSubjectByIdQuery(subject_id);
-  const { data: subjectsByCreator } = useGetSubjectsByCreatorQuery({
-    userId: subjectDetails?.user_id,
-    subjectId: subject_id,
-  });
-  const { data: subjectsByCategory } = useGetRecommendedSubjectsQuery({
-    categoryName: subjectDetails?.category_name,
-    subjectId: subject_id,
-  });
+  const { data: subjectsByCreator } = useGetSubjectsByCreatorQuery(
+    {
+      userId: subjectDetails?.user_id,
+      subjectId: subject_id,
+    },
+    { skip: subjectDetails?.user_id === undefined },
+  );
+  const { data: subjectsByCategory } = useGetRecommendedSubjectsQuery(
+    {
+      categoryName: subjectDetails?.category_name,
+      subjectId: subject_id,
+    },
+    { skip: subjectDetails?.user_id === undefined },
+  );
 
   return (
     <>

@@ -81,13 +81,37 @@ class ChapterController {
   static async updateChaptersContent(req, res) {
     try {
       const { chapter_id } = req.params;
-      const { content } = req.body;
+      const { subject_id, content } = req.body;
       const newContent = await Chapter.updateChaptersContent(chapter_id, {
         content,
       });
+      console.log(content);
       res.status(200).json({ message: "Content Succesfully updated" });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  static async updateChaptersName(req, res) {
+    try {
+      const { chapter_id } = req.params;
+      const { name } = req.body;
+      const newName = await Chapter.updateChaptersName(chapter_id, { name });
+      res
+        .status(200)
+        .json({ message: "Chapters name was successfully changed" });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async deleteChapter(req, res) {
+    try {
+      const { chapter_id } = req.params;
+      await Chapter.deleteChapter(chapter_id);
+      res.status(200).json({ message: "Chapter was successfully removed" });
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

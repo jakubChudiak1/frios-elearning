@@ -5,7 +5,7 @@ import { Close } from "@mui/icons-material";
 import AddChapter from "../../components/chapter/AddChapter";
 import { useSelector } from "react-redux";
 
-const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
+const ChapterSideBar = ({ chapters, sideBarHandler, isEditable }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const { subject_id } = useParams();
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +38,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
       >
         <div className="relative flex h-full flex-col overflow-y-auto">
           <div className=" flex items-center justify-between bg-gray-200 px-1 py-4">
-            <h3 className="text-[20px] capitalize">obsah</h3>
+            <h3 className="text-[18px] capitalize">obsah</h3>
             <Close className="cursor-pointer" onClick={sideBarHandler} />
           </div>
           <div className="z-[1] overflow-y-auto overflow-x-hidden">
@@ -49,6 +49,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
                   key={chapter.chapter_id}
                   chapter={chapter}
                   chapters={chapters}
+                  isEditable={isEditable}
                   subject_id={subject_id}
                   depth={1}
                   parentIndex={mainChapterIndex}
@@ -56,7 +57,7 @@ const ChapterSideBar = ({ chapters, sideBarHandler, sidebar }) => {
                 />
               );
             })}
-            {editModeState && <AddChapter />}
+            {editModeState && isEditable && <AddChapter />}
           </div>
         </div>
       </aside>

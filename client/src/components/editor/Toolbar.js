@@ -69,9 +69,7 @@ const Toolbar = ({ submitData }) => (
       <button className="ql-redo">
         <Redo />
       </button>
-      <button onClick={submitData}>
-        <SaveContent />
-      </button>
+      <SaveContent onClick={submitData} />
     </div>
   </div>
 );

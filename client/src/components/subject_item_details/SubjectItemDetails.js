@@ -1,10 +1,25 @@
 import StartLesson from "./StartLesson";
 import ArrowBack from "../UI/ArrowBack";
 import { useSelector } from "react-redux";
-import UpdateDescriptionForm from "./UpdateDescriptionForm";
-
+import Editor from "../editor/Editor";
+import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
+import { useUpdateDescriptionMutation } from "../../api/endpoints/subjectsEndpoints";
+import HtmlParser from "react-html-parser";
+import { useParams } from "react-router-dom";
 const SubjectItemDetails = ({ subjectDetails }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
+  const { subject_id } = useParams();
+  const { data: isEditable } = useGetIsSubjectEditableQuery(subject_id, {
+    skip: !editModeState,
+  });
+  const [updateDescription] = useUpdateDescriptionMutation();
+
+  const updateSubjectsDescriptionHandler = async (data) => {
+    await updateDescription({
+      subjectId: subject_id,
+      description: data,
+    });
+  };
 
   return (
     <>
@@ -27,12 +42,16 @@ const SubjectItemDetails = ({ subjectDetails }) => {
                 <p>{subjectDetails?.chapter_count}</p>
               </div>
             </div>
-            {editModeState ? (
-              <UpdateDescriptionForm subject={subjectDetails} />
+            {editModeState && isEditable ? (
+              <Editor
+                data={subjectDetails?.description}
+                dataHandler={updateSubjectsDescriptionHandler}
+                height="h-36"
+              />
             ) : (
-              <p className="whitespace-pre break-words">
-                {subjectDetails?.description}
-              </p>
+              <div className="chapter-content whitespace-pre break-words">
+                {HtmlParser(subjectDetails?.description)}
+              </div>
             )}
 
             <StartLesson subjectDetails={subjectDetails} />

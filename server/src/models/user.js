@@ -47,7 +47,6 @@ class User {
   static async createUser(user) {
     try {
       const { email, cryptedPassword, name, surname, id_role = 2 } = user;
-      console.log("userCreated", db);
       const query =
         "INSERT INTO users (email,password,name,surname,id_role) VALUES (?,?,?,?,?)";
       const result = await db.query(query, [

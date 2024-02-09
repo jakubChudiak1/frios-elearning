@@ -9,7 +9,7 @@ const UpdateDescriptionForm = ({ subject }) => {
   const [updateDescription] = useUpdateDescriptionMutation();
   const updateDescriptionForm = useFormik({
     initialValues: {
-      description: subject?.description,
+      description: subject?.description ? subject?.description : "",
     },
     validationSchema: Yup.object({
       description: Yup.string(),

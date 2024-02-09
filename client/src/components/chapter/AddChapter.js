@@ -20,7 +20,9 @@ const AddChapter = () => {
       onSubmit={addChapterHandler}
     >
       <div className="flex h-full w-full items-center gap-1 pl-[4px]">
-        <AddIcon />
+        <button type="submit">
+          <AddIcon />
+        </button>
         <Input
           type="text"
           value={chaptersName}

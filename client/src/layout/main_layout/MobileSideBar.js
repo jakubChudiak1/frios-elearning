@@ -4,7 +4,6 @@ import { Close } from "@mui/icons-material";
 import menuConfig from "../../config/menu.config";
 const MobileSideBar = React.forwardRef(({ activeMenu, setToggled }, ref) => {
   const location = useLocation();
-
   const closeMenuHandler = () => {
     setToggled(false);
   };

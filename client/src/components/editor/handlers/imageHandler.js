@@ -1,4 +1,3 @@
-import { useAddFileMutation } from "../../../api/endpoints/filesEndpoints";
 import axios from "axios";
 import apiConfig from "../../../config/api.config";
 
@@ -16,7 +15,6 @@ export function imageHandler() {
     this.quill.setSelection(range.index + 1);
     try {
       const res = await axios.post("/files/add-file", formData);
-      console.log(res.data);
       this.quill.insertEmbed(
         range.index,
         "image",

@@ -52,19 +52,21 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
             onClick={menuHandler}
             className="toggle"
           />
-          <SearchIcon onClick={searchHandler} className="search-icon" />
+          <SearchIcon
+            onClick={searchHandler}
+            className="search-icon z-[10000]"
+          />
         </div>
 
         <motion.div
-          className="absolute left-0  h-20 w-full overflow-hidden  bg-white "
+          className="absolute left-0  w-full overflow-hidden  bg-white "
           ref={searchRef}
           initial={{
-            top: "-250%",
-            opacity: 0,
+            height: "0",
+            top: "100%",
           }}
           animate={{
-            top: isSearchOpen ? "100%" : "-250%",
-            opacity: isSearchOpen ? 1 : 0,
+            height: isSearchOpen ? "80px" : "0",
           }}
         >
           <SearchForm onClose={closeSearchForm} />

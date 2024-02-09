@@ -18,7 +18,9 @@ const Home = () => {
   const { data: publicSubjects } = useGetSubjectsByStatusQuery(1);
   const { data: privateSubjects } = useGetSubjectsByStatusQuery(0);
   const { data: categories } = useGetCategoriesListQuery();
-  const { data: usersSubjects } = useGetUsersSubjectsByStatusQuery("accepted");
+  const { data: usersSubjects } = useGetUsersSubjectsByStatusQuery("accepted", {
+    skip: !authenticated,
+  });
   const { data: editableSubjects } = useGetEditableSubjectsQuery(undefined, {
     skip: !editModeState,
   });

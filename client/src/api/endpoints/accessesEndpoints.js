@@ -23,7 +23,7 @@ export const accessApi = apiSlice.injectEndpoints({
       providesTags: ["Accesses", "Subjects", "Authentication"],
     }),
     getIsSubjectEditable: build.query({
-      query: (subjectId) => `/is-editable/${subjectId}`,
+      query: (subjectId) => `accesses/is-editable/${subjectId}`,
       providesTags: ["Accesses", "Subjects"],
     }),
     acceptStatus: build.mutation({

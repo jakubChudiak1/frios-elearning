@@ -24,7 +24,6 @@ class AccessController {
   static async getEditableSubjects(req, res) {
     try {
       const userId = req.session.user_id;
-      console.log(userId);
       const editableSubjects = await Access.getEditableSubjects(userId);
       res.json(editableSubjects);
     } catch (error) {
@@ -55,7 +54,7 @@ class AccessController {
   static async getIsSubjectEditableByUser(req, res) {
     try {
       const user_id = req.session.user_id;
-      const subject_id = req.params;
+      const { subject_id } = req.params;
       const isEditable = await Access.getIsSubjectEditableByUser(
         user_id,
         subject_id

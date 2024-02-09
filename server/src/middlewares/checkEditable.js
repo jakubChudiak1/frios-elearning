@@ -1,14 +1,12 @@
 import Access from "../models/access.js";
 
 const checkEditable = async (req, res, next) => {
-  const subject_id = req.params.subject_id;
-
+  const subject_id = req.params.subject_id || req.body.subject_id;
   try {
     const isEditable = await Access.getIsSubjectEditableByUser(
       req.session.user_id,
       subject_id
     );
-    console.log(isEditable);
     if (isEditable) {
       next();
     } else {
@@ -17,7 +15,6 @@ const checkEditable = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

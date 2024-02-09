@@ -17,7 +17,7 @@ export const chapterApi = apiSlice.injectEndpoints({
         method: "POST",
         body: chapter,
       }),
-      invalidatesTags: ["Chapters"],
+      invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
     }),
     addSideChapter: build.mutation({
       query: (chapter) => ({
@@ -25,7 +25,7 @@ export const chapterApi = apiSlice.injectEndpoints({
         method: "POST",
         body: chapter,
       }),
-      invalidatesTags: ["Chapters"],
+      invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
     }),
     updateChaptersContent: build.mutation({
       query: ({ chapterId, ...chapter }) => ({
@@ -33,7 +33,22 @@ export const chapterApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: chapter,
       }),
-      invalidatesTags: ["Chapters"],
+      invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
+    }),
+    updateChaptersName: build.mutation({
+      query: ({ chapterId, chapter }) => ({
+        url: `chapters/chapter-name/${chapterId}`,
+        method: "PATCH",
+        body: chapter,
+      }),
+      invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
+    }),
+    deleteChapter: build.mutation({
+      query: (chapterId) => ({
+        url: `chapters/delete-chapter/${chapterId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
     }),
   }),
 });

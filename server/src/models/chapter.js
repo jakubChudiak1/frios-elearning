@@ -78,5 +78,25 @@ class Chapter {
       throw new Error(error);
     }
   }
+
+  static async updateChaptersName(chapterId, chapter) {
+    try {
+      const { name } = chapter;
+      const query = "UPDATE chapters SET name = ? WHERE chapter_id = ?";
+      const newName = await db.query(query, [name, chapterId]);
+      return newName;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async deleteChapter(chapterId) {
+    try {
+      const query = "DELETE FROM chapters WHERE  chapter_id = ?";
+      const result = await db.query(query, [chapterId]);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 export default Chapter;

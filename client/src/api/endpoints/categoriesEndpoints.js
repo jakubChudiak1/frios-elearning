@@ -12,7 +12,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         method: "POST",
         body: category,
       }),
-      invalidatesTags: ["Categories"],
+      invalidatesTags: (result, error, id) => (result ? ["Categories"] : [""]),
     }),
   }),
 });

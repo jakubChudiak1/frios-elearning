@@ -22,12 +22,7 @@ const SignInForm = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .required("email is required")
-        .matches(
-          /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-          "Please enter a valid email address",
-        ),
+      email: Yup.string().required("email is required"),
       password: Yup.string().required("password is required"),
     }),
     onSubmit: async (values) => {

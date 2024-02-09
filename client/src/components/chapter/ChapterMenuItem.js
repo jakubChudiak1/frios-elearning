@@ -7,6 +7,7 @@ import AddSideChapter from "./AddSideChapter";
 const ChapterMenuItem = ({
   chapter,
   chapters,
+  isEditable,
   subject_id,
   depth,
   index,
@@ -14,7 +15,6 @@ const ChapterMenuItem = ({
 }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const [opened, setOpened] = useState(false);
-
   return (
     <>
       <div
@@ -22,6 +22,12 @@ const ChapterMenuItem = ({
           chapter?.main_chapter == null ? "bg-gray-50" : "bg-white"
         } py-4 pl-[10px] font-semibold hover:bg-gray-100`}
       >
+        {console.log(
+          "chapterId:",
+          chapter?.chapter_id,
+          "isEditable:",
+          isEditable,
+        )}
         <Link
           to={`/${subject_id}/chapter/${chapter?.chapter_id}`}
           key={chapter.chapter_id}
@@ -29,7 +35,11 @@ const ChapterMenuItem = ({
             setOpened((prev) => !prev);
           }}
         >
-          <div className="flex justify-between gap-1">
+          <div
+            className={`${
+              chapter?.main_chapter == null ? "pl-0" : "pl-1"
+            } flex justify-between gap-1`}
+          >
             <h3
               className={`${
                 chapter?.main_chapter == null ? "text-[14px]" : " text-[12px]"
@@ -38,7 +48,7 @@ const ChapterMenuItem = ({
               <span>
                 {parentIndex}.{`${index ? `${index}` : ""}`}
               </span>
-              <span>{`${chapter?.name}`}</span>
+              <span className="break-all">{`${chapter?.name}`}</span>
             </h3>
             <div
               className={`self-baseline transition-transform ${
@@ -46,26 +56,26 @@ const ChapterMenuItem = ({
               }`}
             >
               {((chapter?.sideChapters && chapter?.sideChapters?.length > 0) ||
-                editModeState) && <KeyboardArrowDown />}
+                (editModeState && isEditable)) && <KeyboardArrowDown />}
             </div>
           </div>
         </Link>
       </div>
       {opened && (
         <div>
-          {console.log(chapter?.main_chapter)}
           {chapter?.sideChapters?.map((subChapter, subIndex) => (
             <ChapterMenuItem
               key={subChapter?.chapter_id}
               chapter={subChapter}
               chapters={chapters}
+              isEditable={isEditable}
               subject_id={subject_id}
               depth={depth + 1}
               index={subIndex + 1}
               parentIndex={`${parentIndex}${index ? `.${index}` : ""}`}
             />
           ))}
-          {editModeState && (
+          {editModeState && isEditable && (
             <AddSideChapter mainChapter={chapter?.chapter_id} />
           )}
         </div>

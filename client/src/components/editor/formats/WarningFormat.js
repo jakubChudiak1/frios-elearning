@@ -28,7 +28,6 @@ class WarningFormat extends Block {
   }
 
   format(name, value) {
-    console.log(`Format called for ${this.statics.blotName}`);
     if (name === this.statics.blotName && value) return;
     let [text] = this.descendant(TextBlot, this.length() - 1);
     if (text != null) {
