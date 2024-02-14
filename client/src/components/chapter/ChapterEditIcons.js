@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 
 const ChapterEditIcons = ({ chapterId }) => {
   const { subject_id } = useParams();
-  console.log(subject_id);
   const [deleteChapter] = useDeleteChapterMutation();
   const deleteChapterHandler = async (event) => {
     event.preventDefault();

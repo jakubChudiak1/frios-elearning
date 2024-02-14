@@ -23,7 +23,7 @@ const AddSideChapter = ({ mainChapter }) => {
       className="w-full  border-b border-[lightgray] bg-white py-4 font-semibold"
       onSubmit={addSideChapterHandler}
     >
-      <div className="flex h-full w-full items-center gap-1 pl-[6px]">
+      <div className="flex h-full w-full items-center  pl-[14px]">
         <AddIcon fontSize="small" />
         <Input
           type="text"
