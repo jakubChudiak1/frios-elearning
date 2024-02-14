@@ -4,7 +4,7 @@ const authApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getIsValid: build.query({
       query: () => "auth/isvalid",
-      providesTags: ["Authentication"],
+      providesTags: ["Authentication", "EditMode"],
     }),
     signin: build.mutation({
       query: (user) => ({

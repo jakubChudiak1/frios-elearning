@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import AddSideChapter from "./AddSideChapter";
+import ChapterEditIcons from "./ChapterEditIcons";
 
 const ChapterMenuItem = ({
   chapter,
@@ -22,12 +23,6 @@ const ChapterMenuItem = ({
           chapter?.main_chapter == null ? "bg-gray-50" : "bg-white"
         } py-4 pl-[10px] font-semibold hover:bg-gray-100`}
       >
-        {console.log(
-          "chapterId:",
-          chapter?.chapter_id,
-          "isEditable:",
-          isEditable,
-        )}
         <Link
           to={`/${subject_id}/chapter/${chapter?.chapter_id}`}
           key={chapter.chapter_id}
@@ -40,16 +35,21 @@ const ChapterMenuItem = ({
               chapter?.main_chapter == null ? "pl-0" : "pl-1"
             } flex justify-between gap-1`}
           >
-            <h3
-              className={`${
-                chapter?.main_chapter == null ? "text-[14px]" : " text-[12px]"
-              } flex gap-1 capitalize `}
-            >
-              <span>
-                {parentIndex}.{`${index ? `${index}` : ""}`}
-              </span>
-              <span className="break-all">{`${chapter?.name}`}</span>
-            </h3>
+            <div className="flex gap-1">
+              {editModeState && isEditable && (
+                <ChapterEditIcons chapterId={chapter?.chapter_id} />
+              )}
+              <h3
+                className={`${
+                  chapter?.main_chapter == null ? "text-[14px]" : " text-[12px]"
+                } flex gap-1 capitalize `}
+              >
+                <span>
+                  {parentIndex}.{`${index ? `${index}` : ""}`}
+                </span>
+                <span className="break-all">{`${chapter?.name}`}</span>
+              </h3>
+            </div>
             <div
               className={`self-baseline transition-transform ${
                 opened ? "rotate-180" : ""

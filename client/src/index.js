@@ -6,7 +6,6 @@ import { AuthContextProvider } from "./context/authContext";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
 import "@fontsource/poppins/400.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

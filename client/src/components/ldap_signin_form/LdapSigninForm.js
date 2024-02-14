@@ -1,32 +1,30 @@
 import React, { useState } from "react";
-import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useLdapSignInMutation } from "../../api/endpoints/ldapEndpoints";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
-import { useAuth } from "../../context/authContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import ErrorMessage from "../UI/ErrorMessage";
 import Label from "../UI/Label";
-import { useSigninMutation } from "../../api/endpoints/authEndpoints";
+import ErrorMessage from "../UI/ErrorMessage";
 
-const SignInForm = () => {
-  const [signin, { error }] = useSigninMutation();
+const LdapSigninForm = () => {
+  const [ldapSignIn] = useLdapSignInMutation();
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const signinForm = useFormik({
+  const signInForm = useFormik({
     initialValues: {
-      email: "",
+      ldap_login: "",
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("email is required"),
+      ldap_login: Yup.string().required("ldap is required"),
       password: Yup.string().required("password is required"),
     }),
     onSubmit: async (values) => {
-      const result = await signin(values);
+      const result = await ldapSignIn(values);
       if (result.error) {
         setErrorMessage("incorrect credentials");
       } else {
@@ -45,28 +43,28 @@ const SignInForm = () => {
       )}
       <form
         className="mt-3 flex flex-col gap-2"
-        onSubmit={signinForm.handleSubmit}
+        onSubmit={signInForm.handleSubmit}
       >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <Label text="email" required={false} />
+          <Label text="ldap" required={false} />
           <Input
             type="text"
-            name="email"
-            value={signinForm.values.email}
+            name="ldap_login"
+            value={signInForm.values.ldap_login}
             className={`border border-black px-1 py-3 outline-none ${
-              signinForm.touched.email && signinForm.errors.email
+              signInForm.touched.ldap_login && signInForm.errors.ldap_login
                 ? "border-red-500"
                 : "border-black"
             }`}
-            placeholder={"váš email"}
-            onBlur={signinForm.handleBlur}
-            onChange={signinForm.handleChange}
+            placeholder={"váš ldap"}
+            onBlur={signInForm.handleBlur}
+            onChange={signInForm.handleChange}
           />
           <ErrorMessage
             message={
-              signinForm.errors.email &&
-              signinForm.touched.email &&
-              signinForm.errors.email
+              signInForm.errors.ldap_login &&
+              signInForm.touched.ldap_login &&
+              signInForm.errors.ldap_login
             }
           />
         </div>
@@ -75,21 +73,21 @@ const SignInForm = () => {
           <Input
             type="password"
             name="password"
-            value={signinForm.values.password}
+            value={signInForm.values.password}
             className={`border border-black px-1 py-3 outline-none ${
-              signinForm.touched.password && signinForm.errors.password
+              signInForm.touched.password && signInForm.errors.password
                 ? "border-red-500"
                 : "border-black"
             }`}
             placeholder={"vaše heslo"}
-            onBlur={signinForm.handleBlur}
-            onChange={signinForm.handleChange}
+            onBlur={signInForm.handleBlur}
+            onChange={signInForm.handleChange}
           />
           <ErrorMessage
             message={
-              signinForm.errors.password &&
-              signinForm.touched.password &&
-              signinForm.errors.password
+              signInForm.errors.password &&
+              signInForm.touched.password &&
+              signInForm.errors.password
             }
           />
         </div>
@@ -100,23 +98,8 @@ const SignInForm = () => {
           prihlásiť
         </Button>
       </form>
-      <div className="w-max pt-4">
-        <p>
-          Prihlásiť pomocou ldap{" "}
-          <Link to={"/ldap-signin"} className="font-semibold text-purple-500">
-            účtu
-          </Link>
-          ?
-        </p>
-        <p>
-          Nemáte ešte vytvorený úcet?{" "}
-          <Link to={"/signup"} className="font-semibold text-purple-500">
-            Registrovať
-          </Link>
-        </p>
-      </div>
     </div>
   );
 };
 
-export default SignInForm;
+export default LdapSigninForm;

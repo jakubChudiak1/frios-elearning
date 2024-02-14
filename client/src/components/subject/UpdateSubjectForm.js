@@ -49,7 +49,7 @@ const UpdateSubjectForm = React.forwardRef(
     };
     return (
       <div
-        className="absolute left-[50%] top-[65%] z-[10000]  w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[30rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] "
+        className="absolute left-[50%] top-[65%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%] xs:w-[28rem] md:top-[57%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] "
         ref={ref}
         onClick={handleClickInsideForm}
       >
@@ -142,6 +142,7 @@ const UpdateSubjectForm = React.forwardRef(
               <Label text={"popis"} required={false} />
               <Editor
                 data={updateSubjectForm.values.description}
+                isHandler={false}
                 onChange={(event) =>
                   updateSubjectForm.setFieldValue("description", event)
                 }

@@ -63,7 +63,7 @@ export const subjectsApi = apiSlice.injectEndpoints({
     }),
     deleteSubject: build.mutation({
       query: (subjectId) => ({
-        url: `/subjects/delete-subject/${subjectId}`,
+        url: `subjects/delete-subject/${subjectId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Subjects"],

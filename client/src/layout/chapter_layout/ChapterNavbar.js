@@ -5,7 +5,7 @@ import UserProfileImage from "../../components/user_profile/UserProfileImage";
 
 const ChapterNavbar = ({ authenticated, user }) => {
   return (
-    <header className="relative w-full px-2 pb-3  pt-5 xl:px-5">
+    <header className="relative w-full px-2 pb-3  pt-5 ">
       <nav className="relative flex w-full items-center justify-between capitalize">
         <Logo />
         {!authenticated ? (

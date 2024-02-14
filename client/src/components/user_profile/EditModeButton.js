@@ -4,14 +4,14 @@ import { styled } from "@mui/material/styles";
 import { setEditModeSlice } from "../../redux/features/editModeSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useSetEditModeMutation } from "../../api/endpoints/editModeEndpoints";
 
-const EditModeButton = () => {
-  const { editModeState } = useSelector((state) => state.editModeState);
-  const dispatch = useDispatch();
+const EditModeButton = ({ user }) => {
+  const [setEditMode] = useSetEditModeMutation();
 
-  const handleEditModeChange = (event) => {
-    const newEditModeState = event.target.checked;
-    dispatch(setEditModeSlice(newEditModeState));
+  const handleEditModeChange = async (event) => {
+    const editMode = event.target.checked;
+    await setEditMode({ editMode: editMode });
   };
 
   const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -25,7 +25,7 @@ const EditModeButton = () => {
   return (
     <div className="flex w-full items-center">
       <p className=" capitalize">edit mode:</p>
-      <CustomSwitch checked={editModeState} onChange={handleEditModeChange} />
+      <CustomSwitch checked={user?.edit_mode} onChange={handleEditModeChange} />
     </div>
   );
 };

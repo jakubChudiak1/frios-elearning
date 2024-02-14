@@ -49,9 +49,10 @@ const AddSubjectForm = React.forwardRef(
         }
       },
     });
+
     return (
       <div
-        className="absolute left-[50%] top-[70%]  z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[28rem]  md:top-[70%] md:p-7 lg:left-[55%]  lg:top-[56%] lg:w-[45rem]"
+        className=" absolute left-[50%] top-[72%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[28rem] md:top-[65%]  md:w-[35rem] md:p-7 lg:left-[55%]  lg:top-[58%] lg:w-[45rem]"
         ref={ref}
       >
         <div className="flex items-center justify-between">
@@ -142,8 +143,9 @@ const AddSubjectForm = React.forwardRef(
               <Label text={"popis"} required={false} />
               <Editor
                 data={addSubjectForm.values.description}
-                onChange={(event) =>
-                  addSubjectForm.setFieldValue("description", event)
+                isHandler={false}
+                onChange={(content) =>
+                  addSubjectForm.setFieldValue("description", content)
                 }
                 height="h-36"
               />

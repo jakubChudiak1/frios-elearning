@@ -142,6 +142,16 @@ input::file-selector-button {
 .form input:valid + .label-name::after {
   transform: translateX(0%);
 }
+
+/*** update chapters name ***/
+.bar {
+  width: 30%;
+}
+
+.update-chapter-name input:focus + .bar {
+  width: 80%;
+}
+
 /*** overlay ***/
 .page-overlay {
   background: linear-gradient(

@@ -3,15 +3,20 @@ import UserProfileImage from "./UserProfileImage";
 import { useNavigate } from "react-router-dom";
 import { useSignoutMutation } from "../../api/endpoints/authEndpoints";
 import EditModeButton from "./EditModeButton";
+import { useDispatch } from "react-redux";
+import { setEditModeSlice } from "../../redux/features/editModeSlice";
 
 const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [signout] = useSignoutMutation();
   const signoutHandler = async () => {
     signout();
     setUserMenu(false);
+    dispatch(setEditModeSlice(false));
     navigate("/");
   };
+
   return (
     <div
       className={`${
@@ -31,7 +36,9 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
               <p className="text-[12px]">{user?.role_name}</p>
             </div>
           </div>
-          {(user?.id_role === 1 || user?.id_role === 2) && <EditModeButton />}
+          {(user?.id_role === 1 || user?.id_role === 2) && (
+            <EditModeButton user={user} />
+          )}
           <p className="cursor-pointer" onClick={signoutHandler}>
             Sign out
           </p>

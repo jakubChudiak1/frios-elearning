@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import HtmlParser from "react-html-parser";
+import HtmlParser from "html-react-parser";
 import ArrowBack from "../UI/ArrowBack";
 import Editor from "../editor/Editor";
 import { useSelector } from "react-redux";
 import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import { useUpdateChaptersContentMutation } from "../../api/endpoints/chaptersEndpoints";
+import UpdateChaptersName from "./UpdateChaptersName";
 
 const ChapterItemDetails = ({ chapterDetails }) => {
   const { subject_id, chapter_id } = useParams();
@@ -26,15 +27,20 @@ const ChapterItemDetails = ({ chapterDetails }) => {
   return (
     <div className="flex flex-col">
       <ArrowBack link={`/subject/${subject_id}`} showed={"block"} />
-      <h2 className="break-all capitalize">{chapterDetails?.name}</h2>
+      {editModeState && isEditable ? (
+        <UpdateChaptersName chapter={chapterDetails} />
+      ) : (
+        <h2 className="break-all capitalize">{chapterDetails?.name}</h2>
+      )}
       {editModeState && isEditable ? (
         <Editor
           data={chapterDetails?.content}
+          isHandler={true}
           dataHandler={updateChaptersContentHandler}
         />
       ) : (
         <div className="chapter-content mr-5 pt-2">
-          {HtmlParser(chapterDetails?.content)}
+          {HtmlParser(chapterDetails?.content ? chapterDetails?.content : "")}
         </div>
       )}
     </div>

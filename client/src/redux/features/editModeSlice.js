@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
 export const editModeSlice = createSlice({
   name: "EditModeSlice",
@@ -10,6 +11,7 @@ export const editModeSlice = createSlice({
       state.editModeState = action.payload;
     },
   },
+ 
 });
 
 export const { setEditModeSlice } = editModeSlice.actions;

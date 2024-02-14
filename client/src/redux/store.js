@@ -7,6 +7,7 @@ const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     editModeState: editModeSlice,
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
 });

@@ -13,6 +13,7 @@ import MySubjects from "../pages/user/MySubjects";
 import SubjectDetails from "../pages/default/SubjectDetails";
 import MyRequests from "../pages/user/MyRequests";
 import Requests from "../pages/teacher/Requests";
+import LdapSignIn from "../pages/default/LdapSignIn";
 
 export const mainLayoutRoutes = [
   {
@@ -45,6 +46,15 @@ export const mainLayoutRoutes = [
   },
   {
     id: 5,
+    path: "/ldap-signin",
+    element: (
+      <RequireNoAuth>
+        <LdapSignIn />
+      </RequireNoAuth>
+    ),
+  },
+  {
+    id: 6,
     path: "/signup",
     element: (
       <RequireNoAuth>
@@ -53,22 +63,22 @@ export const mainLayoutRoutes = [
     ),
   },
   {
-    id: 6,
+    id: 7,
     path: "/subject/:subject_id",
     element: <SubjectDetails />,
   },
   {
-    id: 7,
+    id: 8,
     path: "/subjects/search",
     element: <SearchedSubjects />,
   },
   {
-    id: 8,
+    id: 9,
     path: "/subjects/category",
     element: <CategorySubjects />,
   },
   {
-    id: 9,
+    id: 10,
     path: "/users",
     element: (
       <RequireRole roles={[1, 2]}>
@@ -77,7 +87,7 @@ export const mainLayoutRoutes = [
     ),
   },
   {
-    id: 10,
+    id: 11,
     path: "/accesses",
     element: (
       <RequireRole roleId={1}>
@@ -86,7 +96,7 @@ export const mainLayoutRoutes = [
     ),
   },
   {
-    id: 11,
+    id: 12,
     path: "/my-requests",
     element: (
       <RequireAuth>
@@ -95,7 +105,7 @@ export const mainLayoutRoutes = [
     ),
   },
   {
-    id: 12,
+    id: 13,
     path: "requests",
     element: (
       <RequireRole roles={[1, 2]}>

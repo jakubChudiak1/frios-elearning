@@ -47,7 +47,7 @@ class ChapterController {
       const chapters = await Chapter.getSideChapters(main_chapter);
       res.json(chapters);
     } catch (error) {
-      console.log(chapters);
+      console.log(error);
     }
   }
 
@@ -85,7 +85,6 @@ class ChapterController {
       const newContent = await Chapter.updateChaptersContent(chapter_id, {
         content,
       });
-      console.log(content);
       res.status(200).json({ message: "Content Succesfully updated" });
     } catch (error) {
       console.log(error);
@@ -107,7 +106,7 @@ class ChapterController {
 
   static async deleteChapter(req, res) {
     try {
-      const { chapter_id } = req.params;
+      const { subject_id, chapter_id } = req.params;
       await Chapter.deleteChapter(chapter_id);
       res.status(200).json({ message: "Chapter was successfully removed" });
     } catch (error) {

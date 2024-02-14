@@ -15,7 +15,7 @@ import FontSize from "./toolbar-items/FontSize";
 
 changeDefaultIcons();
 
-const Toolbar = ({ submitData }) => (
+const Toolbar = ({ submitData, isHandler }) => (
   <div id="toolbar" className="sticky top-0">
     <div className="ql-formats">
       <Headers />
@@ -69,7 +69,7 @@ const Toolbar = ({ submitData }) => (
       <button className="ql-redo">
         <Redo />
       </button>
-      <SaveContent onClick={submitData} />
+      {isHandler && <SaveContent onClick={submitData} />}
     </div>
   </div>
 );

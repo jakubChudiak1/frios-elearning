@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Editor from "../editor/Editor";
 import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import { useUpdateDescriptionMutation } from "../../api/endpoints/subjectsEndpoints";
-import HtmlParser from "react-html-parser";
+import HtmlParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 const SubjectItemDetails = ({ subjectDetails }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
@@ -45,12 +45,17 @@ const SubjectItemDetails = ({ subjectDetails }) => {
             {editModeState && isEditable ? (
               <Editor
                 data={subjectDetails?.description}
+                isHandler={true}
                 dataHandler={updateSubjectsDescriptionHandler}
                 height="h-36"
               />
             ) : (
               <div className="chapter-content whitespace-pre break-words">
-                {HtmlParser(subjectDetails?.description)}
+                {HtmlParser(
+                  subjectDetails?.description
+                    ? subjectDetails?.description
+                    : "",
+                )}
               </div>
             )}
 

@@ -1,9 +1,12 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useGetIsValidQuery } from "../api/endpoints/authEndpoints";
+import { setEditModeSlice } from "../redux/features/editModeSlice";
+import { useDispatch } from "react-redux";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+  const dispatch = useDispatch();
   const {
     data: user,
     isLoading,
@@ -11,6 +14,11 @@ export const AuthContextProvider = ({ children }) => {
     isError,
     error,
   } = useGetIsValidQuery();
+
+  useEffect(() => {
+    dispatch(setEditModeSlice(user?.edit_mode));
+  }, [user?.edit_mode]);
+
   return (
     <AuthContext.Provider
       value={{ user, authenticated: !!user, loading: isLoading }}

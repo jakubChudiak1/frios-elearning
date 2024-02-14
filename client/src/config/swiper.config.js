@@ -1,10 +1,10 @@
 const swiperBreakpoints = ({ subjects }) => {
   return {
     100: {
-      slidesPerView: 1.1,
+      slidesPerView: subjects?.length === 1 ? 1 : 1.1,
     },
     200: {
-      slidesPerView: 1.1,
+      slidesPerView: subjects?.length === 1 ? 1 : 1.1,
     },
     300: {
       slidesPerView: subjects?.length === 1 ? 1 : 1.1,

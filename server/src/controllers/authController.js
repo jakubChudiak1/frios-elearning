@@ -10,7 +10,8 @@ class AuthController {
     try {
       const user_id = req.session.user_id;
       const user = await User.getUserById(user_id);
-      res.status(200).json(user);
+      const editMode = req.session.edit_mode;
+      res.status(200).json({ ...user, edit_mode: editMode });
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +64,7 @@ class AuthController {
           req.session.regenerate(function (err) {
             const user_id = existingUser?.user_id;
             req.session.user_id = user_id;
+            req.session.edit_mode = false;
             req.session.save();
             return res.status(200).json({ message: "User logged in" });
           });
@@ -75,6 +77,7 @@ class AuthController {
 
   static async signOut(req, res) {
     req.session.user_id = null;
+    req.session.edit_mode = null;
     res.clearCookie("Session", { path: "/" });
     req.session.save(function (err) {
       if (err) next(err);

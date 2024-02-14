@@ -46,10 +46,20 @@ class User {
 
   static async createUser(user) {
     try {
-      const { email, cryptedPassword, name, surname, id_role = 2 } = user;
+      const {
+        personal_number,
+        ldap_login,
+        email,
+        cryptedPassword,
+        name,
+        surname,
+        id_role = 2,
+      } = user;
       const query =
-        "INSERT INTO users (email,password,name,surname,id_role) VALUES (?,?,?,?,?)";
+        "INSERT INTO users (personal_number,ldap_login,email,password,name,surname,id_role) VALUES (?,?,?,?,?,?,?)";
       const result = await db.query(query, [
+        personal_number,
+        ldap_login,
         email,
         cryptedPassword,
         name,
