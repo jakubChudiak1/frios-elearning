@@ -1,4 +1,4 @@
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/8728241c-0f0b-4543-97a9-656861b3b8b2)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/06a7e345-f59d-49f5-812f-0c735e7ca296)
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/083bbcd8-de64-43b5-b6e6-d2d6a8fe76cc)
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/decde01d-95f9-4987-92fc-cf5cb85fa515)
 ![image](https://github.com/jakubChudiak1/elearning/assets/114510280/78256934-f9ca-4d57-b3ce-d46fb89b8f21)
