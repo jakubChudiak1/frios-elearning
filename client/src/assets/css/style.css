@@ -77,12 +77,20 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input[type="checkbox"]:checked {
+  accent-color: #a855f7;
+}
+
 input::file-selector-button {
   color: white;
   padding: 0.5em;
   border: none;
   border-radius: 3px;
   background-color: #a855f7;
+}
+
+option:hover {
+  accent-color: yellow;
 }
 
 /*** add category button ***/
@@ -664,7 +672,7 @@ pre {
 @media (max-width: 1280px) {
   .swiper-button-prev,
   .swiper-button-next {
-    transform: translateY(30%);
+    transform: translateY(20%);
   }
   .swiper-button-prev::after,
   .swiper-button-next::after {
@@ -683,7 +691,7 @@ pre {
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .swiper-button-prev,
   .swiper-button-next {
     transform: translateY(50%);
@@ -693,7 +701,7 @@ pre {
 @media (max-width: 800px) {
   .swiper-button-prev,
   .swiper-button-next {
-    transform: translateY(30%);
+    transform: translateY(20%);
   }
 }
 

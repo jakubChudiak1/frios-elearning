@@ -9,11 +9,10 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const UpdateChaptersName = ({ chapter }) => {
   const { chapter_id } = useParams();
-  console.log(chapter_id);
   const [updateChaptersName] = useUpdateChaptersNameMutation();
   const updateChaptersNameForm = useFormik({
     initialValues: {
-      name: chapter?.name,
+      name: chapter?.name || "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required(),
@@ -27,7 +26,7 @@ const UpdateChaptersName = ({ chapter }) => {
   });
 
   useEffect(() => {
-    updateChaptersNameForm.setValues({ name: chapter?.name });
+    updateChaptersNameForm.setValues({ name: chapter?.name || "" });
   }, [chapter]);
 
   return (
@@ -42,6 +41,7 @@ const UpdateChaptersName = ({ chapter }) => {
         onBlur={updateChaptersNameForm.handleBlur}
         className="w-full text-[18px] font-bold capitalize outline-none xs:text-[20px] lg:text-[28px]"
       />
+
       <div
         className={`bar absolute top-[100%] flex h-[2px] ${
           updateChaptersNameForm.errors.name ? "bg-red-500" : "bg-[#a855f7]"

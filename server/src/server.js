@@ -13,12 +13,17 @@ import chaptersRoutes from "./routes/chapters.js";
 import filesRoutes from "./routes/files.js";
 import ldapRoutes from "./routes/ldap.js";
 import editRoutes from "./routes/editMode.js";
+import languageRoutes from "./routes/languages.js";
+import translationsRoutes from "./routes/translations.js";
 import sessionMiddleware from "./middlewares/session.js";
 import corsOptions from "./middlewares/cors.js";
+import i18n from "i18n";
 
 dotenv.config();
+
 const app = express();
 cors(corsOptions);
+app.use(i18n.init);
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -34,6 +39,8 @@ app.use("/chapters", chaptersRoutes);
 app.use("/files", filesRoutes);
 app.use("/ldap", ldapRoutes);
 app.use("/edit-mode", editRoutes);
+app.use("/translations", translationsRoutes);
+app.use("/languages", languageRoutes);
 
 app.listen(process.env.PORT, "127.0.0.1", () => {
   console.log("server is running");

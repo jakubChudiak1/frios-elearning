@@ -1,0 +1,170 @@
+{
+  "mainMenu": {
+    "home": "domov"
+  },
+  "studentMenu": {
+    "home": "domov",
+    "mySubjects": "moje predmety",
+    "myRequests": "moje žiadosti"
+  },
+  "teacherMenu": {
+    "home": "domov",
+    "mySubjects": "moje predmety",
+    "myRequests": "moje žiadosti",
+    "requests": "žiadosti"
+  },
+  "adminMenu": {
+    "home": "domov",
+    "subjects": "predmety",
+    "users": "používatelia",
+    "requests": "žiadosti"
+  },
+  "headers": {
+    "mySubjects": "moje predmety",
+    "publicSubjects": "verejné predmety",
+    "privateSubjects": "súkromné predmety",
+    "editableSubjects": "upraviteľné predmety",
+    "recommendedSubjects": "odporúčané predmety",
+    "moreSubjectsFrom": "viac predmetov od",
+    "searchSubject": "výsledkov pre",
+    "allSubjects": "všetky predmety",
+    "categorySubject": "predmety s kategóriou",
+    "signIn": "prihlásenie",
+    "signUp": "registrácia",
+    "users": "používatelia",
+    "myRequests": "moje žiadosti",
+    "requests": "žiadosti",
+    "createSubject": "vytvorte predmet",
+    "updateSubject": "upravte predmet"
+  },
+
+  "subjectDetails": {
+    "chaptersCount": "počet kapitol",
+    "category": "kategória",
+    "createdBy": "vytvoril",
+    "goToLessons": "prejsť k lekciám",
+    "askForAccess": "požiadať o prístup",
+    "users": "používatelia",
+    "language": "jazyk"
+  },
+  "navbar": {
+    "signIn": "prihlásenie",
+    "signUp": "vytvoriť účet",
+    "searchSubject": "hľadajte predmety"
+  },
+  "signIn": {
+    "emailLabel": "email",
+    "emailPlaceholder": "Váš Email",
+    "passwordLabel": "heslo",
+    "passwordPlaceholder": "Vaše Heslo",
+    "submit": "prihlásiť",
+    "ldapText": "Prihlásiť pomocou ldap",
+    "account": "účtu",
+    "signUpText": "Nemáte ešte vytvorený úcet?",
+    "register": "Registrovať",
+    "errorMessage": "nesprávne prihlasovacie údaje",
+    "requiredEmail": "Email je povinný",
+    "requiredPassword": "heslo je povinné"
+  },
+  "ldapSignIn": {
+    "ldapLabel": "ldap",
+    "ldapPlaceholder": "Váš ldap",
+    "passwordLabel": "heslo",
+    "passwordPlaceholder": "Vaše heslo",
+    "errorMessage": "nesprávne prihlasovacie údaje",
+    "requiredLdap": "Ldap je povinný",
+    "requiredPassword": "Heslo je povinné",
+    "submit": "prihlásiť"
+  },
+  "signup": {
+    "nameLable": "meno",
+    "namePlaceholder": "Vaše meno",
+    "surnameLable": "priezvisko",
+    "surnamePlaceholder": "Vaše priezvisko",
+    "emailLable": "email",
+    "emailPlaceholder": "Váš email",
+    "passwordLable": "heslo",
+    "passwordPlaceholder": "Vaše heslo",
+    "submit": "registrovať",
+    "requiredName": "Meno je povinné",
+    "requiredSurname": "Priezvisko je povinné",
+    "requiredEmail": "Email je povinný",
+    "requiredPassword": "Heslo je povinné",
+    "existsAccount": "Už máte vytvorený úcet?",
+    "signIn": "Prihlásiť"
+  },
+  "usersList": {
+    "name": "meno",
+    "email": "email",
+    "role": "rola",
+    "submit": "potvrdiť",
+    "searchUser": "Zadajte meno použivateľa"
+  },
+  "request": {
+    "chaptersCount": "počet kapitol",
+    "category": "kategória",
+    "createdBy": "vytvoril",
+    "requestSent": "žiadosť Odoslaná:",
+    "requestSentBy": "Žiadosť Poslal",
+    "accept": "prijať Žiadosť",
+    "decline": "odmietnuť Žiadosť",
+    "remove": "odstrániť žiadosť"
+  },
+  "createSubject": {
+    "createSubject": "nový predmet",
+    "subjectsName": "názov predmetu",
+    "subjectsCode": "kód predmetu",
+    "subjectsCategory": "kategória predmetu",
+    "subjectsStatus": "status",
+    "subjectsDescription": "popis",
+    "subjectsImage": "profilový obrázok",
+    "subjectPublic": "verejný",
+    "subjectVisible": "viditeľný",
+    "submit": "vytvoriť predmet",
+    "nameRequired": "meno je povinné",
+    "imageRequired": "obrázok je povinný",
+    "language": "jazyk"
+  },
+  "updateSubject": {
+    "updateSubject": "upraviť predmet",
+    "subjectsName": "názov predmetu",
+    "subjectsCode": "kód predmetu",
+    "subjectsCategory": "kategória predmetu",
+    "subjectsStatus": "status",
+    "subjectsDescription": "popis",
+    "subjectPublic": "verejný",
+    "submit": "vytvoriť predmet",
+    "nameRequired": "meno je povinné",
+    "language": "language"
+  },
+  "createCategory": {
+    "createCategory": "vytvorte kategóriu"
+  },
+  "subjectsUsers": {
+    "activeUsers": "aktívny používatelia",
+    "addUsers": "pridať používateľa",
+    "usersName": "meno",
+    "createdAt": "vytvorený v",
+    "editable": "upraviteľný",
+    "remove": "odstrániť",
+    "usersRole": "rola",
+    "add": "pridať"
+  },
+  "arrows": {
+    "back": "späť"
+  },
+  "chapters": {
+    "chapterContent": "obsah",
+    "createChapter": "pridajte kapitolu"
+  },
+  "editor": {
+    "save": "uložiť",
+    "headers": {
+      "header1": "nadpis 1",
+      "header2": "nadpis 2",
+      "header3": "nadpis 3",
+      "header4": "nadpis 4",
+      "normal": "normálny"
+    }
+  }
+}

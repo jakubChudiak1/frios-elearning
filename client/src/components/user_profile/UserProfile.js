@@ -14,7 +14,7 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
     signout();
     setUserMenu(false);
     dispatch(setEditModeSlice(false));
-    navigate("/");
+    navigate("");
   };
 
   return (
@@ -36,7 +36,7 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
               <p className="text-[12px]">{user?.role_name}</p>
             </div>
           </div>
-          {(user?.id_role === 1 || user?.id_role === 2) && (
+          {(user?.role_id === 1 || user?.role_id === 2) && (
             <EditModeButton user={user} />
           )}
           <p className="cursor-pointer" onClick={signoutHandler}>

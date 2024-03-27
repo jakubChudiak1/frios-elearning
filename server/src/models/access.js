@@ -46,7 +46,7 @@ class Access {
   static async getEditableSubjects(userId) {
     try {
       const query =
-        "SELECT a.access_id,s.category_id, s.subject_id,s.subject_code,s.description, s.name as subjects_name, ca.name as subjects_category, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? AND editable = TRUE GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
+        "SELECT a.access_id,s.category_id,s.language_id, s.subject_id,s.subject_code,s.description, s.name as subjects_name, ca.name as subjects_category,s.is_visible, s.is_public,s.image_path,a.created_at, CONCAT(u.name, ' ', u.surname) AS creators_name,CAST(COUNT(c.chapter_id) AS CHAR) AS chapter_count FROM subjects s LEFT JOIN chapters c ON s.subject_id = c.subject_id LEFT JOIN categories ca ON s.category_id = ca.category_id LEFT JOIN users u ON s.user_id = u.user_id LEFT JOIN accesses a on s.subject_id = a.subject_id WHERE a.user_Id = ? AND editable = TRUE GROUP BY s.subject_id, s.subject_code, s.name, s.is_public,s.image_path,a.created_at ORDER BY s.subject_id";
       const results = await db.query(query, userId);
       return results;
     } catch (error) {
@@ -114,6 +114,28 @@ class Access {
       const query = "SELECT * FROM accesses WHERE subject_id = ?";
       const result = await db.query(query, subjectId);
       return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async getSubjectsUsers(subject_id, user_id) {
+    try {
+      const query =
+        "SELECT a.access_id,a.user_id,a.subject_id,CONCAT(u.name, ' ', u.surname) AS users_name,a.editable,a.created_at FROM accesses a LEFT JOIN users u ON u.user_id = a.user_id  WHERE subject_id = ? AND a.user_id <> ? AND a.status = 'accepted' AND role_id <> 1";
+      const results = await db.query(query, [subject_id, user_id]);
+      return results;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async getUsersWithoutAccess(subject_id) {
+    try {
+      const query =
+        "SELECT u.user_id, CONCAT(u.name, ' ', u.surname) AS users_name,r.role_id,r.name AS roles_name FROM users u LEFT JOIN roles r ON u.role_id = r.role_id LEFT JOIN accesses a ON u.user_id = a.user_id WHERE a.user_id IS NULL OR a.status = 'rejected' AND a.subject_id = ?";
+      const results = await db.query(query, [subject_id]);
+      return results;
     } catch (error) {
       throw new Error(error);
     }

@@ -27,6 +27,7 @@
     "express-mysql-session": "^3.0.0",
     "express-session": "^1.17.3",
     "helmet": "^7.0.0",
+    "i18n": "^0.15.1",
     "joi": "^17.10.2",
     "jsonwebtoken": "^9.0.2",
     "ldapjs": "^3.0.7",

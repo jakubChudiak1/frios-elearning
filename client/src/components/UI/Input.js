@@ -5,6 +5,7 @@ const Input = (props) => {
       name={props.name}
       className={props.className}
       placeholder={props.placeholder}
+      disabled={props.disabled}
       type={props.type}
       onBlur={props.onBlur}
       onChange={props.onChange}

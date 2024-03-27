@@ -30,9 +30,22 @@ class UserController {
     try {
       const user_id = req.session.user_id;
       const user = await User.getUserById(user_id);
-      res.json(user);
+      res.status(200).json(user);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  static async changeUsersRole(req, res) {
+    try {
+      const { user_id, role_id } = req.body;
+
+      const newRole = await User.changeUsersRole(user_id, {
+        role_id,
+      });
+      res.status(200).json({ message: "role changed" });
+    } catch (error) {
+      console.error("Error in changeUsersRole:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   }

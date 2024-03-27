@@ -17,33 +17,6 @@ class AuthController {
     }
   }
 
-  static async signUp(req, res) {
-    try {
-      const { email, password, name, surname, id_role } = req.body;
-      const { error } = createUserValidation({
-        email,
-        password,
-        name,
-        surname,
-      });
-      const cryptedPassword = await bcrypt.hash(password, 10);
-      if (error) {
-        res.status(400).json({ message: error.details[0].message });
-      } else {
-        await User.createUser({
-          email,
-          cryptedPassword,
-          name,
-          surname,
-          id_role,
-        });
-        res.status(201).json({ message: "User created successfully" });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   static async signIn(req, res) {
     try {
       const { email, password } = req.body;
@@ -69,6 +42,38 @@ class AuthController {
             return res.status(200).json({ message: "User logged in" });
           });
         }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async signUp(req, res) {
+    try {
+      const { email, password, name, surname, role_id } = req.body;
+      const { error } = createUserValidation({
+        email,
+        password,
+        name,
+        surname,
+      });
+      const cryptedPassword = await bcrypt.hash(password, 10);
+      if (error) {
+        res.status(400).json({ message: error.details[0].message });
+      } else {
+        const newUser = await User.createUser({
+          email,
+          cryptedPassword,
+          name,
+          surname,
+          role_id: 3,
+        });
+        req.session.regenerate(function (err) {
+          const user_id = Number(newUser);
+          req.session.user_id = user_id;
+          req.session.save();
+          return res.status(200).json({ message: "User logged in" });
+        });
       }
     } catch (error) {
       console.log(error);

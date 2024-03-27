@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../../components/UI/Logo";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../../components/user_profile/UserProfileImage";
+import LanguagePicker from "../../components/language/LanguagePicker";
 
 const ChapterNavbar = ({ authenticated, user }) => {
   return (
@@ -9,7 +10,8 @@ const ChapterNavbar = ({ authenticated, user }) => {
       <nav className="relative flex w-full items-center justify-between capitalize">
         <Logo />
         {!authenticated ? (
-          <div className="flex  items-center gap-3 whitespace-nowrap">
+          <div className="flex  items-center gap-1 whitespace-nowrap sm:gap-3">
+            <LanguagePicker />
             <Link to={"/signin"}>
               <div className="flex h-10  cursor-pointer items-center bg-purple-500 px-3 text-center font-medium capitalize text-white">
                 <span>prihlásiť</span>
@@ -22,7 +24,10 @@ const ChapterNavbar = ({ authenticated, user }) => {
             </Link>
           </div>
         ) : (
-          <UserProfileImage user={user} handleMenuClick={true} />
+          <div className="flex items-center gap-1 sm:gap-3">
+            <LanguagePicker />
+            <UserProfileImage user={user} handleMenuClick={true} />
+          </div>
         )}
       </nav>
     </header>

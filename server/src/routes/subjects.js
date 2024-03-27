@@ -23,6 +23,7 @@ router.post(
   checkRole([1, 2]),
   SubjectController.createSubject
 );
+
 router.patch(
   "/update-subject/:subject_id",
   verifyToken,
@@ -35,6 +36,13 @@ router.patch(
   checkRole([1, 2]),
   checkEditable,
   SubjectController.updateDescription
+);
+router.patch(
+  "/change-visibility/:subject_id",
+  verifyToken,
+  checkRole([1, 2]),
+  checkEditable,
+  SubjectController.changeVisibility
 );
 router.delete(
   "/delete-subject/:subject_id",

@@ -26,6 +26,15 @@ export const accessApi = apiSlice.injectEndpoints({
       query: (subjectId) => `accesses/is-editable/${subjectId}`,
       providesTags: ["Accesses", "Subjects"],
     }),
+    getSubjectsUsers: build.query({
+      query: (subjectId) => `accesses/subjects-users/${subjectId}
+      `,
+      providesTags: ["Accesses"],
+    }),
+    getUsersWithoutAccess: build.query({
+      query: (subjectId) => `accesses/users/${subjectId}`,
+      providesTags: ["Accesses"],
+    }),
     acceptStatus: build.mutation({
       query: (accessId) => ({
         url: `accesses/accept-status/${accessId}`,
@@ -48,6 +57,14 @@ export const accessApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Accesses"],
     }),
+    addAccessToUser: build.mutation({
+      query: (access) => ({
+        url: "accesses/addAccessToUser",
+        method: "POST",
+        body: access,
+      }),
+      invalidatesTags: ["Accesses"],
+    }),
     deleteAccess: build.mutation({
       query: (access_id) => ({
         url: `accesses/delete/${access_id}`,
@@ -65,7 +82,10 @@ export const {
   useGetUsersSubjectsByStatusQuery,
   useGetUsersRequestsQuery,
   useAddAccessMutation,
+  useAddAccessToUserMutation,
   useGetIsSubjectEditableQuery,
+  useGetSubjectsUsersQuery,
+  useGetUsersWithoutAccessQuery,
   useAcceptStatusMutation,
   useRejectStatusMutation,
   useDeleteAccessMutation,

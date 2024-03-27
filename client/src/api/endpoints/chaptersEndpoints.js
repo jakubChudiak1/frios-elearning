@@ -43,6 +43,14 @@ export const chapterApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
     }),
+    updateChapterPublished: build.mutation({
+      query: ({ chapterId, ...chapter }) => ({
+        url: `chapters/published/${chapterId}`,
+        method: "PATCH",
+        body: chapter,
+      }),
+      invalidatesTags: ["Chapters"],
+    }),
     deleteChapter: build.mutation({
       query: ({ chapter_id, subject_id }) => ({
         url: `chapters/${subject_id}/delete-chapter/${chapter_id}`,
@@ -60,5 +68,6 @@ export const {
   useAddSideChapterMutation,
   useUpdateChaptersContentMutation,
   useUpdateChaptersNameMutation,
+  useUpdateChapterPublishedMutation,
   useDeleteChapterMutation,
 } = chapterApi;

@@ -9,26 +9,37 @@ import CategorySelect from "../category/CategorySelect";
 import Button from "../UI/Button";
 import { useUpdateSubjectMutation } from "../../api/endpoints/subjectsEndpoints";
 import Editor from "../editor/Editor";
+import { useTranslation } from "react-i18next";
+import LanguageSelect from "../language/LanguageSelect";
+import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
 
 const UpdateSubjectForm = React.forwardRef(
   ({ subject_id, subject, closeUpdateSubjectModalHandler }, ref) => {
     const [updateSubject] = useUpdateSubjectMutation();
+    const { data: categories } = useGetCategoriesListQuery();
+    const { t } = useTranslation();
+
     const updateSubjectForm = useFormik({
       initialValues: {
         name: subject?.subjects_name,
         subject_code: subject?.subject_code,
         category_id: subject?.category_id,
         is_public: subject?.is_public ? 1 : 0,
+        is_visible: subject?.is_visible ? 1 : 0,
         description: subject?.description,
+        language_id: subject?.language_id,
       },
       validationSchema: Yup.object({
-        name: Yup.string().required("name is required"),
+        name: Yup.string().required(t("updateSubject.nameRequired")),
         subject_code: Yup.string().nullable(),
         category_id: Yup.number().required("category is required"),
-        is_public: Yup.bool(),
+        is_public: Yup.bool().required(""),
+        is_visible: Yup.bool().required(""),
         description: Yup.string(),
+        language_id: Yup.number().required(""),
       }),
       onSubmit: async (values) => {
+        console.log(values);
         try {
           await updateSubject({
             subjectId: subject_id,
@@ -36,11 +47,13 @@ const UpdateSubjectForm = React.forwardRef(
             subject_code: values.subject_code,
             name: values.name,
             is_public: values.is_public ? 1 : 0,
+            is_visible: values.is_visible ? 1 : 0,
             description: values.description,
+            language_id: values.language_id,
           });
           closeUpdateSubjectModalHandler();
         } catch (error) {
-          console.error(error);
+          console.log(error);
         }
       },
     });
@@ -49,12 +62,14 @@ const UpdateSubjectForm = React.forwardRef(
     };
     return (
       <div
-        className="absolute left-[50%] top-[65%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%] xs:w-[28rem] md:top-[57%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] "
+        className="absolute left-[50%] top-[65%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%]  md:top-[57%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] xl:top-[50%] "
         ref={ref}
         onClick={handleClickInsideForm}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-[20px] capitalize">upravte predmet</h2>
+          <h2 className="text-[20px] capitalize">
+            {t("headers.updateSubject")}
+          </h2>
           <Close
             className="cursor-pointer"
             fontSize="large"
@@ -67,7 +82,7 @@ const UpdateSubjectForm = React.forwardRef(
         >
           <div className="flex flex-col gap-3 pt-2 lg:flex-row">
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"názov predmetu"} required={true} />
+              <Label text={t("updateSubject.subjectsName")} required={true} />
               <Input
                 type="text"
                 name="name"
@@ -90,7 +105,7 @@ const UpdateSubjectForm = React.forwardRef(
               />
             </div>
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"kód predmetu"} required={false} />
+              <Label text={t("updateSubject.subjectsCode")} required={false} />
               <Input
                 type="text"
                 name="subject_code"
@@ -103,11 +118,15 @@ const UpdateSubjectForm = React.forwardRef(
           </div>
           <div className="flex flex-col gap-3 pt-2 md:flex-row">
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"kategória predmetu  "} required={true} />
+              <Label
+                text={t("updateSubject.subjectsCategory")}
+                required={true}
+              />
               <CategorySelect
                 onBlur={updateSubjectForm.handleBlur}
                 onChange={updateSubjectForm.handleChange}
                 defaultValue={updateSubjectForm.values.category_id}
+                categories={categories}
               />
               <ErrorMessage
                 message={
@@ -118,7 +137,22 @@ const UpdateSubjectForm = React.forwardRef(
               />
             </div>
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"Status"} required={false} />
+              <div className="flex  flex-col gap-1">
+                <Label text={t("createSubject.language")} required={false} />
+                <LanguageSelect
+                  defaultValue={updateSubjectForm.values.language_id}
+                  onBlur={updateSubjectForm.handleBlur}
+                  onChange={updateSubjectForm.handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-1 items-center gap-3 ">
+            <div className="flex  flex-col gap-1">
+              <Label
+                text={t("createSubject.subjectsStatus")}
+                required={false}
+              />
               <div className="flex items-center gap-1">
                 <Input
                   type="checkbox"
@@ -133,13 +167,40 @@ const UpdateSubjectForm = React.forwardRef(
                   onBlur={updateSubjectForm.handleBlur}
                   onChange={updateSubjectForm.handleChange}
                 />
-                <p className="capitalize">verejný</p>
+                <p className="capitalize">{t("createSubject.subjectPublic")}</p>
+              </div>
+            </div>
+            <div className="flex  flex-col gap-1">
+              <Label
+                text={t("createSubject.subjectVisible")}
+                required={false}
+              />
+              <div className="flex items-center gap-1">
+                <Input
+                  type="checkbox"
+                  name="is_visible"
+                  className={`self-center  border border-black px-1 py-2 outline-none ${
+                    updateSubjectForm.touched.is_visible &&
+                    updateSubjectForm.errors.is_visible
+                      ? "border-red-500"
+                      : "border-black"
+                  }`}
+                  checked={updateSubjectForm.values.is_visible}
+                  onBlur={updateSubjectForm.handleBlur}
+                  onChange={updateSubjectForm.handleChange}
+                />
+                <p className="capitalize">
+                  {t("createSubject.subjectVisible")}
+                </p>
               </div>
             </div>
           </div>
           <div className="flex w-full pt-2">
             <div className="flex w-full flex-col gap-1">
-              <Label text={"popis"} required={false} />
+              <Label
+                text={t("updateSubject.subjectsDescription")}
+                required={false}
+              />
               <Editor
                 data={updateSubjectForm.values.description}
                 isHandler={false}
@@ -152,9 +213,9 @@ const UpdateSubjectForm = React.forwardRef(
           </div>
           <Button
             type="submit"
-            className="mt-2 w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
+            className=" w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
           >
-            upraviť predmet
+            {t("updateSubject.updateSubject")}
           </Button>
         </form>
       </div>

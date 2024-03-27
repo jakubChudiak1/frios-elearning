@@ -111,7 +111,30 @@ class AccessController {
       const user_id = req.session.user_id;
       const access = await Access.getAccessStatus(user_id, subject_id);
       res.json(access);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getSubjectsUsers(req, res) {
+    try {
+      const { subject_id } = req.params;
+      const user_id = req.session.user_id;
+      const subjects = await Access.getSubjectsUsers(subject_id, user_id);
+      res.json(subjects);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getUsersWithoutAccess(req, res) {
+    try {
+      const { subject_id } = req.params;
+      const users = await Access.getUsersWithoutAccess(subject_id);
+      res.json(users);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async createAccess(req, res) {
@@ -122,6 +145,23 @@ class AccessController {
         subject_id: subject_id,
         editable: false,
         status: "pending",
+        created_at: new Date(),
+      });
+
+      res.json({ message: "Access Succesfully created" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async addAccessToUser(req, res) {
+    try {
+      const { subject_id, user_id, editable } = req.body;
+      const access = await Access.createAccess({
+        user_id: user_id,
+        subject_id: subject_id,
+        editable: editable,
+        status: "accepted",
         created_at: new Date(),
       });
 

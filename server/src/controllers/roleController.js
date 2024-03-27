@@ -27,10 +27,21 @@ class RoleController {
     }
   }
 
+  static async updateRole(req, res) {
+    try {
+      const { name } = req.body;
+      const { role_id } = req.params;
+      const role = await Role.updateRole(role_id, { name: name });
+      res.status(200).json({ message: "Role successfully updated" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async deleteRole(req, res) {
     try {
-      const { id_role } = req.params;
-      const role = await Role.deleteRole(id_role);
+      const { role_id } = req.params;
+      const role = await Role.deleteRole(role_id);
       res.status(201).json({ message: "Role deleted successfully" });
     } catch (error) {
       console.log(error);

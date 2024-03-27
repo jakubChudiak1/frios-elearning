@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Close } from "@mui/icons-material";
-import menuConfig from "../../config/menu.config";
+import MenuConfig from "../../config/menu.config";
 const MobileSideBar = React.forwardRef(({ activeMenu, setToggled }, ref) => {
   const location = useLocation();
   const closeMenuHandler = () => {
@@ -10,11 +10,11 @@ const MobileSideBar = React.forwardRef(({ activeMenu, setToggled }, ref) => {
 
   return (
     <div
-      className=" flex h-[50vh] w-full justify-between bg-white pt-3 align-baseline lg:hidden"
+      className=" flex h-screen w-full justify-between bg-white pt-3 align-baseline lg:hidden"
       ref={ref}
     >
       <ul className="flex flex-col gap-1">
-        {menuConfig[activeMenu]?.map((item) => (
+        {MenuConfig()[activeMenu]?.map((item) => (
           <div
             key={item.id}
             className={` ${

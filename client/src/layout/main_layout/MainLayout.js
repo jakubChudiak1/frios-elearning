@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useAuth } from "../../context/authContext";
 import useActiveMenu from "../../hooks/useActiveMenu";
@@ -8,12 +8,20 @@ import Footer from "./Footer";
 import GlobalLoading from "../../components/global-loading/GlobalLoading";
 import MobileNavbar from "./MobileNavbar";
 import { useMediaQuery } from "react-responsive";
-import PageOverlay from "../../components/UI/PageOverlay";
+import { useTranslation } from "react-i18next";
 
 const MainLayout = () => {
   const { user, authenticated, loading } = useAuth();
+  const { lang } = useParams();
+  const { i18n } = useTranslation();
   const activeMenu = useActiveMenu(user, authenticated, loading);
-  const isMobile = useMediaQuery({ query: "(max-width:1024px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:1023.9px)" });
+
+  useEffect(() => {
+    if (lang && i18n.language !== lang) {
+      i18n.changeLanguage(lang);
+    }
+  }, [lang, i18n]);
 
   if (loading) {
     return <></>;

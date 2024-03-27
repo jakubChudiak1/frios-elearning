@@ -2,12 +2,17 @@ import React from "react";
 import Section from "../../components/UI/Section";
 import { useGetUsersRequestsQuery } from "../../api/endpoints/accessesEndpoints";
 import RequestList from "../../components/request/RequestList";
+import { useTranslation } from "react-i18next";
+
 const Requests = () => {
   const { data: usersRequests } = useGetUsersRequestsQuery();
-  console.log(usersRequests);
+  const { t } = useTranslation();
   return (
     <Section>
-      <RequestList usersRequests={usersRequests} header={"žiadosti"} />
+      <RequestList
+        usersRequests={usersRequests}
+        header={t("headers.requests")}
+      />
     </Section>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from "../../api/endpoints/accessesEndpoints";
 import AddSubjectButton from "../../components/subject/AddSubjectButton";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const { editModeState } = useSelector((state) => state.editModeState);
@@ -24,7 +25,7 @@ const Home = () => {
   const { data: editableSubjects } = useGetEditableSubjectsQuery(undefined, {
     skip: !editModeState,
   });
-
+  const { t } = useTranslation();
   return (
     <Section>
       {editModeState && <AddSubjectButton />}
@@ -32,19 +33,25 @@ const Home = () => {
       {editModeState && editableSubjects?.length > 0 && (
         <SubjectList
           subjects={editableSubjects}
-          text={"upravitelné predmety"}
+          text={t("headers.editableSubjects")}
           editable={true}
         />
       )}
 
       {authenticated && usersSubjects?.length > 0 && (
-        <SubjectList subjects={usersSubjects} text={"moje predmety"} />
+        <SubjectList subjects={usersSubjects} text={t("headers.mySubjects")} />
       )}
       {publicSubjects?.length > 0 && (
-        <SubjectList subjects={publicSubjects} text={"verejné predmety"} />
+        <SubjectList
+          subjects={publicSubjects}
+          text={t("headers.publicSubjects")}
+        />
       )}
       {privateSubjects?.length > 0 && (
-        <SubjectList subjects={privateSubjects} text={"súkromné predmety"} />
+        <SubjectList
+          subjects={privateSubjects}
+          text={t("headers.privateSubjects")}
+        />
       )}
     </Section>
   );

@@ -1,0 +1,169 @@
+{
+  "mainMenu": {
+    "home": "home"
+  },
+  "studentMenu": {
+    "home": "home",
+    "mySubjects": "my subjects",
+    "myRequests": "my requests"
+  },
+  "teacherMenu": {
+    "home": "home",
+    "mySubjects": "my subjects",
+    "myRequests": "my requests",
+    "requests": "requests"
+  },
+  "adminMenu": {
+    "home": "home",
+    "subjects": "subjects",
+    "users": "users",
+    "requests": "requests"
+  },
+  "headers": {
+    "mySubjects": "my subjects",
+    "publicSubjects": "public subjects",
+    "privateSubjects": "private subjects",
+    "editableSubjects": "editable subjects",
+    "recommendedSubjects": "recommended subjects",
+    "moreSubjectsFrom": "more subjects from",
+    "searchSubject": "results for",
+    "allSubjects": "all subjects",
+    "categorySubject": "subjects with category",
+    "signIn": "sign in",
+    "signUp": "sign up",
+    "users": "users",
+    "myRequests": "my requests",
+    "requests": "requests",
+    "createSubject": "create subject",
+    "updateSubject": "update subject"
+  },
+  "subjectDetails": {
+    "chaptersCount": "chapters count",
+    "category": "category",
+    "createdBy": "created by",
+    "goToLessons": "Go to Lessons",
+    "askForAccess": "ask for access",
+    "users": "users",
+    "language": "language"
+  },
+  "navbar": {
+    "signIn": "sign in",
+    "signUp": "sign up",
+    "searchSubject": "search for subjects"
+  },
+  "signIn": {
+    "emailLabel": "email",
+    "emailPlaceholder": "Your Email",
+    "passwordLabel": "password",
+    "passwordPlaceholder": "Your Password",
+    "submit": "Sign in",
+    "ldapText": "Sign in with ldap",
+    "account": "account",
+    "signUpText": "Don't have an account?",
+    "register": "Sign up",
+    "errorMessage": "incorrect credentials",
+    "requiredEmail": "Email Is Required",
+    "requiredPassword": "Password Is Required"
+  },
+  "ldapSignIn": {
+    "ldapLabel": "ldap",
+    "ldapPlaceholder": "your ldap",
+    "passwordLabel": "password",
+    "passwordPlaceholder": "Your Password",
+    "errorMessage": "incorrect credentials",
+    "requiredLdap": "Ldap Is Required",
+    "requiredPassword": "Password Is Required",
+    "submit": "sign in"
+  },
+  "signup": {
+    "nameLable": "name",
+    "namePlaceholder": "Your name",
+    "surnameLable": "surname",
+    "surnamePlaceholder": "Your surname",
+    "emailLable": "email",
+    "emailPlaceholder": "Your email",
+    "passwordLable": "password",
+    "passwordPlaceholder": "Your password",
+    "submit": "sign up",
+    "requiredName": "Name is required",
+    "requiredSurname": "Surname is required",
+    "requiredEmail": "Email is required",
+    "requiredPassword": "Password is required",
+    "existsAccount": "Do you already have an account?",
+    "signIn": "Sign in"
+  },
+  "usersList": {
+    "name": "name",
+    "email": "email",
+    "role": "role",
+    "submit": "submit",
+    "searchUser": "Input users name"
+  },
+  "request": {
+    "chaptersCount": "chapters count",
+    "category": "category",
+    "createdBy": "created by",
+    "requestSent": "Request sent at",
+    "requestSentBy": "Request sent by",
+    "accept": "accept request",
+    "decline": "decline request",
+    "remove": "remove request"
+  },
+  "createSubject": {
+    "createSubject": "new subject",
+    "subjectsName": "subjects name",
+    "subjectsCode": "subjects code",
+    "subjectsCategory": "subjects category",
+    "subjectsStatus": "status",
+    "subjectsDescription": "description",
+    "subjectsImage": "subjects image",
+    "subjectPublic": "public",
+    "subjectVisible": "visible",
+    "submit": "create a new subject",
+    "nameRequired": "name is required",
+    "image Required": "image is required",
+    "language": "language"
+  },
+  "updateSubject": {
+    "updateSubject": "update subject",
+    "subjectsName": "subjects name",
+    "subjectsCode": "subjects code",
+    "subjectsCategory": "subjects category",
+    "subjectsStatus": "status",
+    "subjectsDescription": "description",
+    "subjectPublic": "public",
+    "submit": "create a new subject",
+    "nameRequired": "name is required",
+    "language": "language"
+  },
+  "createCategory": {
+    "createCategory": "create new category"
+  },
+  "subjectsUsers": {
+    "activeUsers": "active users",
+    "addUsers": "add user",
+    "usersName": "name",
+    "createdAt": "created at",
+    "editable": "editable",
+    "remove": "remove",
+    "usersRole": "role",
+    "add": "add"
+  },
+  "arrows": {
+    "back": "back"
+  },
+  "chapters": {
+    "chapterContent": "content",
+    "createChapter": "create a new chapter"
+  },
+  "editor": {
+    "save": "save",
+    "headers": {
+      "header1": "header 1",
+      "header2": "header 2",
+      "header3": "header 3",
+      "header4": "header 4",
+      "normal": "normal"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import useOnClickOutside from "react-cool-onclickoutside";
 import { useDeleteSubjectMutation } from "../../api/endpoints/subjectsEndpoints";
 import UpdateSubjectModal from "../modals/UpdateSubjectModal";
 import AddSubjectButton from "./AddSubjectButton";
+import SubjectVisibility from "./SubjectVisibility";
 
 const SubjectModification = ({ subject_id, subject }) => {
   const [openUpdateSubjectModal, setOpenUpdateSubjectModal] = useState(false);
@@ -41,6 +42,7 @@ const SubjectModification = ({ subject_id, subject }) => {
             fontSize="medium"
             onClick={openUpdateSubjectModalHandler}
           />
+          <SubjectVisibility subject={subject} />
         </div>
       </div>
       {openUpdateSubjectModal && (

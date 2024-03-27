@@ -22,6 +22,9 @@ export const apiSlice = createApi({
     "Categories",
     "Chapters",
     "EditMode",
+    "Users",
+    "Roles",
+    "Languages",
   ],
   endpoints: () => ({}),
 });

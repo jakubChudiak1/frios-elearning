@@ -93,11 +93,17 @@ class SubjectController {
 
   static async createSubject(req, res) {
     try {
-      const { category_id, subject_code, name, is_public, description } =
-        req.body;
+      const {
+        category_id,
+        subject_code,
+        name,
+        is_public,
+        is_visible,
+        description,
+        language_id,
+      } = req.body;
       const user_id = req.session.user_id;
       const admins = await User.getUsersByRole(1);
-      console.log(admins);
       let image_path = null;
       if (req.file) {
         image_path = req.file.filename;
@@ -113,9 +119,12 @@ class SubjectController {
           subject_code,
           name,
           is_public,
+          is_visible,
           image_path,
           description,
+          language_id,
         });
+        console.log(newSubject);
         const subject_id = Number(newSubject);
         await Access.createAccess({
           user_id: user_id,
@@ -173,15 +182,24 @@ class SubjectController {
 
   static async updateSubject(req, res) {
     try {
-      const { category_id, subject_code, name, is_public, description } =
-        req.body;
+      const {
+        category_id,
+        subject_code,
+        name,
+        is_public,
+        is_visible,
+        description,
+        language_id,
+      } = req.body;
       const { subject_id } = req.params;
       const updatedSubject = await Subject.updateSubject(subject_id, {
         category_id,
         subject_code,
         name,
         is_public,
+        is_visible,
         description,
+        language_id,
       });
       res.status(201).json({ message: "Subject updated successfully" });
     } catch (error) {
@@ -197,6 +215,21 @@ class SubjectController {
         description,
       });
       res.status(201).json({ message: "Description updated successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async changeVisibility(req, res) {
+    try {
+      const { subject_id } = req.params;
+      const { is_visible } = req.body;
+      const visibility = await Subject.changeVisibility(subject_id, {
+        is_visible,
+      });
+
+      console.log(visibility);
+      res.status(200).json({ message: "Subject was successfully updated" });
     } catch (error) {
       console.log(error);
     }

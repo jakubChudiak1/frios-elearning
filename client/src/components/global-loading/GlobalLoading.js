@@ -5,7 +5,11 @@ import { CircularProgress } from "@mui/material";
 const GlobalLoading = () => {
   const isSomeQueryPending = useSelector((state) =>
     Object.values(state.api.queries)
-      .filter((query) => query.endpointName !== "getAccessStatus")
+      .filter(
+        (query) =>
+          query.endpointName !== "getAccessStatus" ||
+          query.endpointName !== "getSubjectsUsers",
+      )
       .some((query) => query.status === "pending"),
   );
 

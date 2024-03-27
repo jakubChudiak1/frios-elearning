@@ -9,7 +9,7 @@ import { useUpdateChaptersContentMutation } from "../../api/endpoints/chaptersEn
 import UpdateChaptersName from "./UpdateChaptersName";
 
 const ChapterItemDetails = ({ chapterDetails }) => {
-  const { subject_id, chapter_id } = useParams();
+  const { subject_id, chapter_id, lang } = useParams();
 
   const { editModeState } = useSelector((state) => state.editModeState);
   const { data: isEditable } = useGetIsSubjectEditableQuery(subject_id, {
@@ -26,7 +26,7 @@ const ChapterItemDetails = ({ chapterDetails }) => {
 
   return (
     <div className="flex flex-col">
-      <ArrowBack link={`/subject/${subject_id}`} showed={"block"} />
+      <ArrowBack link={`/${lang}/subject/${subject_id}`} showed={"block"} />
       {editModeState && isEditable ? (
         <UpdateChaptersName chapter={chapterDetails} />
       ) : (

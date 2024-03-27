@@ -12,5 +12,17 @@ router.post(
   checkRole([1, 2]),
   CategoryController.createCategory
 );
+router.patch(
+  "/update-category/:category_id",
+  verifyToken,
+  checkRole([1, 2]),
+  CategoryController.updateCategory
+);
+router.delete(
+  "/delete-category/:category_id",
+  verifyToken,
+  checkRole([1]),
+  CategoryController.deleteCategory
+);
 
 export default router;

@@ -6,10 +6,12 @@ import { useAddMainChapterMutation } from "../../api/endpoints/chaptersEndpoints
 import { useParams } from "react-router-dom";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
+import { useTranslation } from "react-i18next";
 
 const AddChapter = () => {
   const { subject_id } = useParams();
   const [addMainChapter] = useAddMainChapterMutation();
+  const { t } = useTranslation();
   const addChapterForm = useFormik({
     initialValues: {
       name: "",
@@ -38,7 +40,7 @@ const AddChapter = () => {
           value={addChapterForm.values.name}
           onChange={addChapterForm.handleChange}
           onBlur={addChapterForm.handleBlur}
-          placeholder="pridajte kapitolu"
+          placeholder={t("chapters.createChapter")}
           className="color h-full  w-full bg-transparent text-[14px] placeholder-black outline-none"
         />
       </div>

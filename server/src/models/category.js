@@ -20,5 +20,26 @@ class Category {
       throw new Error(error);
     }
   }
+
+  static async updateCategory(categoryId, category) {
+    try {
+      const { name } = category;
+      const query = "UPDATE categories SET name = (?) WHERE category_id = (?)";
+      const result = await db.query(query, [name, categoryId]);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async deleteCategory(categoryId) {
+    try {
+      const query = "DELETE FROM categories WHERE category_id = (?)";
+      const result = await db.query(query, [categoryId]);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 export default Category;

@@ -4,7 +4,7 @@ const useActiveMenu = (user, authenticated, loading) => {
   const [activeMenu, setActiveMenu] = useState(null);
   useEffect(() => {
     if (authenticated && user) {
-      switch (user?.id_role) {
+      switch (user?.role_id) {
         case 1:
           setActiveMenu("admin");
           break;

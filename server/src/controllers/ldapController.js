@@ -60,7 +60,7 @@ class LdapController {
                   searchRes.on("searchEntry", async (entry) => {
                     userDn = entry.attributes[2].values[0];
                     userNumber = entry.attributes[4].values[0];
-                    console.log(userNumber);
+                    console.log(userDn.includes("Studenti"));
                     userSurname = entry.attributes[0].values[0];
                     userFirstName = entry.attributes[1].values[0];
                     userEmail = entry.attributes[3].values[0];
@@ -91,6 +91,7 @@ class LdapController {
                               cryptedPassword: cryptedPassword,
                               name: userFirstName,
                               surname: userSurname,
+                              role_id: userDn.includes("Studenti") ? 3 : 2,
                             });
                             ldapClient.unbind(() => {
                               console.log("disconnecting");

@@ -21,7 +21,7 @@ const UserProfileImage = ({ user, handleMenuClick }) => {
         onClick={handleMenuClick ? userMenuHandler : undefined}
       >
         <p className="text-lg font-semibold capitalize">
-          {user?.name.charAt(0)}
+          {user?.name?.charAt(0)}
         </p>
       </div>
 

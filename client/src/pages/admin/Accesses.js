@@ -4,6 +4,7 @@ import AccessList from "../../components/access/AccessList";
 import { useGetAccessesListQuery } from "../../api/endpoints/accessesEndpoints";
 import { useAcceptStatusMutation } from "../../api/endpoints/accessesEndpoints";
 import { useRejectStatusMutation } from "../../api/endpoints/accessesEndpoints";
+import { useTranslation } from "react-i18next";
 
 function Accesses() {
   const { data: accesses } = useGetAccessesListQuery();
@@ -16,7 +17,7 @@ function Accesses() {
   const rejectAccessHandler = async (access_id) => {
     const response = await rejectStatus(access_id);
   };
-
+  const { t } = useTranslation();
   return (
     <Section>
       <AccessList

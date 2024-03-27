@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import AddSideChapter from "./AddSideChapter";
@@ -16,6 +16,7 @@ const ChapterMenuItem = ({
 }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const [opened, setOpened] = useState(false);
+  const { lang } = useParams();
   return (
     <>
       <div
@@ -24,7 +25,7 @@ const ChapterMenuItem = ({
         } py-4 pl-[10px] font-semibold hover:bg-gray-100`}
       >
         <Link
-          to={`/${subject_id}/chapter/${chapter?.chapter_id}`}
+          to={`/${lang}/${subject_id}/chapter/${chapter?.chapter_id}`}
           key={chapter.chapter_id}
           onClick={() => {
             setOpened((prev) => !prev);
@@ -37,7 +38,10 @@ const ChapterMenuItem = ({
           >
             <div className="flex gap-1">
               {editModeState && isEditable && (
-                <ChapterEditIcons chapterId={chapter?.chapter_id} />
+                <ChapterEditIcons
+                  chapterId={chapter?.chapter_id}
+                  published={chapter?.published}
+                />
               )}
               <h3
                 className={`${

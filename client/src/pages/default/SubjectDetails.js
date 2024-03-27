@@ -7,6 +7,7 @@ import { useGetSubjectByIdQuery } from "../../api/endpoints/subjectsEndpoints";
 import { useGetSubjectsByCreatorQuery } from "../../api/endpoints/subjectsEndpoints";
 import { useGetRecommendedSubjectsQuery } from "../../api/endpoints/subjectsEndpoints";
 import { ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const SubjectDetails = () => {
   const { subject_id } = useParams();
@@ -25,6 +26,7 @@ const SubjectDetails = () => {
     },
     { skip: subjectDetails?.user_id === undefined },
   );
+  const { t } = useTranslation();
 
   return (
     <>
@@ -34,13 +36,15 @@ const SubjectDetails = () => {
         {subjectsByCategory?.length > 0 && (
           <SubjectList
             subjects={subjectsByCategory}
-            text={"odporúčané predmety"}
+            text={t("headers.recommendedSubjects")}
           />
         )}
         {subjectsByCreator?.length > 0 && (
           <SubjectList
             subjects={subjectsByCreator}
-            text={`Viac predmetov od ${subjectDetails?.creators_name}`}
+            text={`${t("headers.moreSubjectsFrom")} ${
+              subjectDetails?.creators_name
+            }`}
           />
         )}
       </Section>

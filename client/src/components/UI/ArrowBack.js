@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { KeyboardBackspace } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 const ArrowBack = ({ link, showed }) => {
+  const { t } = useTranslation();
   return (
     <Link
       to={link}
@@ -13,7 +15,7 @@ const ArrowBack = ({ link, showed }) => {
         whileHover={{ x: -5 }}
       >
         <KeyboardBackspace fontSize="large" />
-        <p className="text-[16px]">späť</p>
+        <p className="text-[16px]">{t("arrows.back")}</p>
       </motion.div>
     </Link>
   );

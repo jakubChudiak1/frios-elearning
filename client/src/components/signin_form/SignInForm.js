@@ -5,41 +5,42 @@ import { useFormik } from "formik";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 import { useAuth } from "../../context/authContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import ErrorMessage from "../UI/ErrorMessage";
 import Label from "../UI/Label";
 import { useSigninMutation } from "../../api/endpoints/authEndpoints";
+import { useTranslation } from "react-i18next";
 
 const SignInForm = () => {
   const [signin, { error }] = useSigninMutation();
+  const { lang } = useParams();
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const { t } = useTranslation();
   const signinForm = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("email is required"),
-      password: Yup.string().required("password is required"),
+      email: Yup.string().required(t("signIn.requiredEmail")),
+      password: Yup.string().required(t("signIn.requiredPassword")),
     }),
     onSubmit: async (values) => {
       const result = await signin(values);
       if (result.error) {
-        setErrorMessage("incorrect credentials");
+        setErrorMessage(t("signIn.errorMessage"));
       } else {
-        navigate(from, { replace: true });
+        navigate(`/${lang}`);
       }
     },
   });
 
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[2rem] sm:py-[4.5rem]">
-      <h2>Prihlásenie</h2>
+      <h2 className="capitalize">{t("headers.signIn")}</h2>
       {errorMessage && (
-        <div className=" min-w-[18rem] max-w-[60rem] border border-red-500">
+        <div className=" min-w-[18rem] max-w-[60rem] border border-red-500 capitalize">
           <p className="px-1 py-2 font-medium text-red-500">{errorMessage}</p>
         </div>
       )}
@@ -48,7 +49,7 @@ const SignInForm = () => {
         onSubmit={signinForm.handleSubmit}
       >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <Label text="email" required={false} />
+          <Label text={t("signIn.emailLabel")} required={false} />
           <Input
             type="text"
             name="email"
@@ -58,7 +59,7 @@ const SignInForm = () => {
                 ? "border-red-500"
                 : "border-black"
             }`}
-            placeholder={"váš email"}
+            placeholder={t("signIn.emailPlaceholder")}
             onBlur={signinForm.handleBlur}
             onChange={signinForm.handleChange}
           />
@@ -71,7 +72,7 @@ const SignInForm = () => {
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <Label text="heslo" required={false} />
+          <Label text={t("signIn.passwordLabel")} required={false} />
           <Input
             type="password"
             name="password"
@@ -81,7 +82,7 @@ const SignInForm = () => {
                 ? "border-red-500"
                 : "border-black"
             }`}
-            placeholder={"vaše heslo"}
+            placeholder={t("signIn.passwordPlaceholder")}
             onBlur={signinForm.handleBlur}
             onChange={signinForm.handleChange}
           />
@@ -97,21 +98,27 @@ const SignInForm = () => {
           type="submit"
           className="mt-2 bg-purple-500 p-3 font-medium capitalize text-white"
         >
-          prihlásiť
+          {t("signIn.submit")}
         </Button>
       </form>
       <div className="w-max pt-4">
         <p>
-          Prihlásiť pomocou ldap{" "}
-          <Link to={"/ldap-signin"} className="font-semibold text-purple-500">
-            účtu
+          {t("signIn.ldapText")}{" "}
+          <Link
+            to={`/${lang}/ldap-signin`}
+            className="font-semibold text-purple-500"
+          >
+            {t("signIn.account")}
           </Link>
           ?
         </p>
         <p>
-          Nemáte ešte vytvorený úcet?{" "}
-          <Link to={"/signup"} className="font-semibold text-purple-500">
-            Registrovať
+          {t("signIn.signUpText")}{" "}
+          <Link
+            to={`/${lang}/signup`}
+            className="font-semibold text-purple-500"
+          >
+            {t("signIn.register")}
           </Link>
         </p>
       </div>

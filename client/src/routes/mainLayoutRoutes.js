@@ -8,12 +8,12 @@ import SignIn from "../pages/default/SignIn";
 import SignUp from "../pages/default/SignUp";
 import Accesses from "../pages/admin/Accesses";
 import Subjects from "../pages/admin/Subjects";
-import Users from "../pages/admin/Users";
 import MySubjects from "../pages/user/MySubjects";
 import SubjectDetails from "../pages/default/SubjectDetails";
 import MyRequests from "../pages/user/MyRequests";
 import Requests from "../pages/teacher/Requests";
 import LdapSignIn from "../pages/default/LdapSignIn";
+import Users from "../pages/admin/Users";
 
 export const mainLayoutRoutes = [
   {
@@ -23,12 +23,12 @@ export const mainLayoutRoutes = [
   },
   {
     id: 2,
-    path: "/subjects",
+    path: "subjects",
     element: <Subjects />,
   },
   {
     id: 3,
-    path: "/my-subjects",
+    path: "my-subjects",
     element: (
       <RequireAuth>
         <MySubjects />
@@ -37,7 +37,7 @@ export const mainLayoutRoutes = [
   },
   {
     id: 4,
-    path: "/signin",
+    path: "signin",
     element: (
       <RequireNoAuth>
         <SignIn />
@@ -46,7 +46,7 @@ export const mainLayoutRoutes = [
   },
   {
     id: 5,
-    path: "/ldap-signin",
+    path: "ldap-signin",
     element: (
       <RequireNoAuth>
         <LdapSignIn />
@@ -55,7 +55,7 @@ export const mainLayoutRoutes = [
   },
   {
     id: 6,
-    path: "/signup",
+    path: "signup",
     element: (
       <RequireNoAuth>
         <SignUp />
@@ -64,22 +64,22 @@ export const mainLayoutRoutes = [
   },
   {
     id: 7,
-    path: "/subject/:subject_id",
+    path: "subject/:subject_id",
     element: <SubjectDetails />,
   },
   {
     id: 8,
-    path: "/subjects/search",
+    path: "subjects/search",
     element: <SearchedSubjects />,
   },
   {
     id: 9,
-    path: "/subjects/category",
+    path: "subjects/category",
     element: <CategorySubjects />,
   },
   {
     id: 10,
-    path: "/users",
+    path: "users",
     element: (
       <RequireRole roles={[1, 2]}>
         <Users />
@@ -88,7 +88,7 @@ export const mainLayoutRoutes = [
   },
   {
     id: 11,
-    path: "/accesses",
+    path: "accesses",
     element: (
       <RequireRole roleId={1}>
         <Accesses />
@@ -97,7 +97,7 @@ export const mainLayoutRoutes = [
   },
   {
     id: 12,
-    path: "/my-requests",
+    path: "my-requests",
     element: (
       <RequireAuth>
         <MyRequests />

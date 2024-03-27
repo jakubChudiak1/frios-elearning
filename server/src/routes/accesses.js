@@ -35,10 +35,27 @@ router.get(
   checkEditable,
   AccessController.getIsSubjectEditableByUser
 );
+router.get(
+  "/subjects-users/:subject_id",
+  verifyToken,
+  checkEditable,
+  AccessController.getSubjectsUsers
+);
+router.get(
+  "/users/:subject_id",
+  verifyToken,
+  checkEditable,
+  AccessController.getUsersWithoutAccess
+);
 
 router.post("/add-access", verifyToken, AccessController.createAccess);
+router.post(
+  "/addAccessToUser",
+  verifyToken,
+  checkEditable,
+  AccessController.addAccessToUser
+);
 router.patch("/update-status/:access_id", AccessController.updateStatus);
-
 router.patch("/accept-status/:access_id", AccessController.acceptStatus);
 router.patch("/reject-status/:access_id", AccessController.rejectStatus);
 router.delete("/delete/:access_id", AccessController.deleteAccess);

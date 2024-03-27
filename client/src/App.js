@@ -29,7 +29,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/:lang" element={<MainLayout />}>
           {mainLayoutRoutes.map((route) =>
             route.index ? (
               <Route index key={route.id} element={route.element} />
@@ -41,7 +41,7 @@ const App = () => {
 
         <Route element={<RequireAccess />}>
           <Route
-            path="/:subject_id/chapter/:chapter_id"
+            path="/:lang/:subject_id/chapter/:chapter_id"
             element={<ChapterLayout />}
           >
             {chapterLayoutRoutes.map((route) => (
@@ -49,7 +49,8 @@ const App = () => {
             ))}
           </Route>
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/" element={<Navigate to={"/sk"} />} />
+        <Route path="*" element={<Navigate to={"/sk"} />} />
       </Routes>
     </>
   );

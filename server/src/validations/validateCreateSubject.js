@@ -7,7 +7,9 @@ const createSubjectValidation = (data) => {
     description: Joi.string().optional().allow(""),
     name: Joi.string().required(),
     is_public: Joi.number().required(),
+    is_visible: Joi.number().required(),
     image_path: Joi.string().optional(),
+    language_id: Joi.string().required(),
   });
   return schema.validate(data);
 };

@@ -23,7 +23,7 @@ class Role {
 
   static async getRolesName(id) {
     try {
-      const query = "SELECT name FROM roles WHERE id_role = ?";
+      const query = "SELECT name FROM roles WHERE role_id = ?";
       const result = await db.query(query, id);
       return result[0].nazov;
     } catch (error) {
@@ -42,9 +42,20 @@ class Role {
     }
   }
 
+  static async updateRole(id, role) {
+    try {
+      const { name } = role;
+      const query = "UPDATE roles SET (name) = ? WHERE role_id = (?)";
+      const result = await db.query(query, [name, id]);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async deleteRole(id) {
     try {
-      const query = "DELETE FROM roles WHERE id_role = ?";
+      const query = "DELETE FROM roles WHERE role_id = ?";
       const result = await db.query(query, [id]);
     } catch (error) {
       throw new Error(error);

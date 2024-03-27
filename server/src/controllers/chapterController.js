@@ -104,6 +104,19 @@ class ChapterController {
     }
   }
 
+  static async updateChapterPublished(req, res) {
+    try {
+      const { chapter_id } = req.params;
+      const { published } = req.body;
+      const newChapter = await Chapter.updateChapterPublished(chapter_id, {
+        published,
+      });
+      res.status(200).json({ message: "Chapter successfully updated" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async deleteChapter(req, res) {
     try {
       const { subject_id, chapter_id } = req.params;

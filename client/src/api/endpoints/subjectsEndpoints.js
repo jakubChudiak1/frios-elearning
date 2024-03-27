@@ -61,6 +61,14 @@ export const subjectsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Subjects"],
     }),
+    changeVisibility: build.mutation({
+      query: ({ subjectId, ...subject }) => ({
+        url: `subjects/change-visibility/${subjectId}`,
+        method: "PATCH",
+        body: subject,
+      }),
+      invalidatesTags: ["Subjects"],
+    }),
     deleteSubject: build.mutation({
       query: (subjectId) => ({
         url: `subjects/delete-subject/${subjectId}`,
@@ -83,5 +91,6 @@ export const {
   useAddSubjectMutation,
   useUpdateSubjectMutation,
   useUpdateDescriptionMutation,
+  useChangeVisibilityMutation,
   useDeleteSubjectMutation,
 } = subjectsApi;

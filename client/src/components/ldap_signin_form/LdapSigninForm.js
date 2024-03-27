@@ -2,43 +2,46 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useLdapSignInMutation } from "../../api/endpoints/ldapEndpoints";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 import Label from "../UI/Label";
 import ErrorMessage from "../UI/ErrorMessage";
+import { useTranslation } from "react-i18next";
 
 const LdapSigninForm = () => {
   const [ldapSignIn] = useLdapSignInMutation();
   const [errorMessage, setErrorMessage] = useState();
+  const { lang } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const { t } = useTranslation();
   const signInForm = useFormik({
     initialValues: {
       ldap_login: "",
       password: "",
     },
     validationSchema: Yup.object({
-      ldap_login: Yup.string().required("ldap is required"),
-      password: Yup.string().required("password is required"),
+      ldap_login: Yup.string().required(t("ldapSignIn.requiredLdap")),
+      password: Yup.string().required(t("ldapSignIn.requiredPassword")),
     }),
     onSubmit: async (values) => {
       const result = await ldapSignIn(values);
       if (result.error) {
-        setErrorMessage("incorrect credentials");
+        setErrorMessage(t("ldapSignIn.errorMessage"));
       } else {
-        navigate(from, { replace: true });
+        navigate(`/${lang}`);
       }
     },
   });
 
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[2rem] sm:py-[4.5rem]">
-      <h2>Prihlásenie</h2>
+      <h2 className="capitalize">{t("headers.signIn")}</h2>
       {errorMessage && (
         <div className=" min-w-[18rem] max-w-[60rem] border border-red-500">
-          <p className="px-1 py-2 font-medium text-red-500">{errorMessage}</p>
+          <p className="px-1 py-2 font-medium capitalize text-red-500">
+            {errorMessage}
+          </p>
         </div>
       )}
       <form
@@ -46,7 +49,7 @@ const LdapSigninForm = () => {
         onSubmit={signInForm.handleSubmit}
       >
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <Label text="ldap" required={false} />
+          <Label text={t("ldapSignIn.ldapLabel")} required={false} />
           <Input
             type="text"
             name="ldap_login"
@@ -56,7 +59,7 @@ const LdapSigninForm = () => {
                 ? "border-red-500"
                 : "border-black"
             }`}
-            placeholder={"váš ldap"}
+            placeholder={t("ldapSignIn.ldapPlaceholder")}
             onBlur={signInForm.handleBlur}
             onChange={signInForm.handleChange}
           />
@@ -69,7 +72,7 @@ const LdapSigninForm = () => {
           />
         </div>
         <div className="flex w-full min-w-[18rem] max-w-[60rem] flex-col gap-1">
-          <Label text="heslo" required={false} />
+          <Label text={t("ldapSignIn.passwordLabel")} required={false} />
           <Input
             type="password"
             name="password"
@@ -79,7 +82,7 @@ const LdapSigninForm = () => {
                 ? "border-red-500"
                 : "border-black"
             }`}
-            placeholder={"vaše heslo"}
+            placeholder={t("ldapSignIn.passwordPlaceholder")}
             onBlur={signInForm.handleBlur}
             onChange={signInForm.handleChange}
           />
@@ -95,7 +98,7 @@ const LdapSigninForm = () => {
           type="submit"
           className="mt-2 bg-purple-500 p-3 font-medium capitalize text-white"
         >
-          prihlásiť
+          {t("ldapSignIn.submit")}
         </Button>
       </form>
     </div>

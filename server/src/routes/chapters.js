@@ -37,9 +37,19 @@ router.patch(
 );
 router.patch(
   "/chapter-name/:chapter_id",
-
+  verifyToken,
+  checkRole([1, 2]),
+  checkEditable,
   ChapterController.updateChaptersName
 );
+router.patch(
+  "/published/:chapter_id",
+  verifyToken,
+  checkRole([1, 2]),
+  checkEditable,
+  ChapterController.updateChapterPublished
+);
+
 router.delete(
   "/:subject_id/delete-chapter/:chapter_id",
   verifyToken,

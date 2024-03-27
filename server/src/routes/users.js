@@ -7,5 +7,11 @@ const router = express.Router();
 router.get("", verifyToken, checkRole([1, 2]), UserController.getUsers);
 router.get("/user-info", verifyToken, UserController.getUsersInfo);
 router.get("/:email", verifyToken, UserController.getUserByEmail);
+router.patch(
+  "/change-role",
+  verifyToken,
+  checkRole([1]),
+  UserController.changeUsersRole
+);
 
 export default router;

@@ -9,12 +9,14 @@ import SearchForm from "../../components/search_form/SearchForm";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
+import LanguagePicker from "../../components/language/LanguagePicker";
+import { useTranslation } from "react-i18next";
 
 const MobileNavbar = ({ authenticated, user, activeMenu }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toggled, setToggled] = useState(false);
   const showSearchBar = useMediaQuery({ query: "max-width:768px" });
-
+  const { t } = useTranslation();
   const sidebarRef = useOnclickOutside(
     () => {
       setToggled(false);
@@ -42,6 +44,12 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
   const closeSearchForm = () => {
     setIsSearchOpen(false);
   };
+
+  if (toggled) {
+    document.body.style.overflowY = "hidden";
+  } else {
+    document.body.style.overflowY = "auto";
+  }
 
   return (
     <header className="relative z-[1000] w-full pb-1 pt-5">
@@ -91,15 +99,19 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
         </motion.div>
         <Logo />
         {!authenticated ? (
-          <div className=" whitespace-nowrap">
+          <div className="flex items-center gap-1 whitespace-nowrap">
+            <LanguagePicker />
             <Link to={"/signin"}>
               <div className="flex h-10  cursor-pointer items-center bg-purple-500 px-3 text-center font-medium capitalize text-white">
-                <span>prihlásiť</span>
+                <span>{t("navbar.signIn")}</span>
               </div>
             </Link>
           </div>
         ) : (
-          <UserProfileImage user={user} handleMenuClick={true} />
+          <div className="flex items-center gap-1">
+            <LanguagePicker />
+            <UserProfileImage user={user} handleMenuClick={true} />
+          </div>
         )}
       </nav>
     </header>

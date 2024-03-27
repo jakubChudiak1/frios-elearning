@@ -1,7 +1,5 @@
 import React from "react";
-import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
-const CategorySelect = ({ onBlur, onChange, defaultValue }) => {
-  const { data: categories } = useGetCategoriesListQuery();
+const CategorySelect = ({ categories, onBlur, onChange, defaultValue }) => {
   return (
     <select
       name="category_id"

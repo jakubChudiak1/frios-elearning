@@ -9,26 +9,36 @@ import { Close } from "@mui/icons-material";
 import CategorySelect from "../category/CategorySelect";
 import Button from "../UI/Button";
 import Editor from "../editor/Editor";
+import { useTranslation } from "react-i18next";
+import LanguageSelect from "../language/LanguageSelect";
+import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
 
 const AddSubjectForm = React.forwardRef(
   ({ closeAddSubjectModalHandler }, ref) => {
     const [addSubject] = useAddSubjectMutation();
+    const { data: categories } = useGetCategoriesListQuery();
+
+    const { t } = useTranslation();
     const addSubjectForm = useFormik({
       initialValues: {
         name: "",
         subject_code: "",
-        category_id: 1,
+        category_id: categories.length > 0 ? categories[0].category_id : "",
         image: null,
         is_public: false,
+        is_visible: true,
         description: "",
+        language_id: 1,
       },
       validationSchema: Yup.object({
-        name: Yup.string().required("name is required"),
+        name: Yup.string().required(t("createSubject.nameRequired")),
         subject_code: Yup.string().nullable(),
         category_id: Yup.number().required("category is required"),
-        image: Yup.mixed().required("image is required"),
-        is_public: Yup.bool().required("subjects status is required"),
+        image: Yup.mixed().required(t("createSubject.imageRequired")),
+        is_public: Yup.bool().required(""),
+        is_visible: Yup.bool().required(""),
         description: Yup.string(),
+        language_id: Yup.number().required(""),
       }),
       onSubmit: async (values) => {
         try {
@@ -37,10 +47,12 @@ const AddSubjectForm = React.forwardRef(
           formData.append("subject_code", values.subject_code);
           formData.append("name", values.name);
           formData.append("is_public", values.is_public ? 1 : 0);
+          formData.append("is_visible", values.is_visible ? 1 : 0);
           if (values.image) {
             formData.append("upload", values.image);
           }
           formData.append("description", values.description);
+          formData.append("language_id", values.language_id);
           await addSubject(formData);
           closeAddSubjectModalHandler();
           addSubjectForm.resetForm();
@@ -52,11 +64,13 @@ const AddSubjectForm = React.forwardRef(
 
     return (
       <div
-        className=" absolute left-[50%] top-[72%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:w-[28rem] md:top-[65%]  md:w-[35rem] md:p-7 lg:left-[55%]  lg:top-[58%] lg:w-[45rem]"
+        className=" absolute left-[50%] top-[72%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 md:top-[65%]  md:w-[35rem] md:p-4 lg:left-[55%]  lg:top-[58%] lg:w-[45rem] xl:top-[50%]"
         ref={ref}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-[20px]">Vytvorte predmet</h2>
+          <h2 className="text-[20px] capitalize">
+            {t("headers.createSubject")}
+          </h2>
           <Close
             className="cursor-pointer"
             fontSize="large"
@@ -69,7 +83,7 @@ const AddSubjectForm = React.forwardRef(
         >
           <div className="flex flex-col gap-3 pt-2 lg:flex-row">
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"názov predmetu"} required={true} />
+              <Label text={t("createSubject.subjectsName")} required={true} />
               <Input
                 type="text"
                 name="name"
@@ -91,7 +105,7 @@ const AddSubjectForm = React.forwardRef(
               />
             </div>
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"kód predmetu"} required={false} />
+              <Label text={t("createSubject.subjectsCode")} required={false} />
               <Input
                 type="text"
                 name="subject_code"
@@ -104,11 +118,12 @@ const AddSubjectForm = React.forwardRef(
           </div>
           <div className="flex flex-col gap-3 pt-2 md:flex-row">
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"kategória predmetu  "} required={true} />
+              <Label text={t("createSubject.subjectsCode")} required={true} />
               <CategorySelect
                 onBlur={addSubjectForm.handleBlur}
                 onChange={addSubjectForm.handleChange}
                 defaultValue={addSubjectForm.values.category_id}
+                categories={categories}
               />
               <ErrorMessage
                 message={
@@ -118,8 +133,26 @@ const AddSubjectForm = React.forwardRef(
                 }
               />
             </div>
-            <div className="flex flex-1 flex-col gap-1">
-              <Label text={"Status"} required={false} />
+            <div className="flex flex-1 flex-col gap-3 ">
+              <div className="flex  flex-col gap-1">
+                <Label
+                  text={t("createSubject.subjectsStatus")}
+                  required={false}
+                />
+                <LanguageSelect
+                  defaultValue={addSubjectForm.values.language_id}
+                  onBlur={addSubjectForm.handleBlur}
+                  onChange={addSubjectForm.handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-1 items-center gap-3 ">
+            <div className="flex  flex-col gap-1">
+              <Label
+                text={t("createSubject.subjectsStatus")}
+                required={false}
+              />
               <div className="flex items-center gap-1">
                 <Input
                   type="checkbox"
@@ -134,13 +167,40 @@ const AddSubjectForm = React.forwardRef(
                   onBlur={addSubjectForm.handleBlur}
                   onChange={addSubjectForm.handleChange}
                 />
-                <p className="capitalize">verejný</p>
+                <p className="capitalize">{t("createSubject.subjectPublic")}</p>
+              </div>
+            </div>
+            <div className="flex  flex-col gap-1">
+              <Label
+                text={t("createSubject.subjectVisible")}
+                required={false}
+              />
+              <div className="flex items-center gap-1">
+                <Input
+                  type="checkbox"
+                  name="is_visible"
+                  className={`self-center  border border-black px-1 py-2 outline-none ${
+                    addSubjectForm.touched.is_public &&
+                    addSubjectForm.errors.is_public
+                      ? "border-red-500"
+                      : "border-black"
+                  }`}
+                  checked={addSubjectForm.values.is_visible}
+                  onBlur={addSubjectForm.handleBlur}
+                  onChange={addSubjectForm.handleChange}
+                />
+                <p className="capitalize">
+                  {t("createSubject.subjectVisible")}
+                </p>
               </div>
             </div>
           </div>
           <div className="flex w-full pt-2">
             <div className="flex w-full flex-col gap-1">
-              <Label text={"popis"} required={false} />
+              <Label
+                text={t("createSubject.subjectsDescription")}
+                required={false}
+              />
               <Editor
                 data={addSubjectForm.values.description}
                 isHandler={false}
@@ -151,9 +211,10 @@ const AddSubjectForm = React.forwardRef(
               />
             </div>
           </div>
+
           <div className="flex pt-2">
             <div className="flex flex-1 flex-col gap-1">
-              <Label text={"profilový obrázok"} required={true} />
+              <Label text={t("createSubject.subjectsImage")} required={true} />
               <Input
                 type="file"
                 name="image"
@@ -180,9 +241,9 @@ const AddSubjectForm = React.forwardRef(
           </div>
           <Button
             type="submit"
-            className="mt-2 w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
+            className=" w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
           >
-            vytvoriť predmet
+            {t("createSubject.submit")}
           </Button>
         </form>
       </div>

@@ -2,8 +2,9 @@ import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDeleteChapterMutation } from "../../api/endpoints/chaptersEndpoints";
 import { useParams } from "react-router-dom";
+import PublishedChapter from "./PublishedChapter";
 
-const ChapterEditIcons = ({ chapterId }) => {
+const ChapterEditIcons = ({ chapterId, published }) => {
   const { subject_id } = useParams();
   const [deleteChapter] = useDeleteChapterMutation();
   const deleteChapterHandler = async (event) => {
@@ -13,7 +14,8 @@ const ChapterEditIcons = ({ chapterId }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex items-center">
+      <PublishedChapter published={published} chapter_id={chapterId} />
       <DeleteIcon
         onClick={deleteChapterHandler}
         fontSize="small"

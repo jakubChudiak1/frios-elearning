@@ -6,7 +6,7 @@ const RequestList = ({ usersRequests, header }) => {
     <>
       <ArrowBack link={"/"} showed={"hidden"} />
       {usersRequests && (
-        <div className="flex w-full flex-col lg:px-3">
+        <div className="mt-1 flex w-full flex-col">
           <h2 className="text-[20px] capitalize">{`${header}(${usersRequests?.length})`}</h2>
           {usersRequests?.map((userRequest) => (
             <RequestItem

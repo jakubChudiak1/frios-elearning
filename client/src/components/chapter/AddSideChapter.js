@@ -3,11 +3,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
 import Input from "../UI/Input";
 import { useAddSideChapterMutation } from "../../api/endpoints/chaptersEndpoints";
-
+import { useTranslation } from "react-i18next";
 const AddSideChapter = ({ mainChapter }) => {
   const { subject_id } = useParams();
   const [chaptersName, setChaptersName] = useState("");
   const [addSideChapter] = useAddSideChapterMutation();
+  const { t } = useTranslation();
   const addSideChapterHandler = async (event) => {
     event.preventDefault();
     await addSideChapter({
@@ -29,7 +30,7 @@ const AddSideChapter = ({ mainChapter }) => {
           type="text"
           value={chaptersName}
           onChange={(event) => setChaptersName(event.target.value)}
-          placeholder={"pridajte kapitolu"}
+          placeholder={t("chapters.createChapter")}
           className="color h-full  w-full bg-transparent text-[12px] placeholder-black outline-none"
         />
       </div>
