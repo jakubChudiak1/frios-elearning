@@ -1,23 +1,12 @@
-Elearning Aplikácia pre univerzitu. </br>
-Domovská stránka
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/ef5ac1f4-43a3-4aed-bd16-5c2453fd7a6e)
-Podrobnosti predmetu
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/556ab739-8392-45a8-ad06-8bc09c728dd1)
-Vyhľávanie predmetu podľa názvu
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/f4f4d9fc-2462-43ad-a1c4-5e6ba52cd46f)
-Vyhľadanie predmetu podľa kategórie
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/fcb06e76-924f-489b-bd71-e937d95821cd)
-Použivateľove žiadosti
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/371b1b53-f02d-4783-a002-5418e33762ab)
-Použivateľove predmety
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/980ac42f-b9a0-4b85-98c2-cdab844e8d43)
-Obsah predmetu
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/700dcad2-6796-4e86-869b-28a8b156e629)
-Editácia obsahu predmetu
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/45e8435c-0f29-42d0-a7e4-54dac1b8d0c2)
-Žiadosti o prístup
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/74acd7b6-f956-4dca-8f35-a61a680741da)
-Dátovy model
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/005a8c9b-1afe-404b-89ac-3a48a23cad1c)
-
-
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/f2cc69b6-b369-4919-9961-c78f47659592)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/06a7e345-f59d-49f5-812f-0c735e7ca296)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/083bbcd8-de64-43b5-b6e6-d2d6a8fe76cc)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/decde01d-95f9-4987-92fc-cf5cb85fa515)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/cb5028c4-dbf3-4114-8e86-9b589fe638a2)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/c8513f72-6b3c-4794-8471-5b3ecf9eb4b0)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/78256934-f9ca-4d57-b3ce-d46fb89b8f21)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/b83bfb15-872c-42c2-b60c-e6e2641ef085)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/36654b6f-3d21-4546-afe5-dc119be2fe08)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/5f25cf5d-cb0b-462b-8890-66cce7b7e162)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/9511909f-636c-4972-b446-313d8c835ccb)
+![image](https://github.com/jakubChudiak1/elearning/assets/114510280/12888179-f316-4b05-afe6-306c37760a3a)
