@@ -6,7 +6,7 @@ class CategoryController {
     try {
       console.log(req.originalUrl);
       const categories = await Category.getCategories();
-      redisClient.set("/categories", JSON.stringify(categories));
+      redisClient.setex("/categories", 3600, JSON.stringify(categories));
       res.json(categories);
     } catch (error) {
       console.log(error);
@@ -17,6 +17,7 @@ class CategoryController {
     try {
       const { name } = req.body;
       const category = await Category.createCategory({ name });
+      redisClient.del("/categories");
       res.status(200).json({ message: "Category created successfully" });
     } catch (error) {
       console.log(error);
@@ -27,6 +28,7 @@ class CategoryController {
     try {
       const { name } = req.body;
       const { category_id } = req.params;
+      redisClient.del("/categories");
       const category = await Category.updateCategory(category_id, { name });
       res.status(200).json({ message: "Category updated successfully" });
     } catch (error) {
@@ -37,8 +39,8 @@ class CategoryController {
   static async deleteCategory(req, res) {
     try {
       const { category_id } = req.params;
-      console.log(category_id);
       const category = await Category.deleteCategory(category_id);
+      redisClient.del("/categories");
       await redisClient.del("/categories");
       res.status(200).json({ message: "Category successfully deleted" });
     } catch (error) {

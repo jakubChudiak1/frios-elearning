@@ -133,7 +133,7 @@ class Access {
   static async getUsersWithoutAccess(subject_id) {
     try {
       const query =
-        "SELECT u.user_id, CONCAT(u.name, ' ', u.surname) AS users_name,r.role_id,r.name AS roles_name FROM users u LEFT JOIN roles r ON u.role_id = r.role_id LEFT JOIN accesses a ON u.user_id = a.user_id WHERE a.user_id IS NULL OR a.status = 'rejected' AND a.subject_id = ?";
+        "SELECT u.user_id, CONCAT(u.name, ' ', u.surname) AS users_name,r.role_id,r.name AS roles_name FROM users u LEFT JOIN roles r ON u.role_id = r.role_id LEFT JOIN accesses a ON u.user_id = a.user_id WHERE (a.user_id IS NULL OR a.status IN ('rejected','pending')) AND NOT EXISTS (SELECT a2.user_id from accesses a2 WHERE a2.user_id = u.user_id AND a2.status = 'accepted') AND a.subject_id = ?";
       const results = await db.query(query, [subject_id]);
       return results;
     } catch (error) {

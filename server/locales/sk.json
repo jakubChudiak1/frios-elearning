@@ -104,7 +104,7 @@
     "chaptersCount": "počet kapitol",
     "category": "kategória",
     "createdBy": "vytvoril",
-    "requestSent": "žiadosť Odoslaná:",
+    "requestSent": "žiadosť Odoslaná",
     "requestStatusSent": "žiadosť Odoslaná",
     "requestRejected": "žiadosť zamietnuta",
     "requestSentBy": "Žiadosť Poslal",
@@ -171,6 +171,11 @@
     }
   },
   "userProfile": {
-    "signout": "odhlásiť"
+    "signout": "odhlásiť",
+    "roles": {
+      "student": "študent",
+      "teacher": "učiteľ",
+      "admin": "admin"
+    }
   }
 }

@@ -37,7 +37,11 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
                 {`${user?.name}
                 ${user?.surname}`}
               </p>
-              <p className="text-[12px]">{user?.role_name}</p>
+              <p className="text-[12px]">
+                {(user?.role_id === 1 && t("userProfile.roles.admin")) ||
+                  (user?.role_id === 2 && t("userProfile.roles.teacher")) ||
+                  (user?.role_id === 3 && t("userProfile.roles.student"))}
+              </p>
             </div>
           </div>
           {(user?.role_id === 1 || user?.role_id === 2) && (
