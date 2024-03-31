@@ -30,7 +30,7 @@ const SubjectItemDetails = ({ subjectDetails }) => {
           <div className=" z-10 flex flex-col">
             <ArrowBack link={`/${lang}`} showed={"hidden"} />
             <h2 className="uppercase">{subjectDetails?.name}</h2>
-            <div className="my-2 flex flex-col items-baseline gap-3 capitalize sm:flex-row sm:items-center">
+            <div className="my-2 flex flex-col items-baseline gap-3 capitalize sm:flex-col md:flex-row md:items-center">
               <div className="flex items-center gap-1">
                 <p className="font-semibold capitalize">
                   {t("subjectDetails.createdBy")}:

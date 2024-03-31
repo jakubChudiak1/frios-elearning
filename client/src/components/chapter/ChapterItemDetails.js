@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useOutletContext } from "react-router-dom";
 import HtmlParser from "html-react-parser";
 import ArrowBack from "../UI/ArrowBack";
 import Editor from "../editor/Editor";
@@ -10,12 +10,12 @@ import UpdateChaptersName from "./UpdateChaptersName";
 
 const ChapterItemDetails = ({ chapterDetails }) => {
   const { subject_id, chapter_id, lang } = useParams();
-
   const { editModeState } = useSelector((state) => state.editModeState);
   const { data: isEditable } = useGetIsSubjectEditableQuery(subject_id, {
     skip: !editModeState,
   });
   const [updateChaptersContent] = useUpdateChaptersContentMutation();
+
   const updateChaptersContentHandler = async (data) => {
     await updateChaptersContent({
       chapterId: chapter_id,
@@ -39,7 +39,7 @@ const ChapterItemDetails = ({ chapterDetails }) => {
           dataHandler={updateChaptersContentHandler}
         />
       ) : (
-        <div className="chapter-content mr-5 pt-2">
+        <div className="chapter-content  pt-2">
           {HtmlParser(chapterDetails?.content ? chapterDetails?.content : "")}
         </div>
       )}

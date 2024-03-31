@@ -5,9 +5,9 @@ import MenuConfig from "../../config/menu.config";
 
 const Sidebar = ({ activeMenu }) => {
   const location = useLocation();
-
+  console.log(location);
   return (
-    <aside className=" hidden min-h-screen w-0 flex-col gap-3 overflow-hidden whitespace-nowrap py-0 sm:flex sm:py-5 lg:w-[140px]">
+    <aside className=" hidden min-h-screen w-0 flex-col gap-3 overflow-hidden whitespace-nowrap py-0 sm:flex sm:py-5 lg:w-[160px]">
       <Logo />
       <ul className="flex list-none flex-col items-baseline gap-2 pl-0 md:items-center lg:items-baseline">
         {MenuConfig()[activeMenu]?.map((item) => (

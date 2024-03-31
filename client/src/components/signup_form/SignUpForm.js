@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 
 const SignUpForm = () => {
   const [signup] = useSignupMutation();
+  const [errorMessage, setErrorMessage] = useState();
   const { lang } = useParams();
   const { t } = useTranslation();
   const signupForm = useFormik({
@@ -33,8 +34,12 @@ const SignUpForm = () => {
     }),
     onSubmit: async (values) => {
       try {
-        await signup(values);
-        signupForm.resetForm();
+        const result = await signup(values);
+        if (result.error) {
+          setErrorMessage(t("signIn.errorMessage"));
+        } else {
+          signupForm.resetForm();
+        }
       } catch (error) {
         console.error(error);
       }
@@ -44,6 +49,11 @@ const SignUpForm = () => {
   return (
     <div className="mx-auto flex w-[40rem] max-w-full flex-col items-center px-[2.4rem] py-[1rem] sm:py-[4.5rem]">
       <h2 className="capitalize">{t("headers.signUp")}</h2>
+      {errorMessage && (
+        <div className=" min-w-[18rem] max-w-[60rem] border border-red-500 capitalize">
+          <p className="px-1 py-2 font-medium text-red-500">{errorMessage}</p>
+        </div>
+      )}
       <form
         className="mt-3 flex flex-col gap-2"
         onSubmit={signupForm.handleSubmit}

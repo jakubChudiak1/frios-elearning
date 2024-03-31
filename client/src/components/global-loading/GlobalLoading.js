@@ -8,7 +8,8 @@ const GlobalLoading = () => {
       .filter(
         (query) =>
           query.endpointName !== "getAccessStatus" ||
-          query.endpointName !== "getSubjectsUsers",
+          query.endpointName !== "getSubjectsUsers" ||
+          query.endpointName !== "getLanguages",
       )
       .some((query) => query.status === "pending"),
   );

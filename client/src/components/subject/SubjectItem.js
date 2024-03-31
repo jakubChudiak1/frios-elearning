@@ -20,11 +20,14 @@ const SubjectItem = ({ subject, loader, editable }) => {
   const { t } = useTranslation();
   return (
     <div
-      className="flex h-full flex-col "
+      className=" "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link to={`/${lang}/subject/${subject?.subject_id}`}>
+      <Link
+        to={`/${lang}/subject/${subject?.subject_id}`}
+        className="flex flex-col"
+      >
         <div className="relative aspect-[1/.5] w-full overflow-hidden">
           <img
             loading="lazy"

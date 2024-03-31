@@ -3,8 +3,6 @@ import RedisStore from "connect-redis";
 import { v4 as gennuid } from "uuid";
 import redisClient from "../config/redisClient.js";
 
-redisClient.connect();
-
 const redisStore = new RedisStore({
   prefix: "elearning:",
   client: redisClient,

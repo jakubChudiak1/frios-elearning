@@ -11,6 +11,7 @@ const Input = (props) => {
       onChange={props.onChange}
       checked={props.checked}
       value={props.value}
+      autoComplete="off"
     />
   );
 };

@@ -36,7 +36,7 @@ router.patch(
   ChapterController.updateChaptersContent
 );
 router.patch(
-  "/chapter-name/:chapter_id",
+  "/:subject_id/chapter-name/:chapter_id",
   verifyToken,
   checkRole([1, 2]),
   checkEditable,
@@ -44,9 +44,7 @@ router.patch(
 );
 router.patch(
   "/published/:chapter_id",
-  verifyToken,
-  checkRole([1, 2]),
-  checkEditable,
+
   ChapterController.updateChapterPublished
 );
 

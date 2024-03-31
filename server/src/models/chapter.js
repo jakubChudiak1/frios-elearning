@@ -1,11 +1,21 @@
 import db from "../config/db.js";
 
 class Chapter {
-  static async getSubjectsChapters(subject_id) {
+  static async getSubjectsChapters(subject_id, published) {
     try {
-      const query =
+      console.log("published", published);
+      const allChapters =
         "SELECT * FROM chapters WHERE subject_id = ? AND main_chapter IS NULL";
-      const results = await db.query(query, [subject_id]);
+      const publishedChapters =
+        "SELECT * FROM chapters WHERE subject_id = ? AND main_chapter IS NULL AND published = TRUE";
+      console.log(
+        "SQL Query:",
+        published === true ? publishedChapters : allChapters
+      );
+      const results = await db.query(
+        published === "true" ? publishedChapters : allChapters,
+        [subject_id]
+      );
       return results;
     } catch (error) {
       throw new Error(error);
@@ -25,7 +35,7 @@ class Chapter {
 
   static async getMainChapters(subject_id) {
     try {
-      const query =
+      const allSideChapters =
         "SELECT chapter_id,subject_id,file_id,published,name,content FROM chapters where main_chapter IS NULL AND subject_id = ?";
       const results = await db.query(query, [subject_id]);
       return results;
@@ -34,11 +44,16 @@ class Chapter {
     }
   }
 
-  static async getSideChapters(main_chapter) {
+  static async getSideChapters(main_chapter, published) {
     try {
-      const query =
+      const allSideChapters =
         "SELECT chapter_id,subject_id,file_id,published,name,content,main_chapter FROM chapters WHERE main_chapter = ?";
-      const results = await db.query(query, [main_chapter]);
+      const publisedSideChapter =
+        "SELECT chapter_id,subject_id,file_id,published,name,content,main_chapter FROM chapters WHERE main_chapter = ? AND published = TRUE";
+      const results = await db.query(
+        published === "true" ? publisedSideChapter : allSideChapters,
+        [main_chapter]
+      );
       return results;
     } catch (error) {
       throw new Error(error);
@@ -94,8 +109,13 @@ class Chapter {
   static async updateChapterPublished(chapterId, chapter) {
     try {
       const { published } = chapter;
-      const query = "UPDATE chapters SET published = ? WHERE chapter_id =?";
-      const chapterPublished = await db.query(query, [published, chapterId]);
+      const query =
+        "UPDATE chapters SET published = ? WHERE chapter_id =? or main_chapter = ?";
+      const chapterPublished = await db.query(query, [
+        published,
+        chapterId,
+        chapterId,
+      ]);
       return chapterPublished;
     } catch (error) {
       throw new Error(error);

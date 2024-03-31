@@ -8,6 +8,7 @@ import { useGetSubjectChaptersQuery } from "../../api/endpoints/chaptersEndpoint
 import { useSelector } from "react-redux";
 import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import { useTranslation } from "react-i18next";
+import OpenChapterMenu from "../../components/chapter/OpenChapterMenu";
 
 const ChapterLayout = () => {
   const { editModeState } = useSelector((state) => state.editModeState);
@@ -15,16 +16,22 @@ const ChapterLayout = () => {
   const { subject_id } = useParams();
   const { lang } = useParams();
   const { i18n } = useTranslation();
-  const { data: chapters } = useGetSubjectChaptersQuery(subject_id);
+  const { data: chapters } = useGetSubjectChaptersQuery({
+    subjectId: subject_id,
+    published: editModeState ? false : true,
+  });
   const [sidebar, setSidebar] = useState(true);
+
   useEffect(() => {
     if (lang && i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
   }, [lang, i18n]);
+
   const sideBarHandler = () => {
     setSidebar((prev) => !prev);
   };
+
   const { data: isEditable } = useGetIsSubjectEditableQuery(subject_id, {
     skip: !editModeState,
   });
@@ -33,36 +40,25 @@ const ChapterLayout = () => {
     return <></>;
   }
   return (
-    <div className=" flex flex-col ">
+    <div className=" flex flex-col px-2 2xl:px-5">
       <ChapterNavbar authenticated={authenticated} user={user} />
       <main
-        className={`relative flex ${sidebar ? "pl-2 " : "px-2 2xl:px-5"} ${
-          sidebar ? "w-[calc(100%-300px)]" : "w-full"
+        className={`relative flex  ${
+          sidebar ? "w-0 sm:w-[calc(100%-300px)]" : "w-full"
         }`}
       >
-        <Outlet />
+        <Outlet context={{ sidebar: sidebar }} />
       </main>
-      {
-        sidebar ? (
-          <ChapterSideBar
-            chapters={chapters}
-            sidebar={sidebar}
-            isEditable={isEditable}
-            sideBarHandler={sideBarHandler}
-          />
-        ) : null /*  (
-        <motion.div
-          className="absolute right-5 top-[13%] z-[1000] flex cursor-pointer items-center text-[#a855f7]"
-          onClick={sideBarHandler}
-          whileHover={{
-            x: 5,
-          }}
-        >
-          <p className="hidden md:block">Otvoriť</p>
-          <ArrowForwardIos fontSize="large" />
-        </motion.div>
-      ) */
-      }
+      {sidebar ? (
+        <ChapterSideBar
+          chapters={chapters}
+          sidebar={sidebar}
+          isEditable={isEditable}
+          sideBarHandler={sideBarHandler}
+        />
+      ) : (
+        <OpenChapterMenu sideBarHandler={sideBarHandler} />
+      )}
       <Footer />
     </div>
   );

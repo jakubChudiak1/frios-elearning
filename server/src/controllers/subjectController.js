@@ -3,7 +3,6 @@ import createSubjectValidation from "../validations/validateCreateSubject.js";
 import Access from "../models/access.js";
 import User from "../models/user.js";
 import fs from "fs";
-import redis from "redis";
 import redisClient from "../config/redisClient.js";
 
 class SubjectController {

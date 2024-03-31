@@ -11,6 +11,7 @@ import "./assets/css/style.css";
 import "./assets/js/script";
 import "./assets/css/quill.styles.css";
 import "highlight.js/styles/default.css";
+import EmptyChapter from "./pages/chapter/EmptyChapter";
 const App = () => {
   const location = useLocation();
 
@@ -48,6 +49,9 @@ const App = () => {
               <Route index key={route.id} element={route.element} />
             ))}
           </Route>
+        </Route>
+        <Route path="/:lang/:subject_id/chapter" element={<ChapterLayout />}>
+          <Route index element={<EmptyChapter />} />
         </Route>
         <Route path="/" element={<Navigate to={"/sk"} />} />
         <Route path="*" element={<Navigate to={"/sk"} />} />

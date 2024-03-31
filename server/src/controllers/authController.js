@@ -66,7 +66,7 @@ class AuthController {
           cryptedPassword,
           name,
           surname,
-          role_id: 3,
+          role_id: 1,
         });
         req.session.regenerate(function (err) {
           const user_id = Number(newUser);

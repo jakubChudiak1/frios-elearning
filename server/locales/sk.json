@@ -105,6 +105,8 @@
     "category": "kategória",
     "createdBy": "vytvoril",
     "requestSent": "žiadosť Odoslaná:",
+    "requestStatusSent": "žiadosť Odoslaná",
+    "requestRejected": "žiadosť zamietnuta",
     "requestSentBy": "Žiadosť Poslal",
     "accept": "prijať Žiadosť",
     "decline": "odmietnuť Žiadosť",
@@ -155,7 +157,8 @@
   },
   "chapters": {
     "chapterContent": "obsah",
-    "createChapter": "pridajte kapitolu"
+    "createChapter": "pridajte kapitolu",
+    "openSidebar": "otvoriť"
   },
   "editor": {
     "save": "uložiť",
@@ -166,5 +169,8 @@
       "header4": "nadpis 4",
       "normal": "normálny"
     }
+  },
+  "userProfile": {
+    "signout": "odhlásiť"
   }
 }

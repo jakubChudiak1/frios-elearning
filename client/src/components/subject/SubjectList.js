@@ -11,7 +11,7 @@ const SubjectList = ({ subjects, text, editable }) => {
     <>
       {subjects && (
         <div className=" relative mt-5 flex flex-col align-baseline">
-          <h2 className=" text-[18px] capitalize xs:text-[20px]">{text}</h2>
+          <h2 className="capitalize ">{text}</h2>
           <div className="relative mt-4">
             <Swiper
               modules={[Navigation]}

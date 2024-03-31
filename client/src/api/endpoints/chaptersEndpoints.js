@@ -3,7 +3,8 @@ import { apiSlice } from "../../redux/features/apiSlice";
 export const chapterApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getSubjectChapters: build.query({
-      query: (subjectId) => `chapters/${subjectId}`,
+      query: ({ subjectId, published }) =>
+        `chapters/${subjectId}?q=${published}`,
       providesTags: ["Chapters"],
     }),
     getChaptersContent: build.query({
@@ -36,8 +37,8 @@ export const chapterApi = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, id) => (result ? ["Chapters"] : [""]),
     }),
     updateChaptersName: build.mutation({
-      query: ({ chapterId, ...chapter }) => ({
-        url: `chapters/chapter-name/${chapterId}`,
+      query: ({ subjectId, chapterId, ...chapter }) => ({
+        url: `chapters/${subjectId}/chapter-name/${chapterId}`,
         method: "PATCH",
         body: chapter,
       }),

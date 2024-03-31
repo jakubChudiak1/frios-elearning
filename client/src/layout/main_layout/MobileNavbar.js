@@ -101,7 +101,7 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
         {!authenticated ? (
           <div className="flex items-center gap-1 whitespace-nowrap">
             <LanguagePicker />
-            <Link to={"/signin"}>
+            <Link to={`signin`}>
               <div className="flex h-10  cursor-pointer items-center bg-purple-500 px-3 text-center font-medium capitalize text-white">
                 <span>{t("navbar.signIn")}</span>
               </div>

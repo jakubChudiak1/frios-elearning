@@ -6,15 +6,15 @@ import AddChapter from "../../components/chapter/AddChapter";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-const ChapterSideBar = ({ chapters, sideBarHandler, isEditable }) => {
+const ChapterSideBar = ({ sidebar, chapters, sideBarHandler, isEditable }) => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const { subject_id } = useParams();
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   let mainChapterIndex = 0;
   const sidebarStyles = {
-    top: scrolled ? "0" : "80px",
-    height: scrolled ? "100%" : "calc(100% - 80px)",
+    top: scrolled ? "0" : "75px",
+    height: scrolled ? "100%" : "1000px",
     transition: "top 0.1s ease-in-out",
   };
 
@@ -35,7 +35,9 @@ const ChapterSideBar = ({ chapters, sideBarHandler, isEditable }) => {
   return (
     <>
       <aside
-        className=" fixed right-0 top-[80px]  z-[5000] w-full  border-l-[1px] border-gray-100 xs:w-[300px]"
+        className={`fixed right-0 top-[75px] z-[5000] border-l-[1px] border-gray-100  ${
+          sidebar ? "block" : "hidden"
+        } ${sidebar ? "w-full sm:w-[300px] " : ""}`}
         style={sidebarStyles}
       >
         <div className="relative flex h-full flex-col overflow-y-auto">

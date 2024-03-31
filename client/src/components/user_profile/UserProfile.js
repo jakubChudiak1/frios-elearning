@@ -5,16 +5,20 @@ import { useSignoutMutation } from "../../api/endpoints/authEndpoints";
 import EditModeButton from "./EditModeButton";
 import { useDispatch } from "react-redux";
 import { setEditModeSlice } from "../../redux/features/editModeSlice";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [signout] = useSignoutMutation();
+  const { lang } = useParams();
   const signoutHandler = async () => {
     signout();
     setUserMenu(false);
     dispatch(setEditModeSlice(false));
-    navigate("");
+    navigate(`/${lang}`);
   };
 
   return (
@@ -40,7 +44,7 @@ const UserProfile = React.forwardRef(({ user, userMenu, setUserMenu }, ref) => {
             <EditModeButton user={user} />
           )}
           <p className="cursor-pointer" onClick={signoutHandler}>
-            Sign out
+            {t("userProfile.signout")}
           </p>
         </div>
       </div>

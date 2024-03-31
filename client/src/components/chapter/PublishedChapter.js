@@ -6,7 +6,6 @@ import { useUpdateChapterPublishedMutation } from "../../api/endpoints/chaptersE
 const PublishedChapter = ({ chapter_id, published }) => {
   const [updateChapterPublished] = useUpdateChapterPublishedMutation();
   const publishedChapterHandler = async (isPublished) => {
-    console.log("cliecked");
     await updateChapterPublished({
       chapterId: chapter_id,
       published: isPublished,
@@ -18,6 +17,7 @@ const PublishedChapter = ({ chapter_id, published }) => {
         <VisibilityIcon
           onClick={(event) => {
             event.preventDefault();
+            event.stopPropagation();
             publishedChapterHandler(false);
           }}
         />
@@ -25,6 +25,7 @@ const PublishedChapter = ({ chapter_id, published }) => {
         <VisibilityOffIcon
           onClick={(event) => {
             event.preventDefault();
+            event.stopPropagation();
             publishedChapterHandler(true);
           }}
         />

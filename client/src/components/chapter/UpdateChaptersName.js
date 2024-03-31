@@ -8,7 +8,7 @@ import Button from "../UI/Button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const UpdateChaptersName = ({ chapter }) => {
-  const { chapter_id } = useParams();
+  const { subject_id, chapter_id } = useParams();
   const [updateChaptersName] = useUpdateChaptersNameMutation();
   const updateChaptersNameForm = useFormik({
     initialValues: {
@@ -18,7 +18,9 @@ const UpdateChaptersName = ({ chapter }) => {
       name: Yup.string().required(),
     }),
     onSubmit: async (values) => {
+      console.log(values);
       await updateChaptersName({
+        subjectId: subject_id,
         chapterId: chapter?.chapter_id,
         name: values.name,
       });

@@ -14,6 +14,7 @@ import MyRequests from "../pages/user/MyRequests";
 import Requests from "../pages/teacher/Requests";
 import LdapSignIn from "../pages/default/LdapSignIn";
 import Users from "../pages/admin/Users";
+import EmptyChapter from "../pages/chapter/EmptyChapter";
 
 export const mainLayoutRoutes = [
   {

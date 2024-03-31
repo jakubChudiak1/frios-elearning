@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import DeleteCategoryButton from "./DeleteCategoryButton";
 import { useSelector } from "react-redux";
 import UpdateCategoryForm from "./UpdateCategoryForm";
+import { useAuth } from "../../context/authContext";
 
 const CategoryItem = ({ category }) => {
   const navigate = useNavigate();
   const { editModeState } = useSelector((state) => state.editModeState);
-
+  const { user } = useAuth();
   const categoryHandler = () => {
     navigate(`subjects/category?q=${category?.name}`);
   };
@@ -17,12 +18,13 @@ const CategoryItem = ({ category }) => {
       {!editModeState ? (
         <div className="flex items-center">
           <div onClick={categoryHandler}>{category?.name}</div>
-          {editModeState ? <DeleteCategoryButton category={category} /> : null}
         </div>
       ) : (
         <div className=" relative flex items-center">
           <UpdateCategoryForm category={category} />
-          <DeleteCategoryButton category={category} />
+          {user?.role_id === 1 ? (
+            <DeleteCategoryButton category={category} />
+          ) : null}
         </div>
       )}
     </div>

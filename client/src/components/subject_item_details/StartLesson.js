@@ -7,12 +7,18 @@ import { useGetSubjectChaptersQuery } from "../../api/endpoints/chaptersEndpoint
 import { useAddAccessMutation } from "../../api/endpoints/accessesEndpoints";
 import { useGetAccessStatusQuery } from "../../api/endpoints/accessesEndpoints";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const StartLesson = ({ subjectDetails }) => {
+  const { editModeState } = useSelector((state) => state.editModeState);
   const { subject_id } = useParams();
   const { lang } = useParams();
   const { authenticated, user } = useAuth();
-  const { data: subjectChapter } = useGetSubjectChaptersQuery(subject_id);
+  const { data: subjectChapter } = useGetSubjectChaptersQuery({
+    subjectId: subject_id,
+    published: editModeState ? false : true,
+  });
+  console.log(subjectChapter);
   const { data: accessStatus } = useGetAccessStatusQuery(subject_id);
   const [addAccess] = useAddAccessMutation();
   const navigate = useNavigate();
@@ -21,7 +27,7 @@ const StartLesson = ({ subjectDetails }) => {
       user_id: user?.user_id,
       subject_id: subject_id,
     });
-    toast.success("Vaša žiadosť bola odoslaná", {
+    toast.success(t("request.requestSent"), {
       position: "bottom-right",
       autoClose: 3000,
       className: "success-notification",
@@ -40,8 +46,12 @@ const StartLesson = ({ subjectDetails }) => {
         <div className="max-w-[150px] pt-3 text-center capitalize">
           {accessStatus?.status === "accepted" || subjectDetails?.is_public ? (
             <Link
-              to={`/${lang}/${subjectDetails.subject_id}/chapter/${
-                subjectChapter ? subjectChapter[0]?.chapter_id : ""
+              to={`${
+                subjectChapter?.length > 0
+                  ? `/${lang}/${subjectDetails.subject_id}/chapter/${
+                      subjectChapter ? subjectChapter[0]?.chapter_id : ""
+                    }`
+                  : `/${lang}/${subject_id}/chapter`
               }`}
             >
               <div className="bg-purple-500 px-2 py-2  font-medium text-white">
@@ -66,7 +76,9 @@ const StartLesson = ({ subjectDetails }) => {
             >
               {accessStatus?.status == null
                 ? t("subjectDetails.askForAccess")
-                : accessStatus?.status}
+                : accessStatus?.status === "pending"
+                ? t("request.requestStatusSent")
+                : t("request.requestRejected")}
             </Button>
           )}
         </div>

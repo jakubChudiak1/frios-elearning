@@ -1,9 +1,12 @@
 import Category from "../models/category.js";
+import redisClient from "../config/redisClient.js";
 
 class CategoryController {
   static async getCategories(req, res) {
     try {
+      console.log(req.originalUrl);
       const categories = await Category.getCategories();
+      redisClient.set("/categories", JSON.stringify(categories));
       res.json(categories);
     } catch (error) {
       console.log(error);
@@ -36,6 +39,7 @@ class CategoryController {
       const { category_id } = req.params;
       console.log(category_id);
       const category = await Category.deleteCategory(category_id);
+      await redisClient.del("/categories");
       res.status(200).json({ message: "Category successfully deleted" });
     } catch (error) {
       console.log(error);

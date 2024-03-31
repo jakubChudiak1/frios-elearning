@@ -62,7 +62,7 @@ const UpdateSubjectForm = React.forwardRef(
     };
     return (
       <div
-        className="absolute left-[50%] top-[65%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%]  md:top-[57%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[55%]  lg:w-[45rem] xl:top-[50%] "
+        className="absolute left-[50%] top-[65%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%]  md:top-[60%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[50%]  lg:w-[45rem] xl:top-[50%] "
         ref={ref}
         onClick={handleClickInsideForm}
       >

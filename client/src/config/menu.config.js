@@ -28,13 +28,13 @@ const MenuConfig = () => {
       id: 2,
       name: t("studentMenu.mySubjects"),
       icon: <MenuBookOutlinedIcon fontSize="medium" />,
-      path: "/my-subjects",
+      path: "my-subjects",
     },
     {
       id: 3,
       name: t("studentMenu.myRequests"),
       icon: <LockOutlined fontSize="medium" />,
-      path: "/my-requests",
+      path: "my-requests",
     },
   ];
 

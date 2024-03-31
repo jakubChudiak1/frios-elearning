@@ -45,7 +45,7 @@ const ChapterMenuItem = ({
               )}
               <h3
                 className={`${
-                  chapter?.main_chapter == null ? "text-[14px]" : " text-[12px]"
+                  chapter?.main_chapter == null ? "text-[16px]" : " text-[14px]"
                 } flex gap-1 capitalize `}
               >
                 <span>

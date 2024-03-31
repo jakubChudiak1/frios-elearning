@@ -5,16 +5,18 @@ class ChapterController {
   static async getSubjectsChapters(req, res) {
     try {
       const { subject_id } = req.params;
-      const chapters = await Chapter.getSubjectsChapters(subject_id);
-
+      const { q } = req.query;
+      const chapters = await Chapter.getSubjectsChapters(subject_id, q);
       const chaptersWithRecursiveSideChapters = await Promise.all(
         chapters.map(async (chapter) => ({
           ...chapter,
           sideChapters: await ChapterService.getRecursiveSideChapters(
-            chapter?.chapter_id
+            chapter?.chapter_id,
+            q
           ),
         }))
       );
+      console.log(chaptersWithRecursiveSideChapters);
       res.json(chaptersWithRecursiveSideChapters);
     } catch (error) {
       console.log(error);
@@ -96,6 +98,7 @@ class ChapterController {
       const { chapter_id } = req.params;
       const { name } = req.body;
       const newName = await Chapter.updateChaptersName(chapter_id, { name });
+      console.log(chapter_id);
       res
         .status(200)
         .json({ message: "Chapters name was successfully changed" });
@@ -108,6 +111,7 @@ class ChapterController {
     try {
       const { chapter_id } = req.params;
       const { published } = req.body;
+      console.log("pes");
       const newChapter = await Chapter.updateChapterPublished(chapter_id, {
         published,
       });

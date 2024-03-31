@@ -104,6 +104,8 @@
     "category": "category",
     "createdBy": "created by",
     "requestSent": "Request sent at",
+    "requestRejected": "Request reject",
+    "requestStatusSent": "Request sent",
     "requestSentBy": "Request sent by",
     "accept": "accept request",
     "decline": "decline request",
@@ -154,7 +156,8 @@
   },
   "chapters": {
     "chapterContent": "content",
-    "createChapter": "create a new chapter"
+    "createChapter": "create a new chapter",
+    "openSidebar": "open"
   },
   "editor": {
     "save": "save",
@@ -165,5 +168,8 @@
       "header4": "header 4",
       "normal": "normal"
     }
+  },
+  "userProfile": {
+    "signout": "sign out"
   }
 }

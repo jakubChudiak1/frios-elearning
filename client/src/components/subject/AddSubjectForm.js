@@ -64,7 +64,7 @@ const AddSubjectForm = React.forwardRef(
 
     return (
       <div
-        className=" absolute left-[50%] top-[72%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 md:top-[65%]  md:w-[35rem] md:p-4 lg:left-[55%]  lg:top-[58%] lg:w-[45rem] xl:top-[50%]"
+        className=" absolute left-[50%] top-[80%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 sm:top-[75%] md:top-[65%]  md:w-[35rem] md:p-4 lg:left-[55%]  lg:top-[50%] lg:w-[45rem] xl:top-[55%]"
         ref={ref}
       >
         <div className="flex items-center justify-between">
