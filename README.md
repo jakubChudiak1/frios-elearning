@@ -1,12 +1,1 @@
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/f2cc69b6-b369-4919-9961-c78f47659592)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/06a7e345-f59d-49f5-812f-0c735e7ca296)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/083bbcd8-de64-43b5-b6e6-d2d6a8fe76cc)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/decde01d-95f9-4987-92fc-cf5cb85fa515)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/cb5028c4-dbf3-4114-8e86-9b589fe638a2)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/c8513f72-6b3c-4794-8471-5b3ecf9eb4b0)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/78256934-f9ca-4d57-b3ce-d46fb89b8f21)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/b83bfb15-872c-42c2-b60c-e6e2641ef085)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/36654b6f-3d21-4546-afe5-dc119be2fe08)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/5f25cf5d-cb0b-462b-8890-66cce7b7e162)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/9511909f-636c-4972-b446-313d8c835ccb)
-![image](https://github.com/jakubChudiak1/elearning/assets/114510280/12888179-f316-4b05-afe6-306c37760a3a)
+
