@@ -1,10 +1,12 @@
 import React from "react";
 import RequestItem from "./RequestItem";
 import ArrowBack from "../UI/ArrowBack";
+import { useParams } from "react-router-dom";
 const RequestList = ({ usersRequests, header }) => {
+  const { lang } = useParams();
   return (
     <>
-      <ArrowBack link={"/"} showed={"hidden"} />
+      <ArrowBack link={`/${lang}`} showed={"hidden"} />
       {usersRequests && (
         <div className="mt-1 flex w-full flex-col">
           <h2 className="text-[20px] capitalize">{`${header}(${usersRequests?.length})`}</h2>

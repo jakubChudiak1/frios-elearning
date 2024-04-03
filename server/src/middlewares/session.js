@@ -17,12 +17,15 @@ const sessionMiddleware = session({
   httpOnly: true,
   store: redisStore,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
+    secure: true,
     path: "/",
     maxAge: 1 * 1000 * 60 * 60 * 24 * 14,
+    sameSite: "none",
   },
+  proxy: true,
 });
 
 export default sessionMiddleware;

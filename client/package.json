@@ -1,7 +1,6 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://127.0.0.1:8080/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -72,6 +71,7 @@
   "devDependencies": {
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "@babel/plugin-proposal-private-property-in-object": "^7.17.0"
   }
 }

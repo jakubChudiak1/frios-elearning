@@ -31,7 +31,7 @@ const AddChapter = () => {
       onSubmit={addChapterForm.handleSubmit}
     >
       <div className="flex h-full w-full items-center gap-1 pl-[4px]">
-        <Button type="submit">
+        <Button>
           <AddIcon />
         </Button>
         <Input

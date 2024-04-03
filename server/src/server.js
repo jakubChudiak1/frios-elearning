@@ -22,7 +22,8 @@ import i18n from "i18n";
 dotenv.config();
 
 const app = express();
-cors(corsOptions);
+app.set("trust proxy", 1);
+app.use(cors(corsOptions));
 app.use(i18n.init);
 app.use(express.static("public"));
 app.use(bodyParser.json());
@@ -42,6 +43,6 @@ app.use("/edit-mode", editRoutes);
 app.use("/translations", translationsRoutes);
 app.use("/languages", languageRoutes);
 
-app.listen(process.env.PORT, "127.0.0.1", () => {
+app.listen(process.env.PORT, () => {
   console.log("server is running");
 });

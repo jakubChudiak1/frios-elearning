@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const myfetchBaseQuery = fetchBaseQuery({ baseUrl: "/" });
+const myfetchBaseQuery = fetchBaseQuery({
+  baseUrl: process.env.REACT_APP_API_ADRESS,
+  prepareHeaders(headers) {
+    return headers;
+  },
+  credentials: "include",
+});
 
 const myNewBaseQuery = async (arg, api, extra) => {
   const result = await myfetchBaseQuery(arg, api, extra);

@@ -9,18 +9,20 @@ import { useSelector } from "react-redux";
 import { useGetIsSubjectEditableQuery } from "../../api/endpoints/accessesEndpoints";
 import { useTranslation } from "react-i18next";
 import OpenChapterMenu from "../../components/chapter/OpenChapterMenu";
+import { useMediaQuery } from "react-responsive";
 
 const ChapterLayout = () => {
   const { editModeState } = useSelector((state) => state.editModeState);
   const { authenticated, user, loading } = useAuth();
   const { subject_id } = useParams();
   const { lang } = useParams();
+  const isMobile = useMediaQuery({ query: "(max-width:540px)" });
   const { i18n } = useTranslation();
   const { data: chapters } = useGetSubjectChaptersQuery({
     subjectId: subject_id,
     published: editModeState ? false : true,
   });
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(isMobile ? false : true);
 
   useEffect(() => {
     if (lang && i18n.language !== lang) {

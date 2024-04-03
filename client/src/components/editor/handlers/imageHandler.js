@@ -14,7 +14,10 @@ export function imageHandler() {
     const range = this.quill.getSelection(true);
     this.quill.setSelection(range.index + 1);
     try {
-      const res = await axios.post("/files/add-file", formData);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_ADRESS}files/add-file`,
+        formData,
+      );
       this.quill.insertEmbed(
         range.index,
         "image",

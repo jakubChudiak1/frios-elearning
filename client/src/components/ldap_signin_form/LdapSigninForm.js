@@ -21,8 +21,8 @@ const LdapSigninForm = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      ldap_login: Yup.string().required(t("ldapSignIn.requiredLdap")),
-      password: Yup.string().required(t("ldapSignIn.requiredPassword")),
+      ldap_login: Yup.string().trim().required(t("ldapSignIn.requiredLdap")),
+      password: Yup.string().trim().required(t("ldapSignIn.requiredPassword")),
     }),
     onSubmit: async (values) => {
       const result = await ldapSignIn(values);

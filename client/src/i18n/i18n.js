@@ -10,7 +10,8 @@ i18n
   .init({
     fallbackLng: "sk",
     backend: {
-      loadPath: "/translations/{{lng}}",
+      loadPath:
+        "https://server-dot-frios-418822.lm.r.appspot.com/translations/{{lng}}",
     },
     detection: {
       order: ["path", "navigation", "localStorage"],

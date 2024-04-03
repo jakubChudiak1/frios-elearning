@@ -16,6 +16,7 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toggled, setToggled] = useState(false);
   const showSearchBar = useMediaQuery({ query: "max-width:768px" });
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
   const { t } = useTranslation();
   const sidebarRef = useOnclickOutside(
     () => {
@@ -50,6 +51,7 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
   } else {
     document.body.style.overflowY = "auto";
   }
+  console.log("isMobile:", isMobile);
 
   return (
     <header className="relative z-[1000] w-full pb-1 pt-5">
@@ -97,7 +99,7 @@ const MobileNavbar = ({ authenticated, user, activeMenu }) => {
             ref={sidebarRef}
           />
         </motion.div>
-        <Logo />
+        {!isMobile && <Logo />}
         {!authenticated ? (
           <div className="flex items-center gap-1 whitespace-nowrap">
             <LanguagePicker />

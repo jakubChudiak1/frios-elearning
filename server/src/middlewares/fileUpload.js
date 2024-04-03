@@ -5,7 +5,7 @@ const fileUpload = (fileExtension) => {
   return (req, res, next) => {
     multerMiddleware(req, res, (error) => {
       if (error) {
-        return next(error);
+        return res.status(500).json(error);
       }
       if (!req.file) {
         req.file = null;

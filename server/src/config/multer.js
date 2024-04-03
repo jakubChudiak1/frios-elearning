@@ -1,9 +1,19 @@
 import multer from "multer";
 import path from "path";
+import googleCloudStorage from "multer-cloud-storage";
+import dotenv from "dotenv";
 
-const storage = multer.diskStorage({
+dotenv.config();
+const storage = googleCloudStorage.storageEngine({
+  autoRetry: true,
+  bucket: process.env.GCS_BUCKET,
+  projectId: process.env.GCLOUD_PROJECT,
+  credentials: {
+    client_email: process.env.GCS_CLIENT_EMAIL,
+    private_key: process.env.GCS_PRIVATE_KEY,
+  },
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, "/public/images");
   },
   filename: (req, file, cb) => {
     cb(

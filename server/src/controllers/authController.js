@@ -39,7 +39,9 @@ class AuthController {
             req.session.user_id = user_id;
             req.session.edit_mode = false;
             req.session.save();
-            return res.status(200).json({ message: "User logged in" });
+            return res
+              .status(200)
+              .json({ message: req.session, id: req.sessionID });
           });
         }
       }
@@ -66,7 +68,7 @@ class AuthController {
           cryptedPassword,
           name,
           surname,
-          role_id: 1,
+          role_id: 3,
         });
         req.session.regenerate(function (err) {
           const user_id = Number(newUser);
@@ -85,10 +87,14 @@ class AuthController {
     req.session.edit_mode = null;
     res.clearCookie("Session", { path: "/" });
     req.session.save(function (err) {
-      if (err) next(err);
+      if (err) {
+        res.status(500).json({ error: "Internal Server Error" });
+      }
       req.session.regenerate(function (err) {
-        if (err) next(err);
-        res.redirect("/");
+        if (err) {
+          res.status(500).json({ error: "Internal Server Error" });
+        }
+        res.status(200).json({ message: "Sign-out successful" });
       });
     });
   }

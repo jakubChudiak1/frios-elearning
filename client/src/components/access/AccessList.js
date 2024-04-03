@@ -1,5 +1,7 @@
 import React from "react";
 import AccessItem from "./AccessItem";
+import { useParams } from "react-router-dom";
+import ArrowBack from "../UI/ArrowBack";
 
 const AccessList = ({
   accessesList,
@@ -7,9 +9,12 @@ const AccessList = ({
   acceptAccessHandler,
   rejectAccessHandler,
 }) => {
+  const { lang } = useParams();
   return (
     <div className="flex w-full flex-col overflow-x-auto">
-      <h2 className="text-[20px]">{text}</h2>
+      <ArrowBack link={`/${lang}`} showed={"hidden"} />
+
+      <h2 className="mt-1 text-[20px]">{text}</h2>
       <table className="mt-3 w-full overflow-x-auto">
         <thead className="bg-gray-100 text-left capitalize">
           <tr>

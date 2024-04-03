@@ -3,6 +3,8 @@ import cors from "cors";
 const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 200,
-  origin: "http://localhost:3000/{{lng}}",
+  origin: "https://frios-418822.lm.r.appspot.com",
+  preflightContinue: false,
+  credentials: true,
 };
 export default corsOptions;

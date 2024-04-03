@@ -57,14 +57,14 @@ const AddSubjectForm = React.forwardRef(
           closeAddSubjectModalHandler();
           addSubjectForm.resetForm();
         } catch (error) {
-          console.log(error);
+          console.log("pes");
         }
       },
     });
 
     return (
       <div
-        className=" absolute left-[50%] top-[80%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 sm:top-[75%] md:top-[65%]  md:w-[35rem] md:p-4 lg:left-[55%]  lg:top-[50%] lg:w-[45rem] xl:top-[55%]"
+        className=" absolute left-[50%] top-[68%] z-[10000] w-[90%] -translate-x-1/2 -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[68%] sm:top-[64%] md:top-[60%]  md:w-[35rem] md:p-4 lg:left-[55%]  lg:top-[55%] lg:w-[45rem] xl:top-[50%]"
         ref={ref}
       >
         <div className="flex items-center justify-between">
