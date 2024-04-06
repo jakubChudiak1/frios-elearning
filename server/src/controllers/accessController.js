@@ -5,9 +5,9 @@ class AccessController {
   static async getAccesses(req, res) {
     try {
       const access = await Access.getAccesses();
-      res.json(access);
+      res.status(200).json(access);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -15,9 +15,9 @@ class AccessController {
     try {
       const { access_id } = req.params;
       const access = await Access.getAccessById(access_id);
-      res.json(access);
+      res.status(200).json(access);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -25,9 +25,9 @@ class AccessController {
     try {
       const userId = req.session.user_id;
       const editableSubjects = await Access.getEditableSubjects(userId);
-      res.json(editableSubjects);
+      res.status(200).json(editableSubjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -35,9 +35,9 @@ class AccessController {
     try {
       const { status } = req.query;
       const accesses = await Access.getAccessByStatus(status);
-      res.json(accesses);
+      res.status(200).json(accesses);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -45,9 +45,9 @@ class AccessController {
     try {
       const user_id = req.session.user_id;
       const accesses = await Access.getAccessByUserId(user_id);
-      res.json(accesses);
+      res.status(200).json(accesses);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -59,9 +59,9 @@ class AccessController {
         user_id,
         subject_id
       );
-      res.json(isEditable);
+      res.status(200).json(isEditable);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -74,12 +74,12 @@ class AccessController {
           user_id,
           status
         );
-        res.json(accessedSubjects);
+        res.status(200).json(accessedSubjects);
       } else {
         res.status(401).json({ message: "unathorized" });
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -87,8 +87,10 @@ class AccessController {
     try {
       const user_id = req.session.user_id;
       const requests = await Access.getUsersRequests(user_id);
-      res.json(requests);
-    } catch (error) {}
+      res.status(200).json(requests);
+    } catch (error) {
+      res.status(500).json({ message: error });
+    }
   }
 
   static async getAccessedSubjectByUser(req, res) {
@@ -99,9 +101,9 @@ class AccessController {
         subject_id,
         user_id
       );
-      res.json(isAccessed);
+      res.status(200).json(isAccessed);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -110,9 +112,9 @@ class AccessController {
       const { subject_id } = req.params;
       const user_id = req.session.user_id;
       const access = await Access.getAccessStatus(user_id, subject_id);
-      res.json(access);
+      res.status(200).json(access);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -121,9 +123,9 @@ class AccessController {
       const { subject_id } = req.params;
       const user_id = req.session.user_id;
       const subjects = await Access.getSubjectsUsers(subject_id, user_id);
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -131,9 +133,9 @@ class AccessController {
     try {
       const { subject_id } = req.params;
       const users = await Access.getUsersWithoutAccess(subject_id);
-      res.json(users);
+      res.status(200).json(users);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -148,9 +150,9 @@ class AccessController {
         created_at: new Date(),
       });
 
-      res.json({ message: "Access Succesfully created" });
+      res.status(200).json({ message: "Access Succesfully created" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -165,9 +167,9 @@ class AccessController {
         created_at: new Date(),
       });
 
-      res.json({ message: "Access Succesfully created" });
+      res.status(200).json({ message: "Access Succesfully created" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -180,7 +182,7 @@ class AccessController {
       });
       res.status(200).json({ message: "Success" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -190,7 +192,7 @@ class AccessController {
       const accesss = await Access.acceptStatus(access_id);
       res.status(200).json({ message: "Success" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -200,7 +202,7 @@ class AccessController {
       const accesss = await Access.rejectStatus(access_id);
       res.status(200).json({ message: "Success" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -210,7 +212,7 @@ class AccessController {
       const access = await Access.deleteAccess(access_id);
       res.status(200).json({ message: "Access Succesfuly deleted" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 }

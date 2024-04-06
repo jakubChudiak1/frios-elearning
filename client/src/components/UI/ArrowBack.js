@@ -8,7 +8,7 @@ const ArrowBack = ({ link, showed }) => {
   return (
     <Link
       to={link}
-      className={`block cursor-pointer lg:${showed} self-baseline`}
+      className={`block cursor-pointer lg:${showed} w-max self-baseline`}
     >
       <motion.div
         className="flex items-center capitalize text-[#a855f7]"

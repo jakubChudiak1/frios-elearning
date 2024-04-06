@@ -13,7 +13,7 @@ class AuthController {
       const editMode = req.session.edit_mode;
       res.status(200).json({ ...user, edit_mode: editMode });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -46,7 +46,7 @@ class AuthController {
         }
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -78,7 +78,7 @@ class AuthController {
         });
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 

@@ -61,7 +61,7 @@ const SubjectItemDetails = ({ subjectDetails }) => {
                 data={subjectDetails?.description}
                 isHandler={true}
                 dataHandler={updateSubjectsDescriptionHandler}
-                height="h-36"
+                height="h-60"
               />
             ) : (
               <div className="chapter-content whitespace-pre break-words">

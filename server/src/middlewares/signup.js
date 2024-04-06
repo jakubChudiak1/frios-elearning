@@ -12,7 +12,7 @@ const checkDuplicateEmail = async (req, res, next) => {
       next();
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error });
   }
 };
 export default checkDuplicateEmail;

@@ -12,6 +12,7 @@ import Editor from "../editor/Editor";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "../language/LanguageSelect";
 import { useGetCategoriesListQuery } from "../../api/endpoints/categoriesEndpoints";
+import CenterModal from "../UI/CenterModal";
 
 const UpdateSubjectForm = React.forwardRef(
   ({ subject_id, subject, closeUpdateSubjectModalHandler }, ref) => {
@@ -61,164 +62,171 @@ const UpdateSubjectForm = React.forwardRef(
       event.stopPropagation();
     };
     return (
-      <div
-        className="absolute left-[50%] top-[61%] z-[10000] w-[90%] -translate-x-1/2  -translate-y-1/2 transform overflow-x-hidden rounded-[10px] bg-white p-3 xs:top-[65%]  md:top-[55%] md:w-[35rem]  md:p-7 lg:left-[55%] lg:top-[50%]  lg:w-[45rem] xl:top-[50%] "
-        ref={ref}
-        onClick={handleClickInsideForm}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-[20px] capitalize">
-            {t("headers.updateSubject")}
-          </h2>
-          <Close
-            className="cursor-pointer"
-            fontSize="large"
-            onClick={closeUpdateSubjectModalHandler}
-          />
-        </div>
-        <form
-          onSubmit={updateSubjectForm.handleSubmit}
-          className="mt-3 flex flex-col gap-2"
+      <CenterModal>
+        <div
+          className="z-[10000] mx-2 mt-2 min-w-[280px]  overflow-hidden rounded-md bg-white p-1 sm:w-[480px] sm:p-3 md:w-[650px] xl:w-[768px] "
+          ref={ref}
+          onClick={handleClickInsideForm}
         >
-          <div className="flex flex-col gap-3 pt-2 lg:flex-row">
-            <div className="flex flex-1 flex-col gap-1">
-              <Label text={t("updateSubject.subjectsName")} required={true} />
-              <Input
-                type="text"
-                name="name"
-                className={`border border-black px-1 py-2 outline-none ${
-                  updateSubjectForm.touched.name &&
-                  updateSubjectForm.errors.name
-                    ? "border-red-500"
-                    : "border-black"
-                }`}
-                value={updateSubjectForm.values.name}
-                onBlur={updateSubjectForm.handleBlur}
-                onChange={updateSubjectForm.handleChange}
-              />
-              <ErrorMessage
-                message={
-                  updateSubjectForm.errors.name &&
-                  updateSubjectForm.touched.name &&
-                  updateSubjectForm.errors.name
-                }
-              />
-            </div>
-            <div className="flex flex-1 flex-col gap-1">
-              <Label text={t("updateSubject.subjectsCode")} required={false} />
-              <Input
-                type="text"
-                name="subject_code"
-                className=" border border-black px-1 py-2 outline-none "
-                value={updateSubjectForm.values.subject_code}
-                onBlur={updateSubjectForm.handleBlur}
-                onChange={updateSubjectForm.handleChange}
-              />
-            </div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[20px] capitalize">
+              {t("headers.updateSubject")}
+            </h2>
+            <Close
+              className="cursor-pointer"
+              fontSize="large"
+              onClick={closeUpdateSubjectModalHandler}
+            />
           </div>
-          <div className="flex flex-col gap-3 pt-2 md:flex-row">
-            <div className="flex flex-1 flex-col gap-1">
-              <Label
-                text={t("updateSubject.subjectsCategory")}
-                required={true}
-              />
-              <CategorySelect
-                onBlur={updateSubjectForm.handleBlur}
-                onChange={updateSubjectForm.handleChange}
-                defaultValue={updateSubjectForm.values.category_id}
-                categories={categories}
-              />
-              <ErrorMessage
-                message={
-                  updateSubjectForm.errors.category_id &&
-                  updateSubjectForm.touched.category_id &&
-                  updateSubjectForm.errors.category_id
-                }
-              />
-            </div>
-            <div className="flex flex-1 flex-col gap-1">
-              <div className="flex  flex-col gap-1">
-                <Label text={t("createSubject.language")} required={false} />
-                <LanguageSelect
-                  defaultValue={updateSubjectForm.values.language_id}
-                  onBlur={updateSubjectForm.handleBlur}
-                  onChange={updateSubjectForm.handleChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-1 items-center gap-3 ">
-            <div className="flex  flex-col gap-1">
-              <Label
-                text={t("createSubject.subjectsStatus")}
-                required={false}
-              />
-              <div className="flex items-center gap-1">
-                <Input
-                  type="checkbox"
-                  name="is_public"
-                  className={`self-center  border border-black px-1 py-2 outline-none ${
-                    updateSubjectForm.touched.is_public &&
-                    updateSubjectForm.errors.is_public
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  checked={updateSubjectForm.values.is_public}
-                  onBlur={updateSubjectForm.handleBlur}
-                  onChange={updateSubjectForm.handleChange}
-                />
-                <p className="capitalize">{t("createSubject.subjectPublic")}</p>
-              </div>
-            </div>
-            <div className="flex  flex-col gap-1">
-              <Label
-                text={t("createSubject.subjectVisible")}
-                required={false}
-              />
-              <div className="flex items-center gap-1">
-                <Input
-                  type="checkbox"
-                  name="is_visible"
-                  className={`self-center  border border-black px-1 py-2 outline-none ${
-                    updateSubjectForm.touched.is_visible &&
-                    updateSubjectForm.errors.is_visible
-                      ? "border-red-500"
-                      : "border-black"
-                  }`}
-                  checked={updateSubjectForm.values.is_visible}
-                  onBlur={updateSubjectForm.handleBlur}
-                  onChange={updateSubjectForm.handleChange}
-                />
-                <p className="capitalize">
-                  {t("createSubject.subjectVisible")}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex w-full pt-2">
-            <div className="flex w-full flex-col gap-1">
-              <Label
-                text={t("updateSubject.subjectsDescription")}
-                required={false}
-              />
-              <Editor
-                data={updateSubjectForm.values.description}
-                isHandler={false}
-                onChange={(event) =>
-                  updateSubjectForm.setFieldValue("description", event)
-                }
-                height="h-36"
-              />
-            </div>
-          </div>
-          <Button
-            type="submit"
-            className=" w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
+          <form
+            onSubmit={updateSubjectForm.handleSubmit}
+            className="mt-3 flex flex-col gap-2"
           >
-            {t("updateSubject.updateSubject")}
-          </Button>
-        </form>
-      </div>
+            <div className="flex flex-col gap-3 pt-2 lg:flex-row">
+              <div className="flex flex-1 flex-col gap-1">
+                <Label text={t("updateSubject.subjectsName")} required={true} />
+                <Input
+                  type="text"
+                  name="name"
+                  className={`border border-black px-1 py-2 outline-none ${
+                    updateSubjectForm.touched.name &&
+                    updateSubjectForm.errors.name
+                      ? "border-red-500"
+                      : "border-black"
+                  }`}
+                  value={updateSubjectForm.values.name}
+                  onBlur={updateSubjectForm.handleBlur}
+                  onChange={updateSubjectForm.handleChange}
+                />
+                <ErrorMessage
+                  message={
+                    updateSubjectForm.errors.name &&
+                    updateSubjectForm.touched.name &&
+                    updateSubjectForm.errors.name
+                  }
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-1">
+                <Label
+                  text={t("updateSubject.subjectsCode")}
+                  required={false}
+                />
+                <Input
+                  type="text"
+                  name="subject_code"
+                  className=" border border-black px-1 py-2 outline-none "
+                  value={updateSubjectForm.values.subject_code}
+                  onBlur={updateSubjectForm.handleBlur}
+                  onChange={updateSubjectForm.handleChange}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 pt-2 md:flex-row">
+              <div className="flex flex-1 flex-col gap-1">
+                <Label
+                  text={t("updateSubject.subjectsCategory")}
+                  required={true}
+                />
+                <CategorySelect
+                  onBlur={updateSubjectForm.handleBlur}
+                  onChange={updateSubjectForm.handleChange}
+                  defaultValue={updateSubjectForm.values.category_id}
+                  categories={categories}
+                />
+                <ErrorMessage
+                  message={
+                    updateSubjectForm.errors.category_id &&
+                    updateSubjectForm.touched.category_id &&
+                    updateSubjectForm.errors.category_id
+                  }
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-1">
+                <div className="flex  flex-col gap-1">
+                  <Label text={t("createSubject.language")} required={false} />
+                  <LanguageSelect
+                    defaultValue={updateSubjectForm.values.language_id}
+                    onBlur={updateSubjectForm.handleBlur}
+                    onChange={updateSubjectForm.handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-1 items-center gap-3 ">
+              <div className="flex  flex-col gap-1">
+                <Label
+                  text={t("createSubject.subjectsStatus")}
+                  required={false}
+                />
+                <div className="flex items-center gap-1">
+                  <Input
+                    type="checkbox"
+                    name="is_public"
+                    className={`self-center  border border-black px-1 py-2 outline-none ${
+                      updateSubjectForm.touched.is_public &&
+                      updateSubjectForm.errors.is_public
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    checked={updateSubjectForm.values.is_public}
+                    onBlur={updateSubjectForm.handleBlur}
+                    onChange={updateSubjectForm.handleChange}
+                  />
+                  <p className="capitalize">
+                    {t("createSubject.subjectPublic")}
+                  </p>
+                </div>
+              </div>
+              <div className="flex  flex-col gap-1">
+                <Label
+                  text={t("createSubject.subjectVisible")}
+                  required={false}
+                />
+                <div className="flex items-center gap-1">
+                  <Input
+                    type="checkbox"
+                    name="is_visible"
+                    className={`self-center  border border-black px-1 py-2 outline-none ${
+                      updateSubjectForm.touched.is_visible &&
+                      updateSubjectForm.errors.is_visible
+                        ? "border-red-500"
+                        : "border-black"
+                    }`}
+                    checked={updateSubjectForm.values.is_visible}
+                    onBlur={updateSubjectForm.handleBlur}
+                    onChange={updateSubjectForm.handleChange}
+                  />
+                  <p className="capitalize">
+                    {t("createSubject.subjectVisible")}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex w-full pt-2">
+              <div className="flex w-full flex-col gap-1">
+                <Label
+                  text={t("updateSubject.subjectsDescription")}
+                  required={false}
+                />
+                <Editor
+                  data={updateSubjectForm.values.description}
+                  isHandler={false}
+                  onChange={(event) =>
+                    updateSubjectForm.setFieldValue("description", event)
+                  }
+                  height="h-36"
+                />
+              </div>
+            </div>
+            <Button
+              type="submit"
+              className=" w-full self-baseline bg-purple-500 p-2 capitalize text-white md:w-auto"
+            >
+              {t("updateSubject.updateSubject")}
+            </Button>
+          </form>
+        </div>
+      </CenterModal>
     );
   },
 );

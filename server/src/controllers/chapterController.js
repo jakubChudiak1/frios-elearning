@@ -16,10 +16,9 @@ class ChapterController {
           ),
         }))
       );
-      console.log(chaptersWithRecursiveSideChapters);
-      res.json(chaptersWithRecursiveSideChapters);
+      res.status(200).json(chaptersWithRecursiveSideChapters);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -27,9 +26,9 @@ class ChapterController {
     try {
       const { subject_id, chapter_id } = req.params;
       const chapters = await Chapter.getChaptersContent(subject_id, chapter_id);
-      res.json(chapters);
+      res.status(200).json(chapters);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -39,7 +38,7 @@ class ChapterController {
       const chapters = await Chapter.getMainChapters(subject_id);
       res.json(chapters);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -49,7 +48,7 @@ class ChapterController {
       const chapters = await Chapter.getSideChapters(main_chapter);
       res.json(chapters);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -62,7 +61,7 @@ class ChapterController {
       });
       res.status(200).json({ message: "Chapter created successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -76,7 +75,7 @@ class ChapterController {
       });
       res.status(200).json({ message: "Chapter created successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -89,7 +88,7 @@ class ChapterController {
       });
       res.status(200).json({ message: "Content Succesfully updated" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -103,7 +102,7 @@ class ChapterController {
         .status(200)
         .json({ message: "Chapters name was successfully changed" });
     } catch (error) {
-      throw new Error(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -117,7 +116,7 @@ class ChapterController {
       });
       res.status(200).json({ message: "Chapter successfully updated" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -127,7 +126,7 @@ class ChapterController {
       await Chapter.deleteChapter(chapter_id);
       res.status(200).json({ message: "Chapter was successfully removed" });
     } catch (error) {
-      throw new Error(error);
+      res.status(500).json({ message: error });
     }
   }
 }

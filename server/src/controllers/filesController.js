@@ -4,9 +4,9 @@ class FilesController {
   static async getFiles(req, res) {
     try {
       const files = await Files.getFiles();
-      res.json(files);
+      res.status(200).json(files);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -14,9 +14,9 @@ class FilesController {
     try {
       const { file_id } = req.params;
       const file = await Files.getFileById(file_id);
-      res.json(file);
+      res.status(200).json(file);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -31,7 +31,7 @@ class FilesController {
         .status(200)
         .json({ message: "file was created successfully", path: path });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 }

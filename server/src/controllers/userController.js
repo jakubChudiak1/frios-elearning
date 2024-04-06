@@ -10,9 +10,9 @@ class UserController {
     try {
       const user_id = req.session.user_id;
       const users = await User.getUsers(user_id);
-      res.json(users);
+      res.status(200).json(users);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -20,9 +20,9 @@ class UserController {
     try {
       const { email } = req.params;
       const user = await User.getUserByEmail(email);
-      res.json(user);
+      res.status(200).json(user);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 

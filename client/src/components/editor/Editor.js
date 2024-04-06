@@ -24,14 +24,14 @@ const Editor = ({ data, dataHandler, height, onChange, isHandler }) => {
   };
 
   return (
-    <div className="relative flex h-full w-full flex-col">
+    <div className="relative flex h-full w-full flex-col ">
       <Toolbar submitData={submitDataHandler} isHandler={isHandler} />
       <ReactQuill
         value={content || ""}
         onChange={handleChange}
         modules={modules}
         formats={formats}
-        className={`${height ? `${height}` : "h-[550px]"} w-full`}
+        className={`${height ? `${height}` : "h-screen"} w-full`}
         preserveWhitespace
         theme="snow"
       />

@@ -9,7 +9,7 @@ const RequestList = ({ usersRequests, header }) => {
       <ArrowBack link={`/${lang}`} showed={"hidden"} />
       {usersRequests && (
         <div className="mt-1 flex w-full flex-col">
-          <h2 className="text-[20px] capitalize">{`${header}(${usersRequests?.length})`}</h2>
+          <h2 className=" capitalize">{`${header}(${usersRequests?.length})`}</h2>
           {usersRequests?.map((userRequest) => (
             <RequestItem
               key={userRequest.access_id}

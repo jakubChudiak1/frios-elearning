@@ -4,14 +4,17 @@ import Access from "../models/access.js";
 import User from "../models/user.js";
 import fs from "fs";
 import redisClient from "../config/redisClient.js";
+import dotenv from "dotenv";
+import cloudStorage from "../config/cloudStorage.js";
 
+dotenv.config();
 class SubjectController {
   static async getSubjects(req, res) {
     try {
       const subjects = await Subject.getSubjects();
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -21,9 +24,9 @@ class SubjectController {
       const subjects = await Subject.getSubjectsByStatus(is_public);
       /* console.log("not fetchedd");
       await redisClient.setEx(req.originalUrl, 3600, JSON.stringify(subjects)); */
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -31,9 +34,9 @@ class SubjectController {
     try {
       const { subject_id } = req.params;
       const subject = await Subject.getSubjectById(subject_id);
-      res.json(subject);
+      res.status(200).json(subject);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -41,9 +44,9 @@ class SubjectController {
     try {
       const { name } = req.query;
       const subject = await Subject.getSubjectByName(name);
-      res.json(subject);
+      res.status(200).json(subject);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -51,9 +54,9 @@ class SubjectController {
     try {
       const { q } = req.query;
       const subjects = await Subject.getSubjectsByString(q);
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -61,9 +64,9 @@ class SubjectController {
     try {
       const { user_id, subject_id } = req.query;
       const subjects = await Subject.getSubjectsByCreator(user_id, subject_id);
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -71,9 +74,9 @@ class SubjectController {
     try {
       const { category_name } = req.query;
       const subjects = await Subject.getSubjectsByCategory(category_name);
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -84,9 +87,9 @@ class SubjectController {
         category_name,
         subject_id
       );
-      res.json(subjects);
+      res.status(200).json(subjects);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -154,7 +157,7 @@ class SubjectController {
         res.status(201).json({ message: "Subject created successfully" });
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -163,19 +166,17 @@ class SubjectController {
       const { subject_id } = req.params;
       const image = await Subject.getSubjectById(subject_id);
 
-      if (
-        image &&
-        image.image_path &&
-        fs.existsSync(`public/images/${image.image_path}`)
-      ) {
-        console.log(image.image_path);
-        fs.unlinkSync(`public/images/${image.image_path}`);
+      if (image && image.image_path) {
+        await cloudStorage
+          .bucket(process.env.GCS_BUCKET)
+          .file(`public/images/${image.image_path}`)
+          .delete();
       }
 
       const subject = await Subject.deleteSubject(subject_id);
       res.status(201).json({ message: "Subject deleted successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -202,7 +203,7 @@ class SubjectController {
       });
       res.status(201).json({ message: "Subject updated successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -215,7 +216,7 @@ class SubjectController {
       });
       res.status(201).json({ message: "Description updated successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -230,7 +231,7 @@ class SubjectController {
       console.log(visibility);
       res.status(200).json({ message: "Subject was successfully updated" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 }

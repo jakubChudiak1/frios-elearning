@@ -9,7 +9,7 @@ class CategoryController {
       redisClient.setex("/categories", 3600, JSON.stringify(categories));
       res.json(categories);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -20,7 +20,7 @@ class CategoryController {
       redisClient.del("/categories");
       res.status(200).json({ message: "Category created successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -32,7 +32,7 @@ class CategoryController {
       const category = await Category.updateCategory(category_id, { name });
       res.status(200).json({ message: "Category updated successfully" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 
@@ -44,7 +44,7 @@ class CategoryController {
       await redisClient.del("/categories");
       res.status(200).json({ message: "Category successfully deleted" });
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 }

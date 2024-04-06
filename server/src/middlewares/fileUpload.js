@@ -9,6 +9,7 @@ const fileUpload = (fileExtension) => {
       }
       if (!req.file) {
         req.file = null;
+        return res.status(500).json({ message: "image not found" });
       }
       next();
     });

@@ -6,7 +6,7 @@ class LanguageController {
       const languages = await Language.getLanguages();
       res.status(200).json(languages);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({ message: error });
     }
   }
 }

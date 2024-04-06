@@ -14,7 +14,7 @@ const Users = () => {
   return (
     <Section>
       <ArrowBack link={`/${lang}`} showed={"hidden"} />
-      <h2 className="mt-1 text-[20px] capitalize">{t("headers.users")}</h2>
+      <h2 className="mt-1 capitalize">{t("headers.users")}</h2>
       <UserSearchForm usersName={usersName} setUsersName={setUsersName} />
       <UsersList users={usersList} usersName={usersName} />
     </Section>
