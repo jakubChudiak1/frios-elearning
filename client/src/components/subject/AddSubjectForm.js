@@ -62,7 +62,6 @@ const AddSubjectForm = React.forwardRef(
         }
       },
     });
-    //https://stackoverflow.com/questions/53364922/how-can-i-make-everything-center-in-every-device
     return (
       <CenterModal>
         <div

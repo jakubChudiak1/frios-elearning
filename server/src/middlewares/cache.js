@@ -9,7 +9,6 @@ const cacheData = async (req, res, next) => {
     if (data !== null) {
       res.send(data);
     } else {
-      console.log("not cached");
       next();
     }
   });

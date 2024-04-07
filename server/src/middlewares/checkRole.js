@@ -10,7 +10,7 @@ const checkRole = (roles) => {
         res.status(400).json({ message: "Access Denied" });
       }
     } catch (error) {
-      res.status(500).json({ message: "pes", id: session.user_id });
+      res.status(500).json({ message: error });
     }
   };
 };
