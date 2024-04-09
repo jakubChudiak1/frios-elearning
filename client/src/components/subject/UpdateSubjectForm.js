@@ -40,7 +40,6 @@ const UpdateSubjectForm = React.forwardRef(
         language_id: Yup.number().required(""),
       }),
       onSubmit: async (values) => {
-        console.log(values);
         try {
           await updateSubject({
             subjectId: subject_id,

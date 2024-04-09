@@ -3,31 +3,37 @@ import AddIcon from "@mui/icons-material/Add";
 import { useAddCategoryMutation } from "../../api/endpoints/categoriesEndpoints";
 import { useTranslation } from "react-i18next";
 import Button from "../UI/Button";
-
+import * as Yup from "yup";
+import { useFormik } from "formik";
 const AddCategoryButton = () => {
-  const [categoryName, setCategoryName] = useState("");
   const [addCategory] = useAddCategoryMutation();
   const { t } = useTranslation();
-  const addCategoryHandler = (event) => {
-    event.preventDefault();
-    addCategory({ name: categoryName });
-    setCategoryName("");
-  };
-
+  const addCategoryForm = useFormik({
+    initialValues: {
+      name: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required(""),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      await addCategory({ name: values.name });
+      resetForm();
+    },
+  });
   return (
     <form
       className="form relative h-full  cursor-pointer items-center overflow-hidden   whitespace-nowrap rounded-lg bg-gray-100 px-3 py-2   hover:bg-gray-200"
-      onSubmit={addCategoryHandler}
+      onSubmit={addCategoryForm.handleSubmit}
     >
-      <Button onClick={addCategoryHandler}>
+      <Button type="submit">
         <AddIcon fontSize="medium" />
       </Button>
       <input
         id="text"
         autoComplete="off"
-        value={categoryName}
-        required
-        onChange={(event) => setCategoryName(event.target.value)}
+        value={addCategoryForm.values.name}
+        onBlur={addCategoryForm.handleBlur}
+        onChange={addCategoryForm.handleChange}
       />
       <label htmlFor="text" className="label-name">
         <span className="content-name capitalize">

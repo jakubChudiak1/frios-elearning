@@ -7,13 +7,7 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const {
-    data: user,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetIsValidQuery();
+  const { data: user, isLoading } = useGetIsValidQuery();
 
   useEffect(() => {
     dispatch(setEditModeSlice(user?.edit_mode));

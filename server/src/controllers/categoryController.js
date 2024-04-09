@@ -1,5 +1,6 @@
 import Category from "../models/category.js";
 import redisClient from "../config/redisClient.js";
+import createCategoryValidation from "../validations/validateCreateCategory.js";
 
 class CategoryController {
   static async getCategories(req, res) {
@@ -16,9 +17,14 @@ class CategoryController {
   static async createCategory(req, res) {
     try {
       const { name } = req.body;
-      const category = await Category.createCategory({ name });
-      redisClient.del("/categories");
-      res.status(200).json({ message: "Category created successfully" });
+      const { error } = createCategoryValidation(req.body);
+      if (error) {
+        res.status(400).json({ message: error.details[0].message });
+      } else {
+        const category = await Category.createCategory({ name });
+        redisClient.del("/categories");
+        res.status(200).json({ message: "Category created successfully" });
+      }
     } catch (error) {
       res.status(500).json({ message: error });
     }
